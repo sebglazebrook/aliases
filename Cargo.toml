@@ -2,3 +2,14 @@
 name = "aliases"
 version = "0.1.0"
 authors = ["Seb Glazebrook <sebastian.glazebrook@redbubble.com>"]
+
+[lib]
+name = "aliases"
+path = "src/lib.rs"
+
+[[bin]]
+name = "aliases_cli"
+path = "src/main.rs"
+
+[dependencies]
+clap = "1.5.5"

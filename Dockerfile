@@ -1,0 +1,1 @@
+FROM sebglazebrook/rust-nightly
