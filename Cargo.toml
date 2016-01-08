@@ -8,8 +8,14 @@ name = "aliases"
 path = "src/lib.rs"
 
 [[bin]]
-name = "aliases_cli"
+name = "aliases"
 path = "src/main.rs"
 
-[dependencies]
-clap = "1.5.5"
+[dependencies.clap]
+features = ["yaml"]
+
+[dependencies.stainless]
+git = "http://github.com/sebglazebrook/stainless.git"
+
+[dev-dependencies]
+gag = "*"

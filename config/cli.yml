@@ -1,0 +1,14 @@
+name: aliases
+version: 0.1.0
+about: dynamic alias functions for bash
+author: Seb Glazebrook <me@sebglazebrook.com>
+
+subcommands:
+  - init:
+      about: initialize a directory for aliases
+      args:
+        - global:
+            help: initialze your global aliases
+            long: global
+            takes_value: false
+
