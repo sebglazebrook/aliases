@@ -33,7 +33,7 @@ mod tests {
 
                 before_each {
                     let path = PathBuf::from("tests/fixtures/uninitialized_dir");
-                    app.target_path = path.clone();
+                    app.current_path = path.clone();
                     fs::remove_file(path.join(".aliases"));
                 }
 
