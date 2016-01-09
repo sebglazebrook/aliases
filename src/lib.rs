@@ -34,9 +34,4 @@ impl App {
         }
         Init::new(target_path).execute();
     }
-
-    //pub fn execute_list
-    //pub fn execute_test
-    //pub fn bash autocomplete
-
 }
