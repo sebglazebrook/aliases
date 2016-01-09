@@ -49,6 +49,7 @@ mod tests {
 
                 before_each {
                    let path = PathBuf::from("tests/fixtures/uninitialized_dir");
+                   app.current_path = path.clone();
                    let mut buf = BufferRedirect::stdout().unwrap(); 
                    File::create(path.join(".aliases"));
                 }
