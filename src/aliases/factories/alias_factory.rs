@@ -22,13 +22,21 @@ impl AliasFactory {
             Err(_) => { AliasFactory::create_empty() }
             Ok(yaml) => {
                 match yaml.as_vec() {
-                    // TODO remove the hardcoding from the below
-                    None => { Aliases::new(vec![AliasBuilder::from_yaml("todo", yaml.clone()).build()]) },
+                    // TODO remove the hardcoding from the below command name
+                    None => {
+                        match AliasBuilder::from_yaml("todo", yaml.clone()).build() {
+                            Err(_) => AliasFactory::create_empty(),
+                            Ok(alias) => Aliases::new(vec![alias])
+                        }
+                    },
                     Some(aliases_yaml) => {
                         let mut aliases = vec![];
                         for alias_yaml in aliases_yaml {
-                            // TODO remove the hardcoding from the below
-                            aliases.push(AliasBuilder::from_yaml("todo", alias_yaml.clone()).build()); // remove empties? handle empties?
+                            // TODO remove the hardcoding from the below command name
+                            match AliasBuilder::from_yaml("todo", alias_yaml.clone()).build() {
+                                Err(_) => { },
+                                Ok(alias) => { aliases.push(alias); },
+                            }
                         }
                         Aliases::new(aliases)
                     },

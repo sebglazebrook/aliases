@@ -13,23 +13,28 @@ impl AliasBuilder {
         AliasBuilder { name: name.to_string(), yaml: yaml }
     }
 
-    pub fn build(&self) -> Alias { // TODO this should return a result
-        Alias {
-            name: self.name.clone(),
-            command: self.command(),
-            confirm: self.confirm(),
-            confirmation_message: self.confirmation_message(),
-            unit_test: self.unit_test(),
-            conditional: self.conditional(),
+    pub fn build(&self) -> Result<Alias,&'static str> {
+        match self.command() {
+            None => { Err("No command was given") }
+            Some(command) => {
+                Ok(Alias {
+                    name: self.name.clone(),
+                    command: command.clone(),
+                    confirm: self.confirm(),
+                    confirmation_message: self.confirmation_message(command),
+                    unit_test: self.unit_test(),
+                    conditional: self.conditional(),
+                })
+            }
         }
     }
 
     // --------- private ---------//
     
-    fn command(&self) -> String {
+    fn command(&self) -> Option<String> {
         match self.yaml["command"].as_str() {
-            None => String::new(), // TODO handle this one!!!
-            Some(string) => string.to_string()
+            None => None,
+            Some(string) => Some(string.to_string())
         }
     }
 
@@ -40,16 +45,16 @@ impl AliasBuilder {
         }
     }
 
-    fn confirmation_message(&self) -> String {
+    fn confirmation_message(&self, command: String) -> String {
         match self.yaml["confirmation_message"].as_str() {
-            None => self.default_confirmation_message(),
+            None => self.default_confirmation_message(&command),
             Some(s) => s.to_string()
         }
     }
 
-    fn default_confirmation_message(&self) -> String {
+    fn default_confirmation_message(&self, command: &String) -> String {
         let message = "About to execute `".to_string();
-        message + &self.command() + "`"
+        message + &command + "`"
     }
 
     fn conditional(&self) -> Option<String> {
