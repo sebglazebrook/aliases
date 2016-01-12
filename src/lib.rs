@@ -1,6 +1,11 @@
+extern crate yaml_rust;
+
 mod aliases;
 
 use aliases::commands::init::Init;
+use aliases::commands::list::List;
+pub use aliases::builders::AliasBuilder; // had to do this for the tests, why?
+pub use aliases::models::Alias; // had to do this for the tests, why?
 
 use std::env;
 use std::path::{Path, PathBuf};
@@ -34,4 +39,12 @@ impl App {
         }
         Init::new(target_path).execute();
     }
+
+    pub fn execute_list(&mut self) {
+        List::new(self.current_path.clone()).execute();
+    }
+
+    //pub fn execute_rehash(&mut self, global: bool) {
+        //// TODO
+    //}
 }

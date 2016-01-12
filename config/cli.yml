@@ -11,4 +11,15 @@ subcommands:
             help: initialze your global aliases
             long: global
             takes_value: false
+  - list:
+      about: list the aliases available
+      args:
+        - local:
+            help: list only local aliases
+            long: local
+            takes_value: false
+        - global:
+            help: list only global aliases
+            long: gobal
+            takes_value: false
 

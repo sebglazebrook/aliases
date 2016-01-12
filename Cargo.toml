@@ -11,6 +11,9 @@ path = "src/lib.rs"
 name = "aliases"
 path = "src/main.rs"
 
+[dependencies]
+yaml-rust = "0.3.0"
+
 [dependencies.clap]
 features = ["yaml"]
 

@@ -1,0 +1,2 @@
+server:
+  command: bundle exec rails server
