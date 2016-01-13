@@ -24,19 +24,25 @@ impl List {
 
     fn global_aliases(&mut self) -> Aliases {
         if self.global_aliases_data_file().exists() {
-            AliasFactory::create_from_file(self.global_aliases_data_file())
+            match AliasFactory::create_from_file(self.global_aliases_data_file()) {
+                Err(_) => { AliasFactory::create_empty() },
+                Ok(aliases) => aliases
+            }
         } else {
             AliasFactory::create_empty()
         }
     }
 
     fn parent_aliases(&mut self) -> Aliases {
-        Aliases::new(vec![]) // let's leave this for later, it can be tricky depending on what dir they are in
+        AliasFactory::create_empty() // let's leave this for later, it can be tricky depending on what dir they are in
     }
 
     fn local_aliases(&mut self) -> Aliases {
         if self.local_aliases_data_file().exists() {
-            AliasFactory::create_from_file(self.local_aliases_data_file())
+            match AliasFactory::create_from_file(self.local_aliases_data_file()) {
+                Err(_) => AliasFactory::create_empty(),
+                Ok(aliases) => aliases
+            }
         } else {
             AliasFactory::create_empty()
         }

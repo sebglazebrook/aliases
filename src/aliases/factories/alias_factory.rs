@@ -26,7 +26,7 @@ impl AliasFactory {
                         let mut aliases = vec![];
                         for (command_name, command_args) in hash {
                             match AliasBuilder::from_yaml(command_name.as_str().unwrap(), command_args.clone()).build() {
-                                Err(_) => { () }, // maybe get a more specific error here?
+                                Err(_) => {}, // maybe get a more specific error here?
                                 Ok(alias) => { aliases.push(alias) },
                             }
                         }
