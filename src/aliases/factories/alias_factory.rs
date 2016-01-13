@@ -5,9 +5,8 @@ use aliases::builders::AliasBuilder;
 use std::path::PathBuf;
 use std::io::prelude::*;
 use std::fs::File;
+use std::result::Result;
 use yaml_rust::{YamlLoader, Yaml};
-
-struct ParseError;
 
 pub struct AliasFactory;
 
@@ -17,28 +16,21 @@ impl AliasFactory {
         Aliases::new(vec![])
     }
 
-    pub fn create_from_file(data_file: PathBuf) -> Aliases {
+    pub fn create_from_file(data_file: PathBuf) -> Result<Aliases, &'static str> {
         match AliasFactory::parse_file(data_file) {
-            Err(_) => { AliasFactory::create_empty() }
+            Err(error_string) => { Err(error_string) }
             Ok(yaml) => {
-                match yaml.as_vec() {
-                    // TODO remove the hardcoding from the below command name
-                    None => {
-                        match AliasBuilder::from_yaml("todo", yaml.clone()).build() {
-                            Err(_) => AliasFactory::create_empty(),
-                            Ok(alias) => Aliases::new(vec![alias])
-                        }
-                    },
-                    Some(aliases_yaml) => {
+                match yaml.as_hash() {
+                    None => { Err("File invalid content.") },
+                    Some(hash) => {
                         let mut aliases = vec![];
-                        for alias_yaml in aliases_yaml {
-                            // TODO remove the hardcoding from the below command name
-                            match AliasBuilder::from_yaml("todo", alias_yaml.clone()).build() {
-                                Err(_) => { },
-                                Ok(alias) => { aliases.push(alias); },
+                        for (command_name, command_args) in hash {
+                            match AliasBuilder::from_yaml(command_name.as_str().unwrap(), command_args.clone()).build() {
+                                Err(_) => { () }, // maybe get a more specific error here?
+                                Ok(alias) => { aliases.push(alias) },
                             }
                         }
-                        Aliases::new(aliases)
+                        Ok(Aliases::new(aliases))
                     },
                 }
             }
@@ -48,24 +40,27 @@ impl AliasFactory {
     pub fn create_from_files(data_files: Vec<PathBuf>) -> Aliases {
         let mut aliases = AliasFactory::create_empty();
         for data_file in data_files {
-            aliases.merge(AliasFactory::create_from_file(data_file));
+            match AliasFactory::create_from_file(data_file) {
+                Err(_) => {},
+                Ok(a) => { aliases.merge(a); }
+            }
         }
         aliases
     }
 
     // ------------ private methods --------- //
 
-    fn parse_file(data_file: PathBuf) -> Result<Yaml, ParseError> {
+    fn parse_file(data_file: PathBuf) -> Result<Yaml, &'static str> {
         match File::open(data_file) {
-            Err(_) => Err(ParseError),
+            Err(_) => Err("File did not exist."),
             Ok(mut file) => {
                 let mut file_contents = String::new();
                 match file.read_to_string(&mut file_contents) {
-                    Err(_) => Err(ParseError),
+                    Err(_) => Err("Error reading the file."),
                     Ok(_) => {
                         match YamlLoader::load_from_str(&file_contents) {
                             Ok(yaml) => Ok(yaml[0].clone()), // only expect 1 yaml document expect more in future??
-                            Err(_) => Err(ParseError)
+                            Err(_) => Err("Could not parse the yaml.")
                         }
                     }
                 }

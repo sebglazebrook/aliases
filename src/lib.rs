@@ -6,6 +6,7 @@ use aliases::commands::init::Init;
 use aliases::commands::list::List;
 pub use aliases::builders::AliasBuilder; // had to do this for the tests, why?
 pub use aliases::models::Alias; // had to do this for the tests, why?
+pub use aliases::factories::AliasFactory; // had to do this for the tests, why?
 
 use std::env;
 use std::path::{Path, PathBuf};
