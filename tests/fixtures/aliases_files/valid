@@ -1,0 +1,12 @@
+server:
+  command: ./super_command.sh
+  confirm: true
+  confirmation_message: Are you really really sure??
+  conditional: /bin/true
+  unit_test: '[ true = true ]'
+second_server:
+  command: ./super_command.sh
+  confirm: true
+  confirmation_message: Are you really really sure??
+  conditional: /bin/true
+  unit_test: '[ true = true ]'
