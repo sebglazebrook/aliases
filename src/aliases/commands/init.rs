@@ -1,4 +1,3 @@
-use std::env;
 use std::path::{Path, PathBuf};
 use std::io::prelude::*;
 use std::fs::File;
@@ -22,7 +21,7 @@ impl Init {
             template_file.read_to_string(&mut template_contents).unwrap();
             let mut new_file = File::create(self.target_path.join(".aliases")).unwrap();
             let array = template_contents.as_bytes();
-            new_file.write_all(array);
+            let _ = new_file.write_all(array);
         }
     }
 

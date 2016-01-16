@@ -1,5 +1,4 @@
 use aliases::collections::Aliases;
-use aliases::models::Alias;
 use aliases::builders::AliasBuilder;
 
 use std::path::PathBuf;
@@ -38,7 +37,7 @@ impl AliasFactory {
     }
 
     pub fn create_from_files(data_files: Vec<PathBuf>) -> Aliases {
-        let mut aliases = AliasFactory::create_empty();
+        let aliases = AliasFactory::create_empty();
         for data_file in data_files {
             match AliasFactory::create_from_file(data_file) {
                 Err(_) => {},

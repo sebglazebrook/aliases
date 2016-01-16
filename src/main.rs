@@ -15,7 +15,7 @@ fn main() {
             }
         },
         Some("list") => {
-            if let Some(matches) = matches.subcommand_matches("list") {
+            if let Some(_) = matches.subcommand_matches("list") {
                 App::new().execute_list();
             }
         },

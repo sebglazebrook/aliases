@@ -17,7 +17,7 @@ impl Aliases {
     pub fn merge(&self, other: Aliases) -> Aliases {
         let mut merged_aliases = self.clone();
         for other_alias in other.raw_collection.iter() {
-            merged_aliases.push(other_alias);
+            let _ = merged_aliases.push(other_alias);
         }
         merged_aliases
     }

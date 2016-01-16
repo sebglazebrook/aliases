@@ -1,4 +1,4 @@
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 use std::env;
 
 use aliases::views::AliasesView;
@@ -61,7 +61,7 @@ impl List {
             Ok(home_dir) => {
                 Some(PathBuf::from(home_dir))
             },
-            Err(e) => {
+            Err(_) => {
                 None
             },
         }

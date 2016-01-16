@@ -12,6 +12,7 @@ impl AliasesView {
 
     pub fn render(&self) {
         println!("\n\n");
+
         println!("Here are your available aliases:\n");
         for alias in self.aliases.raw_collection.iter() {
             println!("Alias: {}", alias.name);

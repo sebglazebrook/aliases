@@ -10,9 +10,7 @@ pub use aliases::factories::AliasFactory; // had to do this for the tests, why?
 pub use aliases::collections::Aliases; // had to do this for the tests, why?
 
 use std::env;
-use std::path::{Path, PathBuf};
-use std::io::prelude::*;
-use std::fs::File;
+use std::path::PathBuf;
 
 
 pub struct App {
@@ -32,7 +30,7 @@ impl App {
                 Ok(home_dir) => {
                    target_path = PathBuf::from(home_dir);
                 },
-                Err(e) => {
+                Err(_) => {
                     target_path = self.current_path.clone();
                 },
             }
