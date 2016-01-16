@@ -1,3 +1,6 @@
+use std::cmp::Ordering;
+
+#[derive(PartialOrd,Ord,PartialEq,Eq,Debug,Clone)]
 pub struct Alias {
     pub name: String,
     pub command: String,
