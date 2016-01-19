@@ -19,26 +19,11 @@ fn main() {
                 App::new().execute_list();
             }
         },
-        //Some("rehash") => { // updates the aliases
-            //if let Some(matches) = matches.subcommand_matches("rehash") {
-                //App::new().execute_rehash();
-            //}
-        //},
-        //Some("add") => { // interactive console to add an alias
-            //if let Some(matches) = matches.subcommand_matches("add") {
-                //App::new().execute_add();
-            //}
-        //},
-        //Some("remove") => { // remove an aliases
-            //if let Some(matches) = matches.subcommand_matches("remove") {
-                //App::new().execute_remove();
-            //}
-        //},
-        //Some("test") => { // run the test for one or more aliases
-            //if let Some(matches) = matches.subcommand_matches("test") {
-                //App::new().execute_test();
-            //}
-        //},
+        Some("rehash") => {
+            if let Some(_) = matches.subcommand_matches("rehash") {
+                App::new().execute_rehash();
+            }
+        },
         None => { println!("no subcommand :-(") }, // default to list no global?
         _ => {}, // unknown command - show an error.
     }

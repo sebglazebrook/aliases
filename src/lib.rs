@@ -4,6 +4,7 @@ mod aliases;
 
 use aliases::commands::init::Init;
 use aliases::commands::list::List;
+pub use aliases::commands::rehash::Rehash;
 pub use aliases::builders::AliasBuilder; // had to do this for the tests, why?
 pub use aliases::models::Alias; // had to do this for the tests, why?
 pub use aliases::factories::AliasFactory; // had to do this for the tests, why?
@@ -44,7 +45,7 @@ impl App {
         List::new(self.current_path.clone()).execute();
     }
 
-    //pub fn execute_rehash(&mut self, global: bool) {
-        //// TODO
-    //}
+    pub fn execute_rehash(&mut self) {
+        Rehash::new().execute();
+    }
 }
