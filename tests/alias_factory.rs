@@ -14,7 +14,7 @@ mod tests {
         describe! create_from_file {
 
             before_each {
-                let mut path: PathBuf;
+                let path: PathBuf;
             }
 
             describe! when_the_file_does_not_exists {

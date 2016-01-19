@@ -1,7 +1,6 @@
 use std::path::PathBuf;
 
 use aliases::factories::{AliasFactory, ShimFileFactory};
-use aliases::models::Alias;
 
 pub struct Rehash {
     pub shim_directory: PathBuf,
@@ -25,6 +24,7 @@ impl Rehash {
                     for alias in aliases.raw_collection.iter() { // i know don't touch the raw collection have to fix this.
                         ShimFileFactory::create_global(&alias, &self.shim_directory);
                         ShimFileFactory::create_specific(&alias, &dir, &self.shim_directory);
+
                     }
                 }
             }

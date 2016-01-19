@@ -15,7 +15,7 @@ impl ShimFileFactory {
     pub fn create_global(alias: &Alias, dir: &PathBuf) { // TODO how does this know the global directory??
         let filepath = dir.join(alias.name.clone());
         if !filepath.exists() {
-            File::create(filepath); // TODO don't just create a file, create it with content
+            let _ = File::create(filepath); // TODO don't just create a file, create it with content
         }
     }
 
@@ -30,8 +30,8 @@ impl ShimFileFactory {
             shim_specific_path = shim_dir.join(nested_path);
         }
         if !shim_specific_path.exists() {
-            fs::create_dir_all(shim_specific_path.parent().unwrap()); // TODO handle the none case??
-            File::create(shim_specific_path); // TODO don't just create a file, create it with content
+            let _ = fs::create_dir_all(shim_specific_path.parent().unwrap()); // TODO handle the none case??
+            let _ = File::create(shim_specific_path); // TODO don't just create a file, create it with content
         }
     }
 }

@@ -30,7 +30,7 @@ mod tests {
             describe! when_there_is_no_global_shim_for_an_alias {
 
                 before_each {
-                    fs::remove_file(shim_directory.join("test-command"));
+                    let _ = fs::remove_file(shim_directory.join("test-command"));
                 }
 
                 it "generates one" {
@@ -55,7 +55,7 @@ mod tests {
                         shim_specific_path = shim_directory.join(nested_path);
                     }
 
-                    fs::remove_file(shim_specific_path.clone());
+                    let _ = fs::remove_file(shim_specific_path.clone());
                 }
 
                 it "generates one" {
