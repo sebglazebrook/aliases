@@ -46,6 +46,7 @@ impl App {
     }
 
     pub fn execute_rehash(&mut self) {
+        // this will have to set the shim directory and the alias directories
         Rehash::new().execute();
     }
 }

@@ -43,11 +43,7 @@ mod tests {
             describe! when_there_is_no_specific_shim_for_an_alias {
 
                 before_each {
-                    fs::remove_file(shim_directory.join("test-command"));
-                }
-
-                it "generates one" {
-                    rehash.execute();
+                    // TODO remove all the bullshit
                     let nested_path = current_dir.join("tests/fixtures/initialized_dir/test-command");
                     let shim_specific_path;
                     if nested_path.has_root() {
@@ -58,6 +54,12 @@ mod tests {
                     } else {
                         shim_specific_path = shim_directory.join(nested_path);
                     }
+
+                    fs::remove_file(shim_specific_path.clone());
+                }
+
+                it "generates one" {
+                    rehash.execute();
                     assert!(shim_specific_path.as_path().exists());
                 }
             }
