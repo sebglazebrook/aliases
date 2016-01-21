@@ -37,7 +37,7 @@ mod tests {
                 it "generates one" {
                     rehash.execute();
                     assert!(shim_directory.join("test-command").as_path().exists());
-                    assert!(ShimFileFactory::is_valid(&shim_directory.join("test-command"), "test-command"), true);
+                    assert!(ShimFileFactory::is_valid(&shim_directory.join("test-command")), true);
                 }
             }
 

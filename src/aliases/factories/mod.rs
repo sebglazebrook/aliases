@@ -27,14 +27,14 @@ impl ShimFileFactory {
         }
     }
 
-    pub fn is_valid(file_path: &PathBuf, shim_name: &str) -> bool {
+    pub fn is_valid(file_path: &PathBuf) -> bool {
         match File::open(file_path) {
            Err(_) => { false }, // TODO handle this properly
            Ok(mut file) => {
                 let mut actual_content = String::new();
                 let _ = file.read_to_string(&mut actual_content);
                 let actual_md5 = ShimFileFactory::md5_for_string(actual_content);
-                let expected_md5 = ShimFileFactory::md5_for_string(ShimFileFactory::build(shim_name));
+                let expected_md5 = ShimFileFactory::md5_for_string(ShimFileFactory::build());
                 actual_md5 == expected_md5
             }
         }
@@ -42,8 +42,8 @@ impl ShimFileFactory {
 
     // ------- private methods ---------- //
 
-    fn build(shim_name: &str) -> String {
-        let data = HashBuilder::new().insert_string("name", shim_name); // TODO don't actually need to eval the template
+    fn build() -> String {
+        let data = HashBuilder::new().insert_string("name", ""); // TODO don't actually need to eval the template
         let result = render_text(&ShimFileFactory::template_string(), data);
         let mut rendered = String::new();
         let _ = result.unwrap().read_to_string(&mut rendered); // TODO handle the error case
