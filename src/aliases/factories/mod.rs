@@ -24,6 +24,16 @@ impl ShimFileFactory {
                     let _ = file.write_all(&ShimFileFactory::template_string().into_bytes());
                 }
             }
+        } else {
+            if !ShimFileFactory::is_valid(&filepath) {
+                match File::create(filepath) {
+                    Err(_) => {}, //TODO handle this some day
+                    Ok(mut file) => {
+                        let _ = file.write_all(&ShimFileFactory::template_string().into_bytes());
+                    }
+                }
+
+            }
         }
     }
 
