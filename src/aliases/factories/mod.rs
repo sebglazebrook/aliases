@@ -3,10 +3,8 @@ pub use self::alias_factory::AliasFactory;
 
 use aliases::models::Alias;
 use std::path::PathBuf;
-use std::fs;
 use std::io::prelude::*;
 use std::fs::File;
-use std::cmp::Ordering;
 use rustache::*;
 use crypto::md5::Md5;
 use crypto::digest::Digest;
@@ -23,7 +21,7 @@ impl ShimFileFactory {
             match File::create(filepath) {
                 Err(_) => {}, //TODO handle this some day
                 Ok(mut file) => {
-                    file.write_all(&ShimFileFactory::template_string().into_bytes());
+                    let _ = file.write_all(&ShimFileFactory::template_string().into_bytes());
                 }
             }
         }
@@ -34,7 +32,7 @@ impl ShimFileFactory {
            Err(_) => { false }, // TODO handle this properly
            Ok(mut file) => {
                 let mut actual_content = String::new();
-                file.read_to_string(&mut actual_content);
+                let _ = file.read_to_string(&mut actual_content);
                 let actual_md5 = ShimFileFactory::md5_for_string(actual_content);
                 let expected_md5 = ShimFileFactory::md5_for_string(ShimFileFactory::build(shim_name));
                 actual_md5 == expected_md5
@@ -48,7 +46,7 @@ impl ShimFileFactory {
         let data = HashBuilder::new().insert_string("name", shim_name); // TODO don't actually need to eval the template
         let result = render_text(&ShimFileFactory::template_string(), data);
         let mut rendered = String::new();
-        result.unwrap().read_to_string(&mut rendered); // TODO handle the error case
+        let _ = result.unwrap().read_to_string(&mut rendered); // TODO handle the error case
         rendered
     }
 
