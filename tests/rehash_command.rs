@@ -7,6 +7,7 @@ extern crate aliases;
 mod tests {
 
     pub use aliases::Rehash;
+    pub use aliases::ShimFileFactory;
     pub use std::path::{Path, PathBuf};
     pub use std::fs;
     pub use std::env;
@@ -36,31 +37,7 @@ mod tests {
                 it "generates one" {
                     rehash.execute();
                     assert!(shim_directory.join("test-command").as_path().exists());
-                    // check the content of the shim?
-                }
-            }
-
-            describe! when_there_is_no_specific_shim_for_an_alias {
-
-                before_each {
-                    // TODO remove all the bullshit
-                    let nested_path = current_dir.join("tests/fixtures/initialized_dir/test-command");
-                    let shim_specific_path;
-                    if nested_path.has_root() {
-                        let mut string = String::from(nested_path.to_str().unwrap()); // TODO handle the none option??
-                        string.remove(0);
-                        shim_specific_path = shim_directory.join(string);
-                        
-                    } else {
-                        shim_specific_path = shim_directory.join(nested_path);
-                    }
-
-                    let _ = fs::remove_file(shim_specific_path.clone());
-                }
-
-                it "generates one" {
-                    rehash.execute();
-                    assert!(shim_specific_path.as_path().exists());
+                    assert!(ShimFileFactory::is_valid(&shim_directory.join("test-command"), "test-command"), true);
                 }
             }
 

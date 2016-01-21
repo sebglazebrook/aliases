@@ -4,7 +4,12 @@ pub use self::alias_factory::AliasFactory;
 use aliases::models::Alias;
 use std::path::PathBuf;
 use std::fs;
+use std::io::prelude::*;
 use std::fs::File;
+use std::cmp::Ordering;
+use rustache::*;
+use crypto::md5::Md5;
+use crypto::digest::Digest;
 
 mod alias_factory;
 
@@ -12,26 +17,68 @@ pub struct ShimFileFactory;
 
 impl ShimFileFactory {
 
-    pub fn create_global(alias: &Alias, dir: &PathBuf) { // TODO how does this know the global directory??
+    pub fn create(alias: &Alias, dir: &PathBuf) {
         let filepath = dir.join(alias.name.clone());
         if !filepath.exists() {
-            let _ = File::create(filepath); // TODO don't just create a file, create it with content
+            match File::create(filepath) {
+                Err(_) => {}, //TODO handle this some day
+                Ok(mut file) => {
+                    file.write_all(&ShimFileFactory::template_string().into_bytes());
+                }
+            }
         }
     }
 
-    pub fn create_specific(alias: &Alias, dir: &PathBuf, shim_dir: &PathBuf) {
-        let nested_path = dir.join(alias.name.clone());
-        let shim_specific_path;
-        if nested_path.has_root() {
-            let mut string = String::from(nested_path.to_str().unwrap()); // TODO handle the none option??
-            string.remove(0);
-            shim_specific_path = shim_dir.join(string);
-        } else {
-            shim_specific_path = shim_dir.join(nested_path);
+    pub fn is_valid(file_path: &PathBuf, shim_name: &str) -> bool {
+        match File::open(file_path) {
+           Err(_) => { false }, // TODO handle this properly
+           Ok(mut file) => {
+                let mut actual_content = String::new();
+                file.read_to_string(&mut actual_content);
+                let actual_md5 = ShimFileFactory::md5_for_string(actual_content);
+                let expected_md5 = ShimFileFactory::md5_for_string(ShimFileFactory::build(shim_name));
+                actual_md5 == expected_md5
+            }
         }
-        if !shim_specific_path.exists() {
-            let _ = fs::create_dir_all(shim_specific_path.parent().unwrap()); // TODO handle the none case??
-            let _ = File::create(shim_specific_path); // TODO don't just create a file, create it with content
-        }
+    }
+
+    // ------- private methods ---------- //
+
+    fn build(shim_name: &str) -> String {
+        let data = HashBuilder::new().insert_string("name", shim_name); // TODO don't actually need to eval the template
+        let result = render_text(&ShimFileFactory::template_string(), data);
+        let mut rendered = String::new();
+        result.unwrap().read_to_string(&mut rendered); // TODO handle the error case
+        rendered
+    }
+
+    fn template_string() -> String {
+"#!/usr/bin/env bash
+set -e
+
+COMMAND_NAME=\"$(exec basename \"$0\")\"
+
+if ! hash aliases 2>/dev/null; then
+  echo \"aliases command doesn't exists, can't continue\"
+  exit 1
+fi
+
+if exec aliases list -d \"$PWD\" -f \"$COMMAND_NAME\"; then
+  # can current directory/context can fulfill the command
+  # yes, execute the command in the current context
+  echo \"yes\"
+else
+  # remove alias shims from path
+  exec \"$COMMAND_NAME\" \"$@\"
+fi
+".to_string()
+    }
+
+    fn md5_for_string(string: String) -> Vec<u8> {
+        let mut md5 = Md5::new();
+        md5.input(&string.into_bytes());
+        let mut output = String::from("here is my string").into_bytes(); // TODO I know this is bad
+        md5.result(&mut output);
+        output
     }
 }

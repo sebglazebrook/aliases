@@ -22,9 +22,7 @@ impl Rehash {
                 Err(_) => {}, // TODO
                 Ok(aliases) => {
                     for alias in aliases.raw_collection.iter() { // i know don't touch the raw collection have to fix this.
-                        ShimFileFactory::create_global(&alias, &self.shim_directory);
-                        ShimFileFactory::create_specific(&alias, &dir, &self.shim_directory);
-
+                        ShimFileFactory::create(&alias, &self.shim_directory);
                     }
                 }
             }

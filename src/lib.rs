@@ -1,4 +1,6 @@
 extern crate yaml_rust;
+extern crate rustache;
+extern crate crypto;
 
 mod aliases;
 
@@ -9,6 +11,7 @@ pub use aliases::builders::AliasBuilder; // had to do this for the tests, why?
 pub use aliases::models::Alias; // had to do this for the tests, why?
 pub use aliases::factories::AliasFactory; // had to do this for the tests, why?
 pub use aliases::collections::Aliases; // had to do this for the tests, why?
+pub use aliases::factories::ShimFileFactory; // had to do this for the tests, why?
 
 use std::env;
 use std::path::PathBuf;
