@@ -14,7 +14,7 @@ pub use aliases::collections::Aliases; // had to do this for the tests, why?
 pub use aliases::factories::ShimFileFactory; // had to do this for the tests, why?
 
 use std::env;
-use std::path::{Path, PathBuf};
+use std::path::{PathBuf};
 use yaml_rust::{Yaml, YamlLoader};
 use std::io::prelude::*;
 use std::fs::File;
@@ -73,7 +73,7 @@ impl Config {
     fn load_file(path: &PathBuf) -> Yaml {
         let mut file = File::open(path).unwrap(); //TODO handle the error case
         let mut content = String::new();
-        file.read_to_string(&mut content);
+        let _ = file.read_to_string(&mut content);
         YamlLoader::load_from_str(&content).unwrap()[0].clone()
     }
 }

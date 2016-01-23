@@ -15,7 +15,7 @@ impl List {
 
     pub fn new(current_path: PathBuf, directory_filter: Option<&str>, name_filter: Option<&str>) -> Self {
         // TODO there has to be a better way to do this right?
-        let mut directory_string;
+        let directory_string;
         match directory_filter {
             Some(string) => directory_string = Some(string.to_string()),
             None         => directory_string = None,
