@@ -9,10 +9,10 @@ pub struct Rehash {
 
 impl Rehash {
 
-    pub fn new() -> Rehash {
+    pub fn new(shim_directory: PathBuf, alias_directories: Vec<PathBuf>) -> Rehash {
         Rehash { 
-            shim_directory: PathBuf::new(),
-            alias_directories: vec![],
+            shim_directory: shim_directory,
+            alias_directories: alias_directories,
         }
     }
 

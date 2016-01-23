@@ -18,17 +18,11 @@ mod tests {
 
         before_each {
             let current_dir = env::current_dir().unwrap();
-            let mut rehash = Rehash::new();
             let shim_directory = current_dir.join("tests/fixtures/shims/");
-            rehash.shim_directory = shim_directory.clone();
+            let rehash = Rehash::new(shim_directory.clone(), vec![current_dir.join("tests/fixtures/initialized_dir/")]);
         }
 
         describe! when_there_are_initialized_aliases {
-
-            before_each {
-                let alias_directories = vec![current_dir.join("tests/fixtures/initialized_dir/")];
-                rehash.alias_directories = alias_directories;
-            }
 
             describe! when_there_is_no_global_shim_for_an_alias {
 

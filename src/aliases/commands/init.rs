@@ -10,6 +10,7 @@ impl Init {
 
     //TODO this needs to also handle when it's the first time initializing and init the app as well
     //as the dir
+    //TODO make sure all new initialized dirs are added to the iniailized dirs config list
 
     pub fn new(target_path: PathBuf) -> Init {
         Init { target_path: target_path }
