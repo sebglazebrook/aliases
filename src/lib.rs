@@ -55,7 +55,7 @@ impl Config {
     fn config_file_path() -> PathBuf {
         match env::var("HOME") {
             Ok(home_dir) => {
-                PathBuf::from(home_dir)
+                PathBuf::from(home_dir).join(".aliases_cfg")
             },
             Err(_) => {
                 PathBuf::new() // need to handle this better

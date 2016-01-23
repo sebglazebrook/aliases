@@ -72,11 +72,9 @@ if ! hash aliases 2>/dev/null; then
 fi
 
 if exec aliases list --directory \"$PWD\" --name \"$COMMAND_NAME\"; then
-  # can current directory/context can fulfill the command
-  # yes, execute the command in the current context
-  echo \"yes\"
+  aliases exec \"$PWD\" \"$COMMAND\"
 else
-  # remove alias shims from path
+  # TODO remove alias shims from path
   exec \"$COMMAND_NAME\" \"$@\"
 fi
 ".to_string()

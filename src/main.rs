@@ -15,7 +15,7 @@ fn main() {
             }
         },
         Some("list") => {
-            if let Some(matched) = matches.subcommand_matches("list") {
+            if let Some(matches) = matches.subcommand_matches("list") {
                 // TODO pass through the params here
                 App::new().execute_list(matches.value_of("directory"), matches.value_of("name"));
             }
