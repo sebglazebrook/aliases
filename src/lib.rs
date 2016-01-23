@@ -111,12 +111,13 @@ impl App {
         Init::new(target_path).execute();
     }
 
-    pub fn execute_list(&mut self) {
-        // TODO this needs to be able to filter by directory and return exit codes
-        List::new(self.current_path.clone()).execute();
+    pub fn execute_list(&mut self, directory: Option<&str>, name: Option<&str>) {
+        let exit_code = List::new(self.current_path.clone(), directory, name).execute();
+        std::process::exit(exit_code);
     }
 
     pub fn execute_rehash(&mut self) {
+        // TODO this also needs an exit code
         Rehash::new(self.config.shim_directory.clone(), self.config.alias_directories.clone()).execute();
     }
 }

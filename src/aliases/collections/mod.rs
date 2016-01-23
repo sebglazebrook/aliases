@@ -1,6 +1,7 @@
 use aliases::models::Alias;
 use std::cmp::Ordering;
 use std::result::Result;
+use std::iter::FromIterator;
 
 #[derive(Debug,Clone)]
 pub struct Aliases {

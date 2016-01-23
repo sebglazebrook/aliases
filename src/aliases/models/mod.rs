@@ -1,3 +1,5 @@
+use std::path::PathBuf;
+
 #[derive(PartialOrd,Ord,PartialEq,Eq,Debug,Clone)]
 pub struct Alias {
     pub name: String,
@@ -6,6 +8,7 @@ pub struct Alias {
     pub confirmation_message: String,
     pub conditional: Option<String>,
     pub unit_test: Option<String>,
+    pub basename: PathBuf,
 }
 
 impl Alias {
@@ -17,7 +20,8 @@ impl Alias {
             confirm: false,
             confirmation_message: String::new(),
             conditional: None,
-            unit_test: None
+            unit_test: None,
+            basename: PathBuf::new(),
         }
     }
 }

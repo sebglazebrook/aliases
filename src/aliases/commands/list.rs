@@ -7,17 +7,53 @@ use aliases::factories::AliasFactory;
 
 pub struct List {
     current_path: PathBuf,
+    directory_filter: Option<String>,
+    name_filter: Option<String>,
 }
 
 impl List {
 
-    pub fn new(current_path: PathBuf) -> Self {
-        List { current_path: current_path }
+    pub fn new(current_path: PathBuf, directory_filter: Option<&str>, name_filter: Option<&str>) -> Self {
+        // TODO there has to be a better way to do this right?
+        let mut directory_string;
+        match directory_filter {
+            Some(string) => directory_string = Some(string.to_string()),
+            None         => directory_string = None,
+        }
+        let name_string;
+        match name_filter {
+            Some(string) => name_string = Some(string.to_string()),
+            None         => name_string = None,
+        }
+        List {
+            current_path: current_path,
+            directory_filter: directory_string,
+            name_filter: name_string,
+        }
     }
 
-    pub fn execute(&mut self) {
-        let aliases = self.global_aliases().merge(self.parent_aliases()).merge(self.local_aliases());
-        AliasesView::new(aliases).render();
+    pub fn execute(&mut self) -> i32  {
+        let mut aliases = self.global_aliases().merge(self.parent_aliases()).merge(self.local_aliases());
+        if let Some(ref directory_filter) = self.directory_filter {
+            let mut new_collection = vec![];
+            for i in aliases.raw_collection.iter().filter(|alias| alias.basename.to_str().unwrap() == *directory_filter) {
+                new_collection.push(i.clone());
+            }
+            aliases = Aliases::new(new_collection);
+        }
+        if let Some(ref name_filter) = self.name_filter {
+            let mut new_collection = vec![];
+            for i in aliases.raw_collection.iter().filter(|alias| alias.name == *name_filter) {
+                new_collection.push(i.clone());
+            }
+            aliases = Aliases::new(new_collection);
+        }
+        AliasesView::new(aliases.clone()).render();
+        if aliases.raw_collection.len() > 0 {
+            0
+        } else {
+            1
+        }
     }
 
     // ------ private ----- //

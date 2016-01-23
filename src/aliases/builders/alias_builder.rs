@@ -1,16 +1,18 @@
 use yaml_rust::Yaml;
+use std::path::PathBuf;
 
 use aliases::models::Alias;
 
 pub struct AliasBuilder {
     name: String,
+    basename: PathBuf,
     yaml: Yaml,
 }
 
 impl AliasBuilder {
 
-    pub fn from_yaml(name: &str, yaml: Yaml) -> AliasBuilder {
-        AliasBuilder { name: name.to_string(), yaml: yaml }
+    pub fn from_yaml(name: &str, basename: PathBuf, yaml: Yaml) -> AliasBuilder {
+        AliasBuilder { name: name.to_string(), basename: basename, yaml: yaml }
     }
 
     pub fn build(&self) -> Result<Alias,&'static str> {
@@ -24,6 +26,7 @@ impl AliasBuilder {
                     confirmation_message: self.confirmation_message(command),
                     unit_test: self.unit_test(),
                     conditional: self.conditional(),
+                    basename: self.basename.clone(),
                 })
             }
         }

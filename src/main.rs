@@ -15,8 +15,9 @@ fn main() {
             }
         },
         Some("list") => {
-            if let Some(_) = matches.subcommand_matches("list") {
-                App::new().execute_list();
+            if let Some(matched) = matches.subcommand_matches("list") {
+                // TODO pass through the params here
+                App::new().execute_list(matches.value_of("directory"), matches.value_of("name"));
             }
         },
         Some("rehash") => {

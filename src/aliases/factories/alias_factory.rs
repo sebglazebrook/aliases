@@ -16,15 +16,16 @@ impl AliasFactory {
     }
 
     pub fn create_from_file(data_file: PathBuf) -> Result<Aliases, &'static str> {
-        match AliasFactory::parse_file(data_file) {
+        match AliasFactory::parse_file(&data_file) {
             Err(error_string) => { Err(error_string) }
             Ok(yaml) => {
                 match yaml.as_hash() {
                     None => { Err("File invalid content.") },
                     Some(hash) => {
                         let mut aliases = vec![];
+                        let basename = data_file.as_path().parent().unwrap().to_path_buf(); // handle this right??
                         for (command_name, command_args) in hash {
-                            match AliasBuilder::from_yaml(command_name.as_str().unwrap(), command_args.clone()).build() {
+                            match AliasBuilder::from_yaml(command_name.as_str().unwrap(), basename.clone(), command_args.clone()).build() {
                                 Err(_) => {}, // maybe get a more specific error here?
                                 Ok(alias) => { aliases.push(alias) },
                             }
@@ -49,7 +50,7 @@ impl AliasFactory {
 
     // ------------ private methods --------- //
 
-    fn parse_file(data_file: PathBuf) -> Result<Yaml, &'static str> {
+    fn parse_file(data_file: &PathBuf) -> Result<Yaml, &'static str> {
         match File::open(data_file) {
             Err(_) => Err("File did not exist."),
             Ok(mut file) => {

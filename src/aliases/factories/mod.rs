@@ -71,7 +71,7 @@ if ! hash aliases 2>/dev/null; then
   exit 1
 fi
 
-if exec aliases list -d \"$PWD\" -f \"$COMMAND_NAME\"; then
+if exec aliases list --directory \"$PWD\" --name \"$COMMAND_NAME\"; then
   # can current directory/context can fulfill the command
   # yes, execute the command in the current context
   echo \"yes\"
