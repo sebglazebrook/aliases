@@ -1,4 +1,5 @@
 use std::path::PathBuf;
+use std::process::Command;
 
 #[derive(PartialOrd,Ord,PartialEq,Eq,Debug,Clone)]
 pub struct Alias {
@@ -23,5 +24,16 @@ impl Alias {
             unit_test: None,
             basename: PathBuf::new(),
         }
+    }
+
+    pub fn execute(&self) {
+        let mut process = Command::new("bash")
+            .arg("-c")
+            .arg(&self.command)
+            .spawn()
+            .unwrap_or_else(|e| { panic!("failed to execute child: {}", e) });
+
+        let _ = process.wait()
+                 .unwrap_or_else(|e| { panic!("failed to wait on child: {}", e) });
     }
 }

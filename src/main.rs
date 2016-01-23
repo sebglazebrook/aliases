@@ -25,6 +25,13 @@ fn main() {
                 App::new().execute_rehash();
             }
         },
+        Some("exec") => {
+            if let Some(matches) = matches.subcommand_matches("exec") {
+                let directory = matches.value_of("directory").unwrap().to_string();
+                let command_name = matches.value_of("name").unwrap().to_string();
+                App::new().execute_exec(directory, command_name);
+            }
+        },
         None => { println!("no subcommand :-(") }, // default to list no global?
         _ => {}, // unknown command - show an error.
     }

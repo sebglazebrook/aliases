@@ -7,6 +7,7 @@ mod aliases;
 use aliases::commands::init::Init;
 use aliases::commands::list::List;
 pub use aliases::commands::rehash::Rehash;
+pub use aliases::commands::exec::Exec;
 pub use aliases::builders::AliasBuilder; // had to do this for the tests, why?
 pub use aliases::models::Alias; // had to do this for the tests, why?
 pub use aliases::factories::AliasFactory; // had to do this for the tests, why?
@@ -119,5 +120,9 @@ impl App {
     pub fn execute_rehash(&mut self) {
         // TODO this also needs an exit code
         Rehash::new(self.config.shim_directory.clone(), self.config.alias_directories.clone()).execute();
+    }
+
+    pub fn execute_exec(&mut self, directory: String, name: String) {
+        Exec::new(directory, name).execute();
     }
 }

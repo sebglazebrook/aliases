@@ -72,7 +72,7 @@ if ! hash aliases 2>/dev/null; then
 fi
 
 if exec aliases list --directory \"$PWD\" --name \"$COMMAND_NAME\"; then
-  aliases exec \"$PWD\" \"$COMMAND\"
+  aliases exec \"$PWD\" \"$COMMAND\" -- \"$@\"
 else
   # TODO remove alias shims from path
   exec \"$COMMAND_NAME\" \"$@\"

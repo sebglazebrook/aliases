@@ -35,3 +35,15 @@ subcommands:
             long: name
             short: n
             takes_value: true
+  - exec:
+      about: execute a alias for a given directory
+      args:
+        - directory:
+            help: directory where the alias is defined
+            required: true
+        - name:
+            help: name of alias
+            required: true
+  - rehash:
+      about: update the aliases
+      args: []
