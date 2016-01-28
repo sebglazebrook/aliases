@@ -8,7 +8,7 @@ extern crate yaml_rust;
 mod tests {
 
     pub use yaml_rust::{YamlLoader};
-    pub use aliases::{Alias, AliasBuilder};
+    pub use aliases::{Alias, AliasBuilder, Conditional};
     pub use std::path::PathBuf;
 
     describe! alias_builder {
@@ -43,7 +43,7 @@ unit_test: '[ true = true ]'
                     assert_eq!(alias.command, "./super_command.sh");
                     assert_eq!(alias.confirm, true);
                     assert_eq!(alias.confirmation_message, "Are you really really sure??");
-                    assert_eq!(alias.conditional, "/bin/true".to_string());
+                    assert_eq!(alias.conditional, Conditional::new("/bin/true".to_string()));
                     assert_eq!(alias.unit_test, "[ true = true ]".to_string());
                 }
             }

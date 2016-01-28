@@ -2,6 +2,7 @@ use yaml_rust::Yaml;
 use std::path::PathBuf;
 
 use aliases::models::Alias;
+use aliases::models::Conditional;
 
 pub struct AliasBuilder {
     name: String,
@@ -60,10 +61,10 @@ impl AliasBuilder {
         message + &command + "`"
     }
 
-    fn conditional(&self) -> String {
+    fn conditional(&self) -> Conditional {
         match self.yaml["conditional"].as_str() {
-            None => String::from("true"),
-            Some(s) => s.to_string()
+            None => Conditional::new(String::from("true")),
+            Some(s) => Conditional::new(s.to_string())
         }
     }
     

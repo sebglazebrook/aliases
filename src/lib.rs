@@ -10,6 +10,7 @@ pub use aliases::commands::rehash::Rehash;
 pub use aliases::commands::exec::Exec;
 pub use aliases::builders::AliasBuilder; // had to do this for the tests, why?
 pub use aliases::models::Alias; // had to do this for the tests, why?
+pub use aliases::models::Conditional; // had to do this for the tests, why?
 pub use aliases::factories::AliasFactory; // had to do this for the tests, why?
 pub use aliases::collections::Aliases; // had to do this for the tests, why?
 pub use aliases::factories::ShimFileFactory; // had to do this for the tests, why?
