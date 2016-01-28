@@ -1,5 +1,6 @@
 use std::path::PathBuf;
 use std::process::Command;
+use std::io::{self, Write};
 
 #[derive(PartialOrd,Ord,PartialEq,Eq,Debug,Clone)]
 pub struct Alias {
@@ -8,6 +9,7 @@ pub struct Alias {
     pub confirm: bool,
     pub confirmation_message: String,
     pub conditional: Conditional,
+    pub user_confirmation: UserConfirmation,
     pub unit_test: String,
     pub basename: PathBuf,
 }
@@ -20,6 +22,7 @@ impl Alias {
             command: String::new(),
             confirm: false,
             confirmation_message: String::new(),
+            user_confirmation: UserConfirmation::new(false, String::new()),
             conditional: Conditional::default(),
             unit_test: String::from("true"),
             basename: PathBuf::new(),
@@ -59,8 +62,32 @@ impl Conditional {
             .arg(&self.command)
             .status()
             .unwrap_or_else(|e| { panic!("failed to execute child: {}", e) });
-
         status.success()
     }
 
+}
+
+#[derive(PartialOrd,Ord,PartialEq,Eq,Debug,Clone)]
+pub struct UserConfirmation {
+    enabled: bool,
+    message: String,
+}
+
+impl UserConfirmation {
+
+    pub fn new(enabled: bool, message: String) -> Self {
+        UserConfirmation { enabled: enabled, message: message }
+    }
+
+    pub fn execute(&self) -> bool {
+        if self.enabled {
+            print!("{}. Type 'Yes' to continue...  ", self.message);
+            io::stdout().flush().unwrap();
+            let mut user_input = String::new();
+            let _ = io::stdin().read_line(&mut user_input); // TODO potential error to be handled here
+            user_input.trim() == "Yes"
+        } else {
+            true
+        }
+    }
 }

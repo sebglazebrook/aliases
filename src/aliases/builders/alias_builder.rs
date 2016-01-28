@@ -3,6 +3,7 @@ use std::path::PathBuf;
 
 use aliases::models::Alias;
 use aliases::models::Conditional;
+use aliases::models::UserConfirmation;
 
 pub struct AliasBuilder {
     name: String,
@@ -24,7 +25,8 @@ impl AliasBuilder {
                     name: self.name.clone(),
                     command: command.clone(),
                     confirm: self.confirm(),
-                    confirmation_message: self.confirmation_message(command),
+                    confirmation_message: self.confirmation_message(command.clone()),
+                    user_confirmation: UserConfirmation::new(self.confirm(), self.confirmation_message(command)),
                     unit_test: self.unit_test(),
                     conditional: self.conditional(),
                     basename: self.basename.clone(),
