@@ -43,8 +43,8 @@ unit_test: '[ true = true ]'
                     assert_eq!(alias.command, "./super_command.sh");
                     assert_eq!(alias.confirm, true);
                     assert_eq!(alias.confirmation_message, "Are you really really sure??");
-                    assert_eq!(alias.conditional, Some("/bin/true".to_string()));
-                    assert_eq!(alias.unit_test, Some("[ true = true ]".to_string()));
+                    assert_eq!(alias.conditional, "/bin/true".to_string());
+                    assert_eq!(alias.unit_test, "[ true = true ]".to_string());
                 }
             }
 

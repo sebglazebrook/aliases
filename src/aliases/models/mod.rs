@@ -7,8 +7,8 @@ pub struct Alias {
     pub command: String,
     pub confirm: bool,
     pub confirmation_message: String,
-    pub conditional: Option<String>,
-    pub unit_test: Option<String>,
+    pub conditional: String,
+    pub unit_test: String,
     pub basename: PathBuf,
 }
 
@@ -20,8 +20,8 @@ impl Alias {
             command: String::new(),
             confirm: false,
             confirmation_message: String::new(),
-            conditional: None,
-            unit_test: None,
+            conditional: String::from("true"),
+            unit_test: String::from("true"),
             basename: PathBuf::new(),
         }
     }

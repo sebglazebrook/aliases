@@ -60,17 +60,17 @@ impl AliasBuilder {
         message + &command + "`"
     }
 
-    fn conditional(&self) -> Option<String> {
+    fn conditional(&self) -> String {
         match self.yaml["conditional"].as_str() {
-            None => None,
-            Some(s) => Some(s.to_string())
+            None => String::from("true"),
+            Some(s) => s.to_string()
         }
     }
     
-    fn unit_test(&self) -> Option<String> {
+    fn unit_test(&self) -> String {
         match self.yaml["unit_test"].as_str() {
-            None => None,
-            Some(s) => Some(s.to_string()),
+            None => String::from("true"),
+            Some(s) => s.to_string(),
         }
     }
 }
