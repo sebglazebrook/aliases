@@ -54,7 +54,13 @@ impl Conditional {
     }
 
     pub fn execute(&self) -> bool {
-        true // TODO replace this
+        let status = Command::new("bash")
+            .arg("-c")
+            .arg(&self.command)
+            .status()
+            .unwrap_or_else(|e| { panic!("failed to execute child: {}", e) });
+
+        status.success()
     }
 
 }
