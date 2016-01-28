@@ -9,12 +9,14 @@ mod tests {
 
     pub use yaml_rust::{YamlLoader};
     pub use aliases::{Alias, AliasBuilder};
+    pub use std::path::PathBuf;
 
     describe! alias_builder {
 
         describe! from_yaml {
 
             before_each {
+                let basename = PathBuf::new();
                 let yaml_string =
 "command: ./super_command.sh
 confirm: true
@@ -30,7 +32,7 @@ unit_test: '[ true = true ]'
 
                 before_each {
                     let mut alias = Alias::new();
-                    match AliasBuilder::from_yaml("command_name", doc.clone()).build() {
+                    match AliasBuilder::from_yaml("command_name", basename.clone(), doc.clone()).build() {
                         Ok(a) => { alias = a; },
                         Err(_) => { },
                     };
@@ -67,7 +69,7 @@ confirmation_message: Are you really really sure??
 
                 it "builds with confirmation turned off" {
                     let mut alias = Alias::new();
-                    match AliasBuilder::from_yaml("command_name", doc.clone()).build() {
+                    match AliasBuilder::from_yaml("command_name", basename.clone(), doc.clone()).build() {
                         Err(_) => {},
                         Ok(a) => { alias = a; }
                     }
@@ -90,7 +92,7 @@ conditional: /bin/true
 
                 it "builds with a default confirmation message" {
                     let mut alias = Alias::new();
-                    match AliasBuilder::from_yaml("command_name", doc.clone()).build() {
+                    match AliasBuilder::from_yaml("command_name", basename.clone(), doc.clone()).build() {
                         Err(_) => {},
                         Ok(a) => { alias = a; },
                     }
@@ -112,7 +114,7 @@ unit_test: '[ true == true ]'
                 }
 
                 it "builds without a conditional" {
-                    AliasBuilder::from_yaml("command_name", doc.clone()).build().is_ok();
+                    AliasBuilder::from_yaml("command_name", basename.clone(), doc.clone()).build().is_ok();
                 }
             }
 
@@ -130,7 +132,7 @@ conditional: /bin/true
                 }
 
                 it "builds without a unit test" {
-                    AliasBuilder::from_yaml("command_name", doc.clone()).build().is_ok();
+                    AliasBuilder::from_yaml("command_name", basename.clone(), doc.clone()).build().is_ok();
                 }
             }
         }
