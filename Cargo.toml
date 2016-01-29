@@ -15,7 +15,6 @@ path = "src/main.rs"
 yaml-rust = "0.3.0"
 rustache = "0.0.1"
 rust-crypto = "0.2.34"
-regex = "0.1"
 rustc-serialize = "0.3"
 
 [dependencies.clap]

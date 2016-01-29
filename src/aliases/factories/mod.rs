@@ -25,7 +25,7 @@ impl ShimFileFactory {
                     let _ = file.write_all(&ShimFileFactory::template_string().into_bytes());
                     let mut command = String::from("chmod +x ");
                     command.push_str(filepath.to_str().unwrap());
-                    let output = Command::new("bash")
+                    let _ = Command::new("bash")
                         .arg("-c")
                         .arg(&command)
                         .output()

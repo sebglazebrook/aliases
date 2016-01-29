@@ -1,7 +1,6 @@
 extern crate yaml_rust;
 extern crate rustache;
 extern crate crypto;
-extern crate regex;
 extern crate rustc_serialize;
 
 mod aliases;
@@ -19,10 +18,8 @@ pub use aliases::factories::ShimFileFactory; // had to do this for the tests, wh
 
 use std::env;
 use std::path::{PathBuf};
-use yaml_rust::{Yaml, YamlLoader, YamlEmitter};
 use std::io::prelude::*;
 use std::fs::File;
-use regex::Regex;
 use rustc_serialize::json;
 use std::process::Command;
 
