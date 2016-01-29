@@ -17,6 +17,7 @@ impl Rehash {
     }
 
     pub fn execute(&self) {
+        // TODO make sure shims directory exists
         for dir in &self.alias_directories {
             match AliasFactory::create_from_file(dir.join(".aliases")) {
                 Err(_) => {}, // TODO
