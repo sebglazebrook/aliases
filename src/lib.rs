@@ -1,5 +1,4 @@
 extern crate yaml_rust;
-extern crate rustache;
 extern crate crypto;
 extern crate rustc_serialize;
 

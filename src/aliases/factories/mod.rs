@@ -5,7 +5,6 @@ use aliases::models::Alias;
 use std::path::PathBuf;
 use std::io::prelude::*;
 use std::fs::File;
-use rustache::*;
 use crypto::md5::Md5;
 use crypto::digest::Digest;
 use std::process::Command;
@@ -60,11 +59,7 @@ impl ShimFileFactory {
     // ------- private methods ---------- //
 
     fn build() -> String {
-        let data = HashBuilder::new().insert_string("name", ""); // TODO don't actually need to eval the template
-        let result = render_text(&ShimFileFactory::template_string(), data);
-        let mut rendered = String::new();
-        let _ = result.unwrap().read_to_string(&mut rendered); // TODO handle the error case
-        rendered
+        ShimFileFactory::template_string()
     }
 
     fn template_string() -> String {
