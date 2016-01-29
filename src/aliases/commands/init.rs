@@ -1,22 +1,20 @@
 use std::path::{Path, PathBuf};
 use std::io::prelude::*;
 use std::fs::File;
+use super::super::super::Config; // TODO fix this please!
 
 pub struct Init {
     target_path: PathBuf,
+    config: Config,
 }
 
 impl Init {
 
-    //TODO this needs to also handle when it's the first time initializing and init the app as well
-    //as the dir
-    //TODO make sure all new initialized dirs are added to the iniailized dirs config list
-
-    pub fn new(target_path: PathBuf) -> Init {
-        Init { target_path: target_path }
+    pub fn new(target_path: PathBuf, config: Config) -> Init {
+        Init { target_path: target_path, config: config}
     }
 
-    pub fn execute(&self) {
+    pub fn execute(&mut self) {
         if Path::new(&self.target_path.join(".aliases")).exists() {
             println!("Directory already initialized.");
         } else {
@@ -26,6 +24,7 @@ impl Init {
             let mut new_file = File::create(self.target_path.join(".aliases")).unwrap();
             let array = template_contents.as_bytes();
             let _ = new_file.write_all(array);
+            self.add_to_global_config();
         }
     }
 
@@ -34,5 +33,9 @@ impl Init {
     fn template_file(&self) -> File {
         let template_file_path = Path::new("src/templates/aliases"); // how will I work out this path?
         File::open(template_file_path).unwrap()
+    }
+
+    fn add_to_global_config(&mut self) {
+        self.config.add_alias_directory(&self.target_path);
     }
 }

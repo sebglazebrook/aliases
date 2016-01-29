@@ -2,7 +2,7 @@
 
 Dynamic aliases based on the directory you are currently in.
 
-Ever wanted to type in `server` and it just knows what you're thinking?
+Ever wanted to type in `server` in whole bunch of different directories and your computer just knows what you're thinking?
 
 Now you can!
 
@@ -24,7 +24,7 @@ aliases init
 
 This creates a `.aliases` file in the current directory with an empty alias structure that looks like below:
 
-```json
+```yaml
 {
   "name": "server",
   "command": "bundle exec rails server",
