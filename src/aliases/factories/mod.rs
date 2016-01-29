@@ -8,6 +8,7 @@ use std::fs::File;
 use rustache::*;
 use crypto::md5::Md5;
 use crypto::digest::Digest;
+use std::process::Command;
 
 mod alias_factory;
 
@@ -18,10 +19,17 @@ impl ShimFileFactory {
     pub fn create(alias: &Alias, dir: &PathBuf) {
         let filepath = dir.join(alias.name.clone());
         if !filepath.exists() {
-            match File::create(filepath) {
+            match File::create(&filepath) {
                 Err(_) => {}, //TODO handle this some day
                 Ok(mut file) => {
                     let _ = file.write_all(&ShimFileFactory::template_string().into_bytes());
+                    let mut command = String::from("chmod +x ");
+                    command.push_str(filepath.to_str().unwrap());
+                    let output = Command::new("bash")
+                        .arg("-c")
+                        .arg(&command)
+                        .output()
+                        .unwrap_or_else(|e| { panic!("failed to execute child: {}", e) });
                 }
             }
         } else {
@@ -32,7 +40,6 @@ impl ShimFileFactory {
                         let _ = file.write_all(&ShimFileFactory::template_string().into_bytes());
                     }
                 }
-
             }
         }
     }
