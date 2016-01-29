@@ -154,7 +154,6 @@ impl App {
 
     pub fn execute_rehash(&mut self) {
         // TODO this also needs an exit code
-        // TODO shim_directories also needs to do posix expansion use echo??
         Rehash::new(self.config.shim_path(), self.config.alias_paths()).execute();
     }
 
