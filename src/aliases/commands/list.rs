@@ -33,6 +33,7 @@ impl List {
     }
 
     pub fn execute(&mut self) -> i32  {
+        // TODO this needs to actuall make sure the local aliases are in the global config for aliases
         let mut aliases = self.global_aliases().merge(self.parent_aliases()).merge(self.local_aliases());
         if let Some(ref directory_filter) = self.directory_filter {
             let mut new_collection = vec![];
