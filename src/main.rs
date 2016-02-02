@@ -5,7 +5,7 @@ extern crate aliases;
 use aliases::App;
 
 fn main() {
-    let yaml = load_yaml!("../config/cli.yml"); // TODO this won't be included in the binary and has to be loaded another way
+    let yaml = load_yaml!("../config/cli.yml");
     let matches = clap::App::from_yaml(yaml).get_matches();
 
     match matches.subcommand_name() {
