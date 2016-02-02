@@ -1,5 +1,4 @@
 pub use self::alias_factory::AliasFactory;
-//pub use self::shim_file_factory;
 
 use aliases::models::Alias;
 use std::path::PathBuf;
@@ -16,6 +15,7 @@ pub struct ShimFileFactory;
 impl ShimFileFactory {
 
     pub fn create(alias: &Alias, dir: &PathBuf) {
+        // TODO this is no deleting old shims
         let filepath = dir.join(alias.name.clone());
         if !filepath.exists() {
             match File::create(&filepath) {
@@ -76,8 +76,15 @@ fi
 if aliases list --directory \"$PWD\" --name \"$COMMAND_NAME\" >/dev/null 2>&1; then
   aliases exec \"$PWD\" \"$COMMAND_NAME\" -- \"$@\"
 else
-  # TODO remove alias shims from path
-  exec \"$COMMAND_NAME\" \"$@\"
+  PATH=${PATH/$HOME\/.aliases.d\/shims:/} # remove shims from path
+
+  if hash $COMMAND_NAME 2>/dev/null; then
+    exec \"$COMMAND_NAME\" \"$@\"
+  else
+    echo \"No alias '$COMMAND_NAME' available in this directory\"
+    exit 1
+  fi
+
 fi
 ".to_string()
     }
