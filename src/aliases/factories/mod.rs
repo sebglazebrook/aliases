@@ -76,7 +76,7 @@ fi
 if aliases list --directory \"$PWD\" --name \"$COMMAND_NAME\" >/dev/null 2>&1; then
   aliases exec \"$PWD\" \"$COMMAND_NAME\" -- \"$@\"
 else
-  PATH=${PATH/$HOME\/.aliases.d\/shims:/} # remove shims from path
+  PATH=${PATH/$HOME\\/.aliases.d\\/shims:/} # remove shims from path
 
   if hash $COMMAND_NAME 2>/dev/null; then
     exec \"$COMMAND_NAME\" \"$@\"
