@@ -32,7 +32,9 @@ fn main() {
                 App::new().execute_exec(directory, command_name);
             }
         },
-        None => { println!("no subcommand :-(") }, // default to list no global?
+        None => {
+            App::new().execute_list(None, None);
+        },
         _ => {}, // unknown command - show an error.
     }
 }
