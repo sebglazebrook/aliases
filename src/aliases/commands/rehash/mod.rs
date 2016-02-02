@@ -1,4 +1,5 @@
 use std::path::PathBuf;
+use std::fs;
 
 use aliases::factories::{AliasFactory, ShimFileFactory};
 
@@ -17,7 +18,7 @@ impl Rehash {
     }
 
     pub fn execute(&self) {
-        // TODO make sure shims directory exists
+        self.create_shims_directory();
         for dir in &self.alias_directories {
             match AliasFactory::create_from_file(dir.join(".aliases")) {
                 Err(_) => {}, // TODO
@@ -28,5 +29,11 @@ impl Rehash {
                 }
             }
         }
+    }
+
+    //--------  private ----------//
+
+    fn create_shims_directory(&self) {
+        fs::create_dir_all(&self.shim_directory);
     }
 }
