@@ -8,11 +8,23 @@ Now you can!
 
 ## Installation
 
+### OSX
+
+```
+brew tap sebglazebrook/aliases
+brew install aliases
+```
+
+IMPORTANT: After install you are prompted to run a command to add aliases to your shell.
+Make sure you run it :-)
+
+### Linux
+
 TODO
-brew?
-apt-get?
-windows?
-compile from source?
+
+### Compile from source
+
+TODO
 
 ## Usage
 
@@ -45,37 +57,19 @@ aliases
 
 The `.aliases` file should be checked in to your repo, spread the love with the people you are working with.
 
-If you have want custom aliases run
-
-```
-MY_CUSTOM_ALIAS_NAME=superman
-
-aliases init $MY_CUSTOM_ALIAS_NAME
-```
-
-This creates a new aliases file `.superman-aliases` which should not be committed and only used for your personal shit.
-
-### Testing
-
-Want to make sure your aliases are not out of date?
-
-Each alias has a `unit_test` parameter which will run some arbitary code that you define to test whether the alias is still working. Just run
-
-```
-aliases test
-
-```
-
 ### Global Aliases
 
 Global aliases are created but running `aliases init` in your home directory.
 
 Global aliases are overridden by local aliases if they exist.
 
-### Autocompletion
-
-Yes aliases autocomplete. :boom:
-
 ## Contributing
 
-todo
+TODO
+
+## Future features
+
+- passing additional args through to aliases
+- Being about to actually run the unit tests :-)
+- Having custom aliases i.e. .superman-aliases files etc
+- Autocompletion for aliases
