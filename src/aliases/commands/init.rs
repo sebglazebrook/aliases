@@ -6,23 +6,29 @@ use super::super::super::Config; // TODO fix this please!
 pub struct Init {
     target_path: PathBuf,
     config: Config,
+    global: bool,
 }
 
 impl Init {
 
-    pub fn new(target_path: PathBuf, config: Config) -> Init {
-        Init { target_path: target_path, config: config}
+    pub fn new(target_path: PathBuf, config: Config, global: bool) -> Init {
+        Init { target_path: target_path, config: config, global: global}
     }
 
     pub fn execute(&mut self) {
-        if Path::new(&self.target_path.join(".aliases")).exists() {
-            println!("Directory already initialized.");
+        if self.global {
+            let path_update = String::from("export PATH=\"") + &self.config.shim_directory +  ":${PATH}\"";
+            println!("{}\naliases rehash", path_update);
         } else {
-            let mut new_file = File::create(self.target_path.join(".aliases")).unwrap();
-            let template_string = self.template_string();
-            let array = template_string.as_bytes();
-            let _ = new_file.write_all(array);
-            self.add_to_global_config();
+            if Path::new(&self.target_path.join(".aliases")).exists() {
+                println!("Directory already initialized.");
+            } else {
+                let mut new_file = File::create(self.target_path.join(".aliases")).unwrap();
+                let template_string = self.template_string();
+                let array = template_string.as_bytes();
+                let _ = new_file.write_all(array);
+                self.add_to_global_config();
+            }
         }
     }
 

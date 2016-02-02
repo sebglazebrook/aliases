@@ -28,7 +28,7 @@ impl TemplateRepository {
 
     pub fn config_template() -> String {
         "{
-            \"shim_directory\" : \"$HOME/.aliases.d/shims\",
+            \"shim_directory\" : \"${HOME}/.aliases.d/shims\",
             \"alias_directories\" : []
         }
         ".to_string() // TODO what will this actually be?
@@ -140,7 +140,7 @@ impl App {
         } else {
             target_path = self.current_path.clone();
         }
-        Init::new(target_path, self.config.clone()).execute();
+        Init::new(target_path, self.config.clone(), global).execute();
     }
 
     pub fn execute_list(&mut self, directory: Option<&str>, name: Option<&str>) {
