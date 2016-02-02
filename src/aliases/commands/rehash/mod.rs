@@ -34,6 +34,6 @@ impl Rehash {
     //--------  private ----------//
 
     fn create_shims_directory(&self) {
-        fs::create_dir_all(&self.shim_directory);
+        let _ = fs::create_dir_all(&self.shim_directory);
     }
 }
