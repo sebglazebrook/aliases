@@ -40,7 +40,7 @@ This creates a `.aliases` file in the current directory with an empty alias stru
 {
   "name": "server",
   "command": "bundle exec rails server",
-  "confirmation": false,
+  "confirm": false,
   "confirmation_message": "something here",
   "conditional": "RAILS_ENV=development",
   "unit_test": "run some command here to test something"
