@@ -15,9 +15,6 @@ brew tap sebglazebrook/aliases
 brew install aliases
 ```
 
-IMPORTANT: After install you are prompted to run a command to add aliases to your shell.
-Make sure you run it :-)
-
 ### Linux
 
 TODO
