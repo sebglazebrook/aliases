@@ -94,7 +94,7 @@ impl List {
     }
 
     fn home_dir(&self) -> Option<PathBuf> {
-        match env::var("home") {
+        match env::var("HOME") {
             Ok(home_dir) => {
                 Some(PathBuf::from(home_dir))
             },

@@ -75,6 +75,8 @@ fi
 
 if aliases list --directory \"$PWD\" --name \"$COMMAND_NAME\" >/dev/null 2>&1; then
   aliases exec \"$PWD\" \"$COMMAND_NAME\" -- \"$@\"
+elif aliases list --directory \"$HOME\" --name \"$COMMAND_NAME\" >/dev/null 2>&1; then
+  aliases exec \"$HOME\" \"$COMMAND_NAME\" -- \"$@\"
 else
   PATH=${PATH/$HOME\\/.aliases.d\\/shims:/} # remove shims from path
 
