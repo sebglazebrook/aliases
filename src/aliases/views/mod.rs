@@ -1,3 +1,7 @@
+use std::io;
+use std::io::Write;
+use tabwriter::TabWriter;
+
 use aliases::collections::Aliases;
 
 pub struct AliasesView {
@@ -11,14 +15,15 @@ impl AliasesView {
     }
 
     pub fn render(&self) {
-        println!("\n\n");
-
-        println!("Here are your available aliases:\n");
+        let mut tw = TabWriter::new(io::stdout());
+        tw.write("\nALIAS\tCOMMAND\tCONFIRM\n".as_bytes()).unwrap();
         for alias in self.aliases.raw_collection.iter() {
-            println!("Alias: {}", alias.name);
-            println!("Command: {}\n", alias.command);
+            let alias_row = String::new() + &alias.name + "\t"
+                                          + &alias.command + "\t"
+                                          + &alias.confirm.to_string() + "\n";
+            tw.write(alias_row.as_bytes()).unwrap();
         }
-        println!("\n\n");
+        tw.flush().unwrap();
     }
 }
 

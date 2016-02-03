@@ -1,6 +1,7 @@
 extern crate yaml_rust;
 extern crate crypto;
 extern crate rustc_serialize;
+extern crate tabwriter;
 
 mod aliases;
 
