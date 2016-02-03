@@ -34,22 +34,20 @@ To create aliases for the current directory run:
 aliases init
 ```
 
-This creates a `.aliases` file in the current directory with an empty alias structure that looks like below:
+This creates a `.aliases` file in the current directory with a commented out alias structure that looks like below:
 
 ```yaml
-{
-  "name": "server",
-  "command": "bundle exec rails server",
-  "confirm": false,
-  "confirmation_message": "something here",
-  "conditional": "RAILS_ENV=development",
-  "unit_test": "run some command here to test something"
-}
+# alias_name:
+#   command: ./super_command.sh                         # required
+#   confirm: true                                       # optional
+#   confirmation_message: Are you sure you are sure??   # optional
+#   conditional: /bin/true                              # optional
+#   unit_test: '[ true = true ]'                        # optional
 ```
 
-Edit the file and away you go.
+Edit the file and then run `aliases rehash` to make the alias available.
 
-To see all the aliases available just type:
+To list all aliases available just type:
 
 ```
 aliases

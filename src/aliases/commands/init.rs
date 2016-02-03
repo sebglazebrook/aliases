@@ -35,7 +35,13 @@ impl Init {
     // ------------ private ---------- //
 
     fn template_string(&self) -> String {
-        String::from("# alias_name:\n  # command: some command here")
+String::from("#alias_name:
+#  command: ./super_command.sh                         # required
+#  confirm: true                                       # optional
+#  confirmation_message: Are you sure you are sure??   # optional
+#  conditional: /bin/true                              # optional
+#  unit_test: '[ true = true ]'                        # optional
+")
     }
 
     fn add_to_global_config(&mut self) {
