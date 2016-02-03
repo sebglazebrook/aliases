@@ -18,7 +18,7 @@ impl Rehash {
     }
 
     pub fn execute(&self) {
-        self.create_shims_directory();
+        self.clean_shims_directory();
         for dir in &self.alias_directories {
             match AliasFactory::create_from_file(dir.join(".aliases")) {
                 Err(_) => {}, // TODO
@@ -33,7 +33,8 @@ impl Rehash {
 
     //--------  private ----------//
 
-    fn create_shims_directory(&self) {
+    fn clean_shims_directory(&self) {
+        let _ = fs::remove_dir_all(&self.shim_directory);
         let _ = fs::create_dir_all(&self.shim_directory);
     }
 }
