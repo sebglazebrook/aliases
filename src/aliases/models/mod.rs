@@ -30,6 +30,7 @@ impl Alias {
     }
 
     pub fn execute(&self) {
+        println!("Executing: {}", &self.command);
         let mut process = Command::new("bash")
             .arg("-c")
             .arg(&self.command)
