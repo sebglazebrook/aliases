@@ -137,6 +137,23 @@ conditional: /bin/true
                     AliasBuilder::from_yaml("command_name", basename.clone(), doc.clone()).build().is_ok();
                 }
             }
+
+            describe! when_there_is_no_delay_backout {
+                before_each {
+                    let yaml_string =
+"command: ./super_command.sh
+confirm: true
+confirmation_message: Are you really really sure??
+conditional: /bin/true
+";
+                let docs = YamlLoader::load_from_str(yaml_string).unwrap();
+                let doc = &docs[0];
+                }
+
+                it "builds without a delayed backout" {
+                    AliasBuilder::from_yaml("command_name", basename.clone(), doc.clone()).build().is_ok();
+                }
+            }
         }
     }
 }
