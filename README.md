@@ -36,10 +36,11 @@ This creates a `.aliases` file in the current directory with a commented out ali
 ```yaml
 # alias_name:
 #   command: ./super_command.sh                         # required
-#   confirm: true                                       # optional
-#   confirmation_message: Are you sure you are sure??   # optional
-#   conditional: /bin/true                              # optional
-#   unit_test: '[ true = true ]'                        # optional
+#   confirm: true                                       # optional - You will be asked to confirm before execution
+#   confirmation_message: Are you sure you are sure??   # optional - If confirm is set to true then you this is your confirmation message
+#   conditional: /bin/true                              # optional - A bash command that needs to be successful for the alias to run
+#   backout_seconds: 3                                   # optional - Give's you a backout option (ctrl + c) before the alias is executed
+#   unit_test: '[ true = true ]'                        # optional - A bash command that tells whether the alias is doing what you want
 ```
 
 Edit the file and then run `aliases rehash` to make the alias available.
@@ -65,7 +66,6 @@ TODO
 ## Future features
 
 - clean uninstall, removing shims etc
-- add a 'delayed' or 'backout' option which takes an integer and executes the command after XX seconds
 - passing additional args through to aliases
 - Being about to actually run the unit tests :-)
 - Having custom aliases i.e. .superman-aliases files etc

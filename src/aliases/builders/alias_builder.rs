@@ -27,6 +27,7 @@ impl AliasBuilder {
                     confirm: self.confirm(),
                     confirmation_message: self.confirmation_message(command.clone()),
                     user_confirmation: UserConfirmation::new(self.confirm(), self.confirmation_message(command)),
+                    delayed_backout: self.delayed_backout(),
                     unit_test: self.unit_test(),
                     conditional: self.conditional(),
                     basename: self.basename.clone(),
@@ -67,6 +68,13 @@ impl AliasBuilder {
         match self.yaml["conditional"].as_str() {
             None => Conditional::new(String::from("true")),
             Some(s) => Conditional::new(s.to_string())
+        }
+    }
+
+    fn delayed_backout(&self) -> usize {
+        match self.yaml["backout_seconds"].as_i64() {
+            None => 0,
+            Some(seconds) => seconds.abs() as usize
         }
     }
     

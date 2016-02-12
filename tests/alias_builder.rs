@@ -22,6 +22,7 @@ mod tests {
 confirm: true
 confirmation_message: Are you really really sure??
 conditional: /bin/true
+backout_seconds: 3
 unit_test: '[ true = true ]'
 ";
                 let docs = YamlLoader::load_from_str(yaml_string).unwrap();
@@ -44,6 +45,7 @@ unit_test: '[ true = true ]'
                     assert_eq!(alias.confirm, true);
                     assert_eq!(alias.confirmation_message, "Are you really really sure??");
                     assert_eq!(alias.conditional, Conditional::new("/bin/true".to_string()));
+                    assert_eq!(alias.delayed_backout, 3);
                     assert_eq!(alias.unit_test, "[ true = true ]".to_string());
                 }
             }

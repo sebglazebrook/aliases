@@ -10,6 +10,7 @@ pub struct Alias {
     pub confirmation_message: String,
     pub conditional: Conditional,
     pub user_confirmation: UserConfirmation,
+    pub delayed_backout: usize,
     pub unit_test: String,
     pub basename: PathBuf,
 }
@@ -23,6 +24,7 @@ impl Alias {
             confirm: false,
             confirmation_message: String::new(),
             user_confirmation: UserConfirmation::new(false, String::new()),
+            delayed_backout: 0,
             conditional: Conditional::default(),
             unit_test: String::from("true"),
             basename: PathBuf::new(),

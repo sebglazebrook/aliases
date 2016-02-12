@@ -1,6 +1,7 @@
 use std::path::PathBuf;
 use aliases::factories::AliasFactory;
 use aliases::models::Alias;
+use countdown::Countdown;
 
 pub struct Exec {
     directory: String,
@@ -44,6 +45,7 @@ impl ExecutionWorkflow {
     pub fn execute(&self) {
         if self.conditional_passes() {
             if self.user_confirmation_successful() {
+                self.allow_for_backout();
                 self.execute_command();
             }
         }
@@ -57,6 +59,14 @@ impl ExecutionWorkflow {
 
     fn user_confirmation_successful(&self) -> bool {
         self.alias.user_confirmation.execute()
+    }
+
+    fn allow_for_backout(&self) {
+        if self.alias.delayed_backout > 0 {
+            println!("Executing '{}' in {} seconds", self.alias.command, self.alias.delayed_backout);
+            println!("Press ctrl + c to cancel execution.");
+            Countdown::new(self.alias.delayed_backout.clone()).start();
+        }
     }
 
     fn execute_command(&self) {
