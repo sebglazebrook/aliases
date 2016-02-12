@@ -61,7 +61,7 @@ Global aliases are overridden by local aliases if they exist.
 
 ## Contributing
 
-TODO
+Do the normal things, fork the code and make a PR.
 
 ## Future features
 
