@@ -39,7 +39,7 @@ This creates a `.aliases` file in the current directory with a commented out ali
 #   confirm: true                                       # optional - You will be asked to confirm before execution
 #   confirmation_message: Are you sure you are sure??   # optional - If confirm is set to true then you this is your confirmation message
 #   conditional: /bin/true                              # optional - A bash command that needs to be successful for the alias to run
-#   backout_seconds: 3                                   # optional - Give's you a backout option (ctrl + c) before the alias is executed
+#   backout_seconds: 3                                  # optional - Give's you a backout option (ctrl + c) before the alias is executed
 #   unit_test: '[ true = true ]'                        # optional - A bash command that tells whether the alias is doing what you want
 ```
 
