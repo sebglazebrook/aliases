@@ -65,8 +65,7 @@ TODO
 
 ## Future features
 
-- clean uninstall, removing shims etc
-- passing additional args through to aliases
-- Being about to actually run the unit tests :-)
 - Having custom aliases i.e. .superman-aliases files etc
+- Being about to actually run the unit tests :-)
 - Autocompletion for aliases
+- clean uninstall, removing shims etc

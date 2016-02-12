@@ -31,6 +31,7 @@ impl AliasBuilder {
                     unit_test: self.unit_test(),
                     conditional: self.conditional(),
                     basename: self.basename.clone(),
+                    command_arguments: vec![],
                 })
             }
         }

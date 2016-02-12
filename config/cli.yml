@@ -3,6 +3,9 @@ version: 0.4.0
 about: dynamic alias functions for bash
 author: Seb Glazebrook <me@sebglazebrook.com>
 
+settings:
+  - Hidden
+
 subcommands:
   - init:
       about: initialize a directory for aliases
@@ -44,6 +47,7 @@ subcommands:
         - name:
             help: name of alias
             required: true
+            multiple: true
   - rehash:
       about: update the aliases
       args: []

@@ -20,6 +20,7 @@ countdown = { git = "https://github.com/sebglazebrook/countdown.git" }
 
 [dependencies.clap]
 features = ["yaml"]
+version = "2.0.6"
 
 [dev-dependencies]
 gag = "*"

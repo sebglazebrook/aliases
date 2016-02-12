@@ -155,7 +155,7 @@ impl App {
         Rehash::new(self.config.shim_path(), self.config.alias_paths()).execute();
     }
 
-    pub fn execute_exec(&mut self, directory: String, name: String) {
-        Exec::new(directory, name).execute();
+    pub fn execute_exec(&mut self, directory: String, name: String, forwarding_args: Vec<String>) {
+        Exec::new(directory, name, forwarding_args).execute();
     }
 }

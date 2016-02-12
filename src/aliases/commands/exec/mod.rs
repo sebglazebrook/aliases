@@ -6,14 +6,16 @@ use countdown::Countdown;
 pub struct Exec {
     directory: String,
     name: String,
+    forwarding_args: Vec<String>,
 }
 
 impl Exec {
 
-    pub fn new(directory: String, name: String) -> Self {
+    pub fn new(directory: String, name: String, forwarding_args: Vec<String>) -> Self {
         Exec {
             directory: directory,
             name: name,
+            forwarding_args: forwarding_args,
         }
     }
 
@@ -25,7 +27,9 @@ impl Exec {
                 let alias = aliases.raw_collection.iter().find(|alias| {
                     alias.name == self.name
                 }).unwrap();
-                ExecutionWorkflow::new(alias.clone()).execute();
+                let mut new_alias = alias.clone();
+                new_alias.command_arguments = self.forwarding_args.clone();
+                ExecutionWorkflow::new(new_alias).execute();
            }
         }
     }
@@ -63,7 +67,7 @@ impl ExecutionWorkflow {
 
     fn allow_for_backout(&self) {
         if self.alias.delayed_backout > 0 {
-            println!("Executing '{}' in {} seconds", self.alias.command, self.alias.delayed_backout);
+            println!("Executing '{}' in {} seconds", self.alias.command(), self.alias.delayed_backout);
             println!("Press ctrl + c to cancel execution.");
             Countdown::new(self.alias.delayed_backout.clone()).start();
         }

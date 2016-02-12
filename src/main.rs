@@ -29,7 +29,10 @@ fn main() {
             if let Some(matches) = matches.subcommand_matches("exec") {
                 let directory = matches.value_of("directory").unwrap().to_string();
                 let command_name = matches.value_of("name").unwrap().to_string();
-                App::new().execute_exec(directory, command_name);
+                let mut forwarding_args: Vec<&str> = matches.values_of("name").unwrap().collect();
+                forwarding_args.remove(0);
+                let forwarding_args = forwarding_args.into_iter().map(|arg| arg.to_string() ).collect();
+                App::new().execute_exec(directory, command_name, forwarding_args);
             }
         },
         None => {
