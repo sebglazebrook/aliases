@@ -66,6 +66,6 @@ Do the normal things, fork the code and make a PR.
 ## Future features
 
 - Having custom aliases i.e. .superman-aliases files etc
-- Being about to actually run the unit tests :-)
+- Being able to actually run the unit tests :-)
 - Autocompletion for aliases
 - clean uninstall, removing shims etc
