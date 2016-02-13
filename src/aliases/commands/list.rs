@@ -71,7 +71,7 @@ impl List {
     }
 
     fn parent_aliases(&mut self) -> Aliases {
-        AliasFactory::create_empty() // let's leave this for later, it can be tricky depending on what dir they are in
+        AliasFactory::create_empty() // TODO let's leave this for later, it can be tricky depending on what dir they are in
     }
 
     fn local_aliases(&mut self) -> Aliases {
@@ -88,7 +88,7 @@ impl List {
     fn global_aliases_data_file(&self) -> PathBuf {
         match self.home_dir() {
             Some(dir) => dir.join(".aliases"),
-            None => PathBuf::new() // does this do what I think it does? as in return false when doing .exists()
+            None => PathBuf::new() // TODO does this do what I think it does? as in return false when doing .exists()
         }
 
     }

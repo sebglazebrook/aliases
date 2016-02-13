@@ -23,7 +23,7 @@ impl Rehash {
             match AliasFactory::create_from_file(dir.join(".aliases")) {
                 Err(_) => {}, // TODO
                 Ok(aliases) => {
-                    for alias in aliases.raw_collection.iter() { // i know don't touch the raw collection have to fix this.
+                    for alias in aliases.raw_collection.iter() { // TODO i know don't touch the raw collection have to fix this.
                         ShimFileFactory::create(&alias, &self.shim_directory);
                     }
                 }

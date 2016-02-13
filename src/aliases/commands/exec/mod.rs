@@ -52,6 +52,8 @@ impl ExecutionWorkflow {
                 self.allow_for_backout();
                 self.execute_command();
             }
+        } else {
+            // TODO alert the user
         }
     }
 
