@@ -1,4 +1,4 @@
-seb_test:
+run_tests:
   command: eval "$(docker-machine env local)" && docker-compose run rust cargo test # required
   # backout_seconds: 3
 #  confirm: true                                       # optional
