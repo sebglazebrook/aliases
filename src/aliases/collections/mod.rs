@@ -4,7 +4,7 @@ use std::result::Result;
 
 #[derive(Debug,Clone)]
 pub struct Aliases {
-    pub raw_collection: Vec<Alias>,
+    raw_collection: Vec<Alias>,
     iteration_index: usize,
 }
 
@@ -14,10 +14,10 @@ impl Aliases {
         Aliases { raw_collection: raw_collection, iteration_index: 0 }
     }
 
-    pub fn merge(&self, other: Aliases) -> Aliases {
+    pub fn merge(&self, others: Aliases) -> Aliases {
         let mut merged_aliases = self.clone();
-        for other_alias in other.raw_collection.iter() {
-            let _ = merged_aliases.push(other_alias);
+        for other_alias in others {
+            let _ = merged_aliases.push(&other_alias);
         }
         merged_aliases
     }
@@ -30,11 +30,31 @@ impl Aliases {
             Ok(())
         }
     }
+
+    pub fn len(&self) -> usize {
+        self.raw_collection.len()
+    }
 }
 
 impl PartialEq for Aliases {
 
     fn eq(&self, other: &Self) -> bool {
-        self.raw_collection.iter().cmp(other.raw_collection.iter()) == Ordering::Equal
+        self.clone().into_iter().cmp(other.clone().into_iter()) == Ordering::Equal
+    }
+}
+
+impl Iterator for Aliases {
+
+    type Item = Alias;
+
+    fn next(&mut self) -> Option<Alias> {
+        if self.iteration_index < self.raw_collection.len()  {
+            let alias = Some(self.raw_collection[self.iteration_index].clone());
+            self.iteration_index += 1;
+            alias
+        } else {
+            self.iteration_index = 0;
+            None
+        }
     }
 }

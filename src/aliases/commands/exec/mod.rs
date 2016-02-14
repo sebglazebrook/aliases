@@ -23,7 +23,7 @@ impl Exec {
         match AliasFactory::create_from_file(aliases_file) {
             Err(_) => {}, // TODO handle this
             Ok(aliases) => {
-                let alias = aliases.raw_collection.iter().find(|alias| {
+                let alias = aliases.into_iter().find(|alias| {
                     alias.name == self.name
                 }).unwrap();
                 let mut new_alias = alias.clone();

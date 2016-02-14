@@ -37,20 +37,20 @@ impl List {
         let mut aliases = self.global_aliases().merge(self.parent_aliases()).merge(self.local_aliases());
         if let Some(ref directory_filter) = self.directory_filter {
             let mut new_collection = vec![];
-            for i in aliases.raw_collection.iter().filter(|alias| alias.basename.to_str().unwrap() == *directory_filter) {
+            for i in aliases.into_iter().filter(|alias| alias.basename.to_str().unwrap() == *directory_filter) {
                 new_collection.push(i.clone());
             }
             aliases = Aliases::new(new_collection);
         }
         if let Some(ref name_filter) = self.name_filter {
             let mut new_collection = vec![];
-            for i in aliases.raw_collection.iter().filter(|alias| alias.name == *name_filter) {
+            for i in aliases.into_iter().filter(|alias| alias.name == *name_filter) {
                 new_collection.push(i.clone());
             }
             aliases = Aliases::new(new_collection);
         }
         AliasesView::new(aliases.clone()).render();
-        if aliases.raw_collection.len() > 0 {
+        if aliases.len() > 0 {
             0
         } else {
             1
@@ -88,7 +88,7 @@ impl List {
     fn global_aliases_data_file(&self) -> PathBuf {
         match self.home_dir() {
             Some(dir) => dir.join(".aliases"),
-            None => PathBuf::new() // TODO does this do what I think it does? as in return false when doing .exists()
+            None => PathBuf::new()
         }
 
     }
