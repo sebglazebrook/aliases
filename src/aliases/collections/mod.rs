@@ -39,7 +39,7 @@ impl Aliases {
 impl PartialEq for Aliases {
 
     fn eq(&self, other: &Self) -> bool {
-        self.clone().into_iter().cmp(other.clone().into_iter()) == Ordering::Equal
+        self.raw_collection.cmp(&other.raw_collection) == Ordering::Equal
     }
 }
 
