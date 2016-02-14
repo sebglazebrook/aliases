@@ -1,9 +1,9 @@
-use std::path::PathBuf;
-use std::env;
-
 use aliases::views::AliasesView;
 use aliases::collections::Aliases;
 use aliases::factories::AliasFactory;
+
+use std::path::PathBuf;
+use std::env;
 
 pub struct List {
     current_path: PathBuf,

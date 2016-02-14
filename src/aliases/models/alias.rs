@@ -1,5 +1,4 @@
-use aliases::models::Conditional;
-use aliases::models::UserConfirmation;
+use aliases::models::{Conditional, UserConfirmation};
 
 use std::path::PathBuf;
 use std::process::Command;

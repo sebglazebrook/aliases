@@ -1,7 +1,4 @@
-use aliases::commands::Init;
-use aliases::commands::List;
-use aliases::commands::Rehash;
-use aliases::commands::Exec;
+use aliases::commands::{Init, List, Rehash, Exec};
 use aliases::Config;
 
 use std::env;
