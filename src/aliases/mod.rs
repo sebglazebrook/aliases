@@ -4,6 +4,9 @@ pub mod collections;
 pub mod models;
 pub mod factories;
 pub mod builders;
+
+mod config;
 mod execution_workflow;
 
 pub use self::execution_workflow::ExecutionWorkflow;
+pub use self::config::Config;

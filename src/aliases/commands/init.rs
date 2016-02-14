@@ -1,7 +1,8 @@
 use std::path::{Path, PathBuf};
 use std::io::prelude::*;
 use std::fs::File;
-use super::super::super::Config; // TODO fix this please!
+
+use aliases::Config;
 
 pub struct Init {
     target_path: PathBuf,
