@@ -6,11 +6,11 @@ extern crate countdown;
 
 mod aliases;
 
-use aliases::commands::init::Init;
-use aliases::commands::list::List;
+use aliases::commands::Init;
+use aliases::commands::List;
 use aliases::Config;
-pub use aliases::commands::rehash::Rehash;
-pub use aliases::commands::exec::Exec;
+pub use aliases::commands::Rehash;
+pub use aliases::commands::Exec;
 pub use aliases::builders::AliasBuilder; // had to do this for the tests, why?
 pub use aliases::models::Alias; // had to do this for the tests, why?
 pub use aliases::models::Conditional; // had to do this for the tests, why?
