@@ -45,6 +45,21 @@ This creates a `.aliases` file in the current directory with a commented out ali
 
 Edit the file and then run `aliases rehash` to make the alias available.
 
+Here's an example of some aliases:
+
+```yaml
+l:
+  command: ls
+gc:
+  command: git commit
+deploy_production:
+  command: bundle exec cap production deploy
+  backout_seconds: 3
+  conditional: [ `git rev-parse --abbrev-ref HEAD` == "master" ]
+deploy_staging:
+  command: bundle exec cap staging deploy
+```
+
 To list all aliases available just type:
 
 ```
