@@ -80,7 +80,16 @@ Do the normal things, fork the code and make a PR.
 
 ## Future features
 
+- Sort aliases lists better and make it more obvious which ones are local
+- Allow parent aliases that are not global??
+- Colors for user interactions
+- Add info in aliases file and point to repo
 - Having custom aliases i.e. .superman-aliases files etc
 - Being able to actually run the unit tests :-)
 - Autocompletion for aliases
 - clean uninstall, removing shims etc
+- aliases that take params?
+
+## BUGS
+
+- You can't currently init aliases that already exist but might not exist for that user.
