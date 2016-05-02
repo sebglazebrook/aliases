@@ -41,6 +41,7 @@ impl Config {
     pub fn add_alias_directory(&mut self, directory: &PathBuf) {
         let string = String::from(directory.to_str().unwrap());
         self.alias_directories.push(string);
+        self.alias_directories.dedup();
         self.update_file();
     }
 

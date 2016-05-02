@@ -21,19 +21,21 @@ impl Init {
             let path_update = String::from("export PATH=\"") + &self.config.shim_directory +  ":${PATH}\"";
             println!("{}\naliases rehash", path_update);
         } else {
-            if Path::new(&self.target_path.join(".aliases")).exists() {
-                println!("Directory already initialized.");
-            } else {
-                let mut new_file = File::create(self.target_path.join(".aliases")).unwrap();
-                let template_string = self.template_string();
-                let array = template_string.as_bytes();
-                let _ = new_file.write_all(array);
-                self.add_to_global_config();
+            if !Path::new(&self.target_path.join(".aliases")).exists() {
+                self.create_default_aliases_file();
             }
+            self.add_to_global_config();
         }
     }
 
     // ------------ private ---------- //
+
+    fn create_default_aliases_file(&self) {
+        let mut new_file = File::create(self.target_path.join(".aliases")).unwrap();
+        let template_string = self.template_string();
+        let array = template_string.as_bytes();
+        let _ = new_file.write_all(array);
+    }
 
     fn template_string(&self) -> String {
 String::from("#alias_name:

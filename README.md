@@ -89,7 +89,3 @@ Do the normal things, fork the code and make a PR.
 - Autocompletion for aliases
 - clean uninstall, removing shims etc
 - aliases that take params?
-
-## BUGS
-
-- You can't currently init aliases that already exist but might not exist for that user.
