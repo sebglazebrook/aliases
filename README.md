@@ -81,6 +81,7 @@ Do the normal things, fork the code and make a PR.
 ## Future features
 
 - Sort aliases lists better and make it more obvious which ones are local
+- Allow better filtering when listing aliases
 - Allow parent aliases that are not global??
 - Colors for user interactions
 - Add info in aliases file and point to repo
