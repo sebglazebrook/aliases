@@ -90,3 +90,4 @@ Do the normal things, fork the code and make a PR.
 - Autocompletion for aliases
 - clean uninstall, removing shims etc
 - aliases that take params?
+- provide option to not print out anything extra to stdin, for example if used when piping
