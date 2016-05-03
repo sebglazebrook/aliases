@@ -3,6 +3,7 @@ extern crate crypto;
 extern crate rustc_serialize;
 extern crate tabwriter;
 extern crate countdown;
+extern crate crossbeam;
 
 mod aliases;
 

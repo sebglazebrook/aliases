@@ -1,6 +1,8 @@
 use std::path::PathBuf;
 use std::fs;
 
+use crossbeam;
+
 use aliases::factories::{AliasFactory, ShimFileFactory};
 
 pub struct Rehash {
@@ -23,9 +25,13 @@ impl Rehash {
             match AliasFactory::create_from_file(dir.join(".aliases")) {
                 Err(_) => {}, // TODO
                 Ok(aliases) => {
-                    for alias in aliases {
-                        ShimFileFactory::create(&alias, &self.shim_directory);
-                    }
+                    crossbeam::scope(|scope| {
+                        for alias in aliases {
+                            scope.spawn(move || {
+                                ShimFileFactory::create(&alias, &self.shim_directory);
+                            });
+                        }
+                    });
                 }
             }
         }
