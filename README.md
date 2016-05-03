@@ -91,4 +91,3 @@ Do the normal things, fork the code and make a PR.
 - Autocompletion for aliases
 - clean uninstall, removing shims etc
 - aliases that take params?
-- when execution an alias command the command shows up with the process name of 'alias' can it be changed to be the underlying command that is being run?
