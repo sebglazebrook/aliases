@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -u
+
 targz() {
   local tmpFile="${@%/}.tar"
   tar -cvf "${tmpFile}" --exclude=".DS_Store" "${@}" || return 1
