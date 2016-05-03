@@ -32,6 +32,7 @@ impl AliasBuilder {
                     conditional: self.conditional(),
                     basename: self.basename.clone(),
                     command_arguments: vec![],
+                    quiet: self.quiet(),
                 })
             }
         }
@@ -83,6 +84,13 @@ impl AliasBuilder {
         match self.yaml["unit_test"].as_str() {
             None => String::from("true"),
             Some(s) => s.to_string(),
+        }
+    }
+
+    fn quiet(&self) -> bool {
+        match self.yaml["quiet"].as_bool() {
+            None => false,
+            Some(value) => value,
         }
     }
 }

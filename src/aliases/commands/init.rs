@@ -45,6 +45,7 @@ String::from("#alias_name:
 #  conditional: /bin/true                              # optional
 #  backout_seconds: 3                                  # optional
 #  unit_test: '[ true = true ]'                        # optional
+#  quiet: false                                        # optional
 ")
     }
 

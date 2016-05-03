@@ -15,6 +15,7 @@ impl ExecutionWorkflow {
         if self.conditional_passes() {
             if self.user_confirmation_successful() {
                 self.allow_for_backout();
+                self.output_command_to_be_executed();
                 self.execute_command();
             }
         } else {
@@ -37,6 +38,12 @@ impl ExecutionWorkflow {
             println!("Executing '{}' in {} seconds", self.alias.command(), self.alias.delayed_backout);
             println!("Press ctrl + c to cancel execution.");
             Countdown::new(self.alias.delayed_backout.clone()).start();
+        }
+    }
+
+    fn output_command_to_be_executed(&self) {
+        if !self.alias.quiet {
+            println!("Executing: {}", self.alias.command());
         }
     }
 

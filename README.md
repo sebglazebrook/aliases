@@ -41,6 +41,7 @@ This creates a `.aliases` file in the current directory with a commented out ali
 #   conditional: /bin/true                              # optional - A bash command that needs to be successful for the alias to run
 #   backout_seconds: 3                                  # optional - Give's you a backout option (ctrl + c) before the alias is executed
 #   unit_test: '[ true = true ]'                        # optional - A bash command that tells whether the alias is doing what you want
+#   quiet: false                                        # optional - default 'false', when false full evaluated command is printed to stdout before running
 ```
 
 Edit the file and then run `aliases rehash` to make the alias available.
@@ -90,5 +91,4 @@ Do the normal things, fork the code and make a PR.
 - Autocompletion for aliases
 - clean uninstall, removing shims etc
 - aliases that take params?
-- provide option to not print out anything extra to stdin, for example if used when piping
 - when execution an alias command the command shows up with the process name of 'alias' can it be changed to be the underlying command that is being run?

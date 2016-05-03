@@ -15,6 +15,7 @@ pub struct Alias {
     pub delayed_backout: usize,
     pub unit_test: String,
     pub basename: PathBuf,
+    pub quiet: bool,
 }
 
 impl Alias {
@@ -31,11 +32,11 @@ impl Alias {
             unit_test: String::from("true"),
             basename: PathBuf::new(),
             command_arguments: vec![],
+            quiet: false,
         }
     }
 
     pub fn execute(&self) {
-        println!("Executing: {}", self.command());
         let mut process = Command::new("bash")
             .arg("-c")
             .arg(self.command())
