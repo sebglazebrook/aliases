@@ -8,7 +8,7 @@ Now you can!
 
 ## Why you want this
 
-Already know you want this? Skip to [Installation](#Installation).
+Already know you want this? Skip to [Installation](#installation).
 
 Bash aliases are cool but limited, they are globals and have limited configurability.
 
