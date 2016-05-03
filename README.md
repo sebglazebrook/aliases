@@ -2,7 +2,7 @@
 
 Dynamic aliases based on the directory you are currently in.
 
-Ever wanted to type in `server` in whole bunch of different directories and your computer just knows what you're thinking?
+Ever wanted to type something like `server` in whole bunch of different directories and your computer just knows what you're thinking?
 
 Now you can!
 
@@ -60,13 +60,13 @@ deploy_staging:
   command: bundle exec cap staging deploy
 ```
 
-To list all aliases available just type:
+To list all aliases available type:
 
 ```
 aliases
 ```
 
-The `.aliases` file should be checked in to your repo, spread the love with the people you are working with.
+The `.aliases` file should be checked in to your repo, spread the alias love with the people you are working with.
 
 ### Global Aliases
 
