@@ -6,22 +6,25 @@ Ever wanted to type something like `server` in whole bunch of different director
 
 Now you can!
 
-## Installation
+## Why you want this
 
-### OSX
+Already know you want this? Skip to [Installation](#Installation).
+
+Bash aliases are cool but limited, they are globals and have limited configurability.
+
+One downside of standard bash aliases is that they don't take arguments, to counter this many people (myself included) do thing like create bash functions like this:
 
 ```
-brew tap sebglazebrook/aliases
-brew install aliases
+function ll() {
+  ls -la "$@"
+}
 ```
 
-### Linux
+This downside to this is it's hard to tell where these functions are coming from, you can't just type `which ll` and find the function.
 
-TODO
+You also end up writing a whole lot of functions that are really similar, plus none of these are dynamic or contextual
 
-### Compile from source
-
-TODO
+So I created `aliases` to make my life easier and more fun.
 
 ## Usage
 
@@ -74,6 +77,24 @@ The `.aliases` file should be checked in to your repo, spread the alias love wit
 Global aliases are created but running `aliases init` in your home directory.
 
 Global aliases are overridden by local aliases if they exist.
+
+## Installation
+
+### OSX
+
+```
+brew tap sebglazebrook/aliases
+brew install aliases
+```
+
+### Linux
+
+TODO
+
+### Compile from source
+
+TODO
+
 
 ## Contributing
 
