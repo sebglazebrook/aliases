@@ -35,6 +35,11 @@ fn main() {
                 App::new().execute_exec(directory, command_name, forwarding_args);
             }
         },
+        Some("users") => {
+            if let Some(_) = matches.subcommand_matches("users") {
+                App::new().execute_users();
+            }
+        },
         None => {
             App::new().execute_list(None, None);
         },

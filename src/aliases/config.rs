@@ -9,6 +9,7 @@ use std::process::Command;
 pub struct Config {
     pub shim_directory: String,
     alias_directories: Vec<String>,
+    users: Vec<String>,
 }
 
 impl Config {
@@ -36,6 +37,10 @@ impl Config {
 
     pub fn alias_paths(&self) -> Vec<PathBuf> {
         self.alias_directories.iter().map(|dir| PathBuf::from(dir)).collect()
+    }
+
+    pub fn users(&self) -> Vec<String> {
+        self.users.clone()
     }
 
     pub fn add_alias_directory(&mut self, directory: &PathBuf) {
@@ -88,9 +93,10 @@ impl TemplateRepository {
     pub fn config_template() -> String {
         "{
             \"shim_directory\" : \"${HOME}/.aliases.d/shims\",
-            \"alias_directories\" : []
+            \"alias_directories\" : [],
+            \"users\" : [\"default\"]
         }
-        ".to_string() // TODO what will this actually be?
+        ".to_string()
     }
 }
 

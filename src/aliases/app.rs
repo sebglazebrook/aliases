@@ -1,4 +1,4 @@
-use aliases::commands::{Init, List, Rehash, Exec};
+use aliases::commands::{Init, List, Rehash, Exec, Users};
 use aliases::Config;
 
 use std::env;
@@ -49,5 +49,9 @@ impl App {
 
     pub fn execute_exec(&mut self, directory: String, name: String, forwarding_args: Vec<String>) {
         Exec::new(directory, name, forwarding_args).execute();
+    }
+
+    pub fn execute_users(&mut self) {
+        Users::new(self.config.clone()).execute();
     }
 }

@@ -38,6 +38,9 @@ subcommands:
             long: name
             short: n
             takes_value: true
+  - users:
+      about: list the users
+      args: []
   - exec:
       about: execute a alias for a given directory
       args:
