@@ -100,15 +100,24 @@ TODO
 
 Do the normal things, fork the code and make a PR.
 
-## Future features
 
-- Sort aliases lists better and make it more obvious which ones are local
-- Allow better filtering when listing aliases
-- Allow parent aliases that are not global??
-- Colors for user interactions
-- Add info in aliases file and point to repo
-- Having custom aliases i.e. .superman-aliases files etc
+## Bugs to fix
+
 - Being able to actually run the unit tests :-)
+
+
+## Small improvements to come
+
+- Add info in aliases file and point to repo
+- Sort aliases lists better and make it more obvious which ones are local
+- Colors for user interactions
+
+
+## Possible future features
+
+- Having custom aliases i.e. .superman-aliases files etc
+- Allow better filtering when listing aliases
+- aliases that take params?
 - Autocompletion for aliases
 - clean uninstall, removing shims etc
-- aliases that take params?
+- Allow parent aliases that are not global??
