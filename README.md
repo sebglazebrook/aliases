@@ -103,6 +103,8 @@ Do the normal things, fork the code and make a PR.
 
 ## Bugs to fix
 
+- Need to escape forwarding arguments to alias commands as they could contain quotes
+  i.e gc -m "My commit message" doesn't work when gc == "git commit" but gc -m \"My commit message\" does work
 - Being able to actually run the unit tests :-)
 
 
