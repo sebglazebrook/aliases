@@ -1,6 +1,7 @@
-use std::path::PathBuf;
-use aliases::factories::AliasFactory;
+use aliases::collections::Aliases;
+use aliases::models::Alias;
 use aliases::ExecutionWorkflow;
+use aliases::repositories::AliasRepository;
 
 pub struct Exec {
     directory: String,
@@ -19,17 +20,30 @@ impl Exec {
     }
 
     pub fn execute(&self) {
-        let aliases_file =  PathBuf::from(&self.directory).join(".aliases");
-        match AliasFactory::create_from_file(aliases_file) {
-            Err(_) => {}, // TODO handle this
-            Ok(aliases) => {
-                let alias = aliases.into_iter().find(|alias| {
-                    alias.name == self.name
-                }).unwrap();
-                let mut new_alias = alias.clone();
-                new_alias.command_arguments = self.forwarding_args.clone();
-                ExecutionWorkflow::new(new_alias).execute();
-           }
+        match self.find_alias() {
+            Err(_) => {} // TODO handle this
+            Ok(mut alias) => {
+                alias.command_arguments = self.forwarding_args.clone();
+                ExecutionWorkflow::new(alias).execute();
+            }
         }
+    }
+
+    //----------- private -----------//
+
+    fn find_alias(&self) -> Result<Alias, &'static str> {
+        match self.directory_aliases() {
+            Err(message) => { Err(message) },
+            Ok(aliases) => {
+                match aliases.into_iter().find(|alias| { alias.name == self.name }) {
+                    None => { Err("could not find an alias to execute") },
+                    Some(alias) => { Ok(alias) },
+                }
+            }
+        }
+    }
+
+    fn directory_aliases(&self) -> Result<Aliases, &'static str> {
+        AliasRepository::find_for_directory(&self.directory)
     }
 }

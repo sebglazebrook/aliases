@@ -4,6 +4,7 @@ pub mod collections;
 pub mod models;
 pub mod factories;
 pub mod builders;
+mod repositories;
 
 mod app;
 mod config;
