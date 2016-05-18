@@ -50,7 +50,11 @@ impl Alias {
     pub fn command(&self) -> String {
         let mut command = self.command.clone();
         for arg in self.command_arguments.clone() {
-            command = command + " " + &arg;
+            if arg.contains(" ") {
+                command = format!(r#"{} "{}""#, command, arg);
+            } else {
+                command = format!("{} {}", command, arg);
+            }
         }
         command
     }
