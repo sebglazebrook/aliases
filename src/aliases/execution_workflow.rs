@@ -1,5 +1,14 @@
+use std::io::Write;
+
 use countdown::Countdown;
 use aliases::models::Alias;
+
+macro_rules! println_stderr(
+    ($($arg:tt)*) => { {
+        let result =  writeln!(&mut ::std::io::stderr(), $($arg)*);
+        result.expect("failed printing to stderr");
+    } }
+);
 
 pub struct ExecutionWorkflow {
     alias: Alias,
@@ -35,15 +44,15 @@ impl ExecutionWorkflow {
 
     fn allow_for_backout(&self) {
         if self.alias.delayed_backout > 0 {
-            println!("Executing '{}' in {} seconds", self.alias.command(), self.alias.delayed_backout);
-            println!("Press ctrl + c to cancel execution.");
+            println_stderr!("Executing '{}' in {} seconds", self.alias.command(), self.alias.delayed_backout);
+            println_stderr!("Press ctrl + c to cancel execution.");
             Countdown::new(self.alias.delayed_backout.clone()).start();
         }
     }
 
     fn output_command_to_be_executed(&self) {
         if !self.alias.quiet {
-            println!("Executing: {}", self.alias.command());
+            println_stderr!("Executing: {}", self.alias.command());
         }
     }
 
