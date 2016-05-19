@@ -21,7 +21,7 @@ impl Exec {
 
     pub fn execute(&self) {
         match self.find_alias() {
-            Err(_) => {} // TODO handle this
+            Err(message) => { println!("Error! {}", message); } // TODO handle this better?
             Ok(mut alias) => {
                 alias.command_arguments = self.forwarding_args.clone();
                 ExecutionWorkflow::new(alias).execute();
