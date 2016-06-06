@@ -38,7 +38,7 @@ impl App {
     }
 
     pub fn execute_list(&mut self, directory: Option<&str>, name: Option<&str>) {
-        let exit_code = List::new(self.current_path.clone(), directory, name).execute();
+        let exit_code = List::new(self.current_path.clone(), directory, name, self.config.alias_paths()).execute();
         process::exit(exit_code);
     }
 

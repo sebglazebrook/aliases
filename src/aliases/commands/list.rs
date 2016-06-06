@@ -9,11 +9,12 @@ pub struct List {
     current_path: PathBuf,
     directory_filter: Option<String>,
     name_filter: Option<String>,
+    alias_paths: Vec<PathBuf>,
 }
 
 impl List {
 
-    pub fn new(current_path: PathBuf, directory_filter: Option<&str>, name_filter: Option<&str>) -> Self {
+    pub fn new(current_path: PathBuf, directory_filter: Option<&str>, name_filter: Option<&str>, alias_paths: Vec<PathBuf>) -> Self {
         // TODO there has to be a better way to do this right?
         let directory_string;
         match directory_filter {
@@ -29,11 +30,11 @@ impl List {
             current_path: current_path,
             directory_filter: directory_string,
             name_filter: name_string,
+            alias_paths: alias_paths,
         }
     }
 
     pub fn execute(&mut self) -> i32  {
-        // TODO this needs to actuall make sure the local aliases are in the global config for aliases
         let mut aliases = self.global_aliases().merge(self.parent_aliases()).merge(self.local_aliases());
         if let Some(ref directory_filter) = self.directory_filter {
             let mut new_collection = vec![];
@@ -75,7 +76,7 @@ impl List {
     }
 
     fn local_aliases(&mut self) -> Aliases {
-        if self.local_aliases_data_file().exists() {
+        if self.is_local_directory_initialized() && self.local_aliases_data_file().exists() {
             match AliasFactory::create_from_file(self.local_aliases_data_file()) {
                 Err(_) => AliasFactory::create_empty(),
                 Ok(aliases) => aliases
@@ -90,7 +91,6 @@ impl List {
             Some(dir) => dir.join(".aliases"),
             None => PathBuf::new()
         }
-
     }
 
     fn home_dir(&self) -> Option<PathBuf> {
@@ -106,5 +106,9 @@ impl List {
 
     fn local_aliases_data_file(&self) -> PathBuf {
         self.current_path.join(".aliases")
+    }
+
+    fn is_local_directory_initialized(&self) -> bool {
+        self.alias_paths.iter().any(|path| self.current_path.as_path() == path.as_path())
     }
 }
