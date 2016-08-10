@@ -1,9 +1,4 @@
 run_tests:
-  command: eval "$(docker-machine env local)" && docker-compose run rust cargo test # required
-  # backout_seconds: 3
-#  confirm: true                                       # optional
-#  confirmation_message: Are you sure you are sure??   # optional
-#  conditional: /bin/true                              # optional
-#  unit_test: '[ true = true ]'                        # optional
+  command: eval "$(docker-machine env seb-dev)" && docker-compose run rust cargo test # required
 workspace:
-  command: eval "$(docker-machine env local)" && docker-compose run rust
+  command: eval "$(docker-machine env seb-dev)" && docker-compose run rust
