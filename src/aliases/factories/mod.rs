@@ -18,9 +18,10 @@ impl ShimFileFactory {
         // TODO this is not deleting old shims
         let filepath = dir.join(alias.name.clone());
         if !filepath.exists() {
+            info!("Creating new alias '{}'", &alias.name);
             match File::create(&filepath) {
                 Err(error) => {
-                    warn!("An error occurred {} : {:?}", error, filepath);
+                    warn!("An error occurred {} : {:?}", error, &filepath);
                 },
                 Ok(mut file) => {
                     let _ = file.write_all(&ShimFileFactory::template_string().into_bytes());
@@ -31,16 +32,20 @@ impl ShimFileFactory {
                         .arg(&command)
                         .output()
                         .unwrap_or_else(|e| { panic!("failed to execute child: {}", e) });
+                    info!("Successfully created alias '{}' in location {:?}", &alias.name, &filepath);
                 }
             }
         } else {
+            info!("Alias already exists '{}' checking if it's still valid", &alias.name);
             if !ShimFileFactory::is_valid(&filepath) {
+                info!("'{}' not valid, recreating...", &alias.name);
                 match File::create(&filepath) {
                     Err(error) => {
                         warn!("An error occurred {} : {:?}", error, filepath);
                     },
                     Ok(mut file) => {
                         let _ = file.write_all(&ShimFileFactory::template_string().into_bytes());
+                        info!("Successfully created alias '{}' in location {:?}", &alias.name, &filepath);
                     }
                 }
             }
