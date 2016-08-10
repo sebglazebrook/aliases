@@ -18,6 +18,8 @@ rustc-serialize = "0.3"
 tabwriter = "0.1"
 countdown = { git = "https://github.com/sebglazebrook/countdown.git" }
 crossbeam = "*"
+log = "*"
+env_logger = "*"
 
 [dependencies.clap]
 features = ["yaml"]

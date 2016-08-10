@@ -22,8 +22,11 @@ impl Rehash {
     pub fn execute(&self) {
         self.clean_shims_directory();
         for dir in &self.alias_directories {
-            match AliasFactory::create_from_file(dir.join(".aliases")) {
-                Err(_) => {}, // TODO
+            let aliases_file = dir.join(".aliases");
+            match AliasFactory::create_from_file(aliases_file.clone()) {
+                Err(error) => {
+                    warn!("An error occurred {:?}", aliases_file);
+                },
                 Ok(aliases) => {
                     crossbeam::scope(|scope| {
                         for alias in aliases {

@@ -15,11 +15,13 @@ pub struct ShimFileFactory;
 impl ShimFileFactory {
 
     pub fn create(alias: &Alias, dir: &PathBuf) {
-        // TODO this is no deleting old shims
+        // TODO this is not deleting old shims
         let filepath = dir.join(alias.name.clone());
         if !filepath.exists() {
             match File::create(&filepath) {
-                Err(_) => {}, //TODO handle this some day
+                Err(error) => {
+                    warn!("An error occurred {} : {:?}", error, filepath);
+                },
                 Ok(mut file) => {
                     let _ = file.write_all(&ShimFileFactory::template_string().into_bytes());
                     let mut command = String::from("chmod +x ");
@@ -33,8 +35,10 @@ impl ShimFileFactory {
             }
         } else {
             if !ShimFileFactory::is_valid(&filepath) {
-                match File::create(filepath) {
-                    Err(_) => {}, //TODO handle this some day
+                match File::create(&filepath) {
+                    Err(error) => {
+                        warn!("An error occurred {} : {:?}", error, filepath);
+                    },
                     Ok(mut file) => {
                         let _ = file.write_all(&ShimFileFactory::template_string().into_bytes());
                     }

@@ -1,10 +1,12 @@
 #[macro_use]
 extern crate clap;
 extern crate aliases;
+extern crate env_logger;
 
 use aliases::App;
 
 fn main() {
+    env_logger::init().unwrap();
     let yaml = load_yaml!("../config/cli.yml");
     let matches = clap::App::from_yaml(yaml).get_matches();
 
