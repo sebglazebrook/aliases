@@ -44,7 +44,7 @@ This creates a `.aliases` file in the current directory with a commented out ali
 #   conditional: /bin/true                              # optional - A bash command that needs to be successful for the alias to run
 #   backout_seconds: 3                                  # optional - Give's you a backout option (ctrl + c) before the alias is executed
 #   unit_test: '[ true = true ]'                        # optional - A bash command that tells whether the alias is doing what you want
-#   quiet: false                                        # optional - default 'false', when false full evaluated command is printed to stderr before running
+#   quiet: false                                        # optional - default 'false', when set to false evaluated command is printed to stderr before running
 ```
 
 Edit the file and then run `aliases rehash` to make the alias available.
