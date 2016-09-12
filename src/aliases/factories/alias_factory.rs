@@ -59,12 +59,12 @@ impl AliasFactory {
                     Err(_) => Err("Error reading the file."),
                     Ok(_) => {
                         match YamlLoader::load_from_str(&file_contents) {
-                            Ok(yaml) => Ok({
-                              match yaml.len() {
-                                0 => Yaml::Null,
-                                _ => yaml[0].clone()
-                              }
-                            }), // only expect 1 yaml document expect more in future??
+                            Ok(yaml) => {
+                                match yaml.len() {
+                                    0 => Ok(Yaml::Null),
+                                    _ => Ok(yaml[0].clone())
+                                }
+                            },
                             Err(_) => Err("Could not parse the yaml.")
                         }
                     }
