@@ -23,10 +23,10 @@ impl AliasFactory {
                     None => { Err("File invalid content.") },
                     Some(hash) => {
                         let mut aliases = vec![];
-                        let basename = data_file.as_path().parent().unwrap().to_path_buf(); // handle this right??
+                        let basename = data_file.as_path().parent().unwrap().to_path_buf(); // TODO handle this right??
                         for (command_name, command_args) in hash {
                             match AliasBuilder::from_yaml(command_name.as_str().unwrap(), basename.clone(), command_args.clone()).build() {
-                                Err(_) => {}, // maybe get a more specific error here?
+                                Err(error_string) => { println!("Unabled to create alias '{:?}', error given: {}", command_name, error_string); },
                                 Ok(alias) => { aliases.push(alias) },
                             }
                         }

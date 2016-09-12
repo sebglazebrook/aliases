@@ -19,7 +19,7 @@ impl AliasBuilder {
 
     pub fn build(&self) -> Result<Alias,&'static str> {
         match self.command() {
-            None => { Err("No command was given") }
+            None => { Err("No command given. Each alias needs a command.") }
             Some(command) => {
                 Ok(Alias {
                     name: self.name.clone(),
