@@ -28,6 +28,7 @@ impl Rehash {
                     warn!("An error occurred {:?}", aliases_file);
                 },
                 Ok(aliases) => {
+                    // TODO use thread pool here with configurabel number of threads
                     crossbeam::scope(|scope| {
                         for alias in aliases {
                             scope.spawn(move || {

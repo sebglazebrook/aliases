@@ -112,6 +112,7 @@ Do the normal things, fork the code and make a PR.
 - Add info in aliases file and point to repo
 - Sort aliases lists better and make it more obvious which ones are local
 - Colors for user interactions
+- Use a thread pool when running rehash command to avoid too many threads
 
 
 ## Possible future features
@@ -122,3 +123,4 @@ Do the normal things, fork the code and make a PR.
 - Autocompletion for aliases
 - clean uninstall, removing shims etc
 - Allow parent aliases that are not global??
+- add crud features for aliases via command line so you don't have to edit the yaml file directly
