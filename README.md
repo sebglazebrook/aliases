@@ -95,6 +95,29 @@ TODO
 
 TODO
 
+## Features in development
+
+To test these either compile from source or `brew install aliases --devel`
+
+Positional arguments are working:
+
+Example:
+
+```yaml
+vim-replace:
+  command : ag -l "$0" | xargs -o vim -c "bufdo %s!$0!$1!gc"
+  enable_positional_arguments: true
+``````
+
+The above alias allows you to do the following:
+
+```
+vim-replace old_text new_text
+```
+
+This replaces $0 $1 etc with the arguments you send to your alias.
+
+This currently assumes that your position keys are continuous. For example if you have $0 $1 $5 then it will not work.
 
 ## Contributing
 
