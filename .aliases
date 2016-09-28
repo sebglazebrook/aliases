@@ -1,4 +1,7 @@
 run_tests:
-  command: eval "$(docker-machine env seb-dev)" && docker-compose run rust cargo test # required
+  command: eval "$(docker-machine env seb-dev)" && docker-compose run rust cargo test
 workspace:
   command: eval "$(docker-machine env seb-dev)" && docker-compose run rust
+tester:
+  command: arg=$(FZF) && $0 $arg && echo $0 $arg >> ~/.bash_history
+  enable_positional_arguments: true

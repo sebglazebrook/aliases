@@ -32,6 +32,7 @@ impl AliasBuilder {
                     conditional: self.conditional(),
                     basename: self.basename.clone(),
                     command_arguments: vec![],
+                    enable_positional_arguments: self.enable_positional_arguments(),
                     quiet: self.quiet(),
                 })
             }
@@ -89,6 +90,13 @@ impl AliasBuilder {
 
     fn quiet(&self) -> bool {
         match self.yaml["quiet"].as_bool() {
+            None => false,
+            Some(value) => value,
+        }
+    }
+
+    fn enable_positional_arguments(&self) -> bool {
+        match self.yaml["enable_positional_arguments"].as_bool() {
             None => false,
             Some(value) => value,
         }

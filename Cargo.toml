@@ -13,6 +13,7 @@ path = "src/main.rs"
 
 [dependencies]
 yaml-rust = "0.3.0"
+regex = "*"
 rust-crypto = "0.2.34"
 rustc-serialize = "0.3"
 tabwriter = "0.1"
