@@ -135,6 +135,7 @@ Do the normal things, fork the code and make a PR.
 - Sort aliases lists better and make it more obvious which ones are local
 - Colors for user interactions
 - Use a thread pool when running rehash command to avoid too many threads
+- Handle position arguments `"$@"`
 
 
 ## Possible future features
@@ -144,3 +145,4 @@ Do the normal things, fork the code and make a PR.
 - Autocompletion for aliases
 - Allow parent aliases that are not global??
 - clean uninstall, removing shims etc
+- allow user to set a default shell or override the default shell. Currently all aliases are hardcoded to run inside a bash shell, could be sh or zsh
