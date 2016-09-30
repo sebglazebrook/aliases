@@ -42,7 +42,7 @@ subcommands:
       about: list the users
       args: []
   - exec:
-      about: execute a alias for a given directory
+      about: execute an alias for a given directory
       args:
         - directory:
             help: directory where the alias is defined

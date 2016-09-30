@@ -132,7 +132,6 @@ Do the normal things, fork the code and make a PR.
 
 ## Small improvements to come
 
-- Add info in aliases file and point to repo
 - Sort aliases lists better and make it more obvious which ones are local
 - Colors for user interactions
 - Use a thread pool when running rehash command to avoid too many threads
@@ -141,9 +140,7 @@ Do the normal things, fork the code and make a PR.
 ## Possible future features
 
 - Having custom aliases i.e. .superman-aliases files etc
-- Allow better filtering when listing aliases
-- aliases that take params?
-- Autocompletion for aliases
-- clean uninstall, removing shims etc
-- Allow parent aliases that are not global??
 - add crud features for aliases via command line so you don't have to edit the yaml file directly
+- Autocompletion for aliases
+- Allow parent aliases that are not global??
+- clean uninstall, removing shims etc
