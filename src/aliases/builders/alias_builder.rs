@@ -31,8 +31,6 @@ impl AliasBuilder {
                     unit_test: self.unit_test(),
                     conditional: self.conditional(),
                     basename: self.basename.clone(),
-                    command_arguments: vec![],
-                    positional_arguments: vec![],
                     args: vec![],
                     enable_positional_arguments: self.enable_positional_arguments(),
                     quiet: self.quiet(),

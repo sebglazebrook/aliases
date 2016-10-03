@@ -7,8 +7,6 @@ use std::path::PathBuf;
 pub struct Alias {
     pub name: String,
     pub command: String,
-    pub command_arguments: Vec<String>,
-    pub positional_arguments: Vec<String>,
     pub args: Vec<String>,
     pub enable_positional_arguments: bool,
     pub confirm: bool,
@@ -34,8 +32,6 @@ impl Alias {
             conditional: Conditional::default(),
             unit_test: String::from("true"),
             basename: PathBuf::new(),
-            command_arguments: vec![],
-            positional_arguments: vec![],
             args: vec![],
             enable_positional_arguments: false,
             quiet: false,
@@ -54,19 +50,8 @@ impl Alias {
     }
 
     pub fn command(&self) -> String {
-        // TODO update this
-        let mut command = self.command.clone();
-        if self.positional_arguments.len() > 0 {
-            command = command.replace("$@", self.positional_arguments.last().unwrap());
-        }
-        for arg in self.command_arguments.clone().iter().skip(self.positional_arguments.len()) {
-            if arg.contains(" ") {
-                command = format!(r#"{} "{}""#, command, arg);
-            } else {
-                command = format!("{} {}", command, arg);
-            }
-        }
-        command
+        // TODO make the print out the expanded command with args
+        self.command.clone()
     }
 
     pub fn add_arguments(&mut self, arguments: Vec<String>) {

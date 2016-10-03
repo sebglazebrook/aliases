@@ -137,7 +137,6 @@ Do the normal things, fork the code and make a PR.
 - Sort aliases lists better and make it more obvious which ones are local
 - Colors for user interactions
 - Use a thread pool when running rehash command to avoid too many threads
-- Handle position arguments `"$@"`
 
 
 ## Possible future features
