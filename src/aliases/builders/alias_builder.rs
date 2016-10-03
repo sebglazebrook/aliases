@@ -17,7 +17,7 @@ impl AliasBuilder {
         AliasBuilder { name: name.to_string(), basename: basename, yaml: yaml }
     }
 
-    pub fn build(&self) -> Result<Alias,&'static str> {
+    pub fn build(&self) -> Result<Alias, &'static str> {
         match self.command() {
             None => { Err("No command given. Each alias needs a command.") }
             Some(command) => {
@@ -32,6 +32,8 @@ impl AliasBuilder {
                     conditional: self.conditional(),
                     basename: self.basename.clone(),
                     command_arguments: vec![],
+                    positional_arguments: vec![],
+                    args: vec![],
                     enable_positional_arguments: self.enable_positional_arguments(),
                     quiet: self.quiet(),
                 })
@@ -101,4 +103,39 @@ impl AliasBuilder {
             Some(value) => value,
         }
     }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use yaml_rust::YamlLoader;
+    use std::path::PathBuf;
+
+    #[test]
+    fn extracts_the_command_string_from_the_yaml() {
+        let string =
+"
+command: test-command
+";
+        let yaml = YamlLoader::load_from_str(string).unwrap();
+        let document = yaml[0].clone();
+        let builder = AliasBuilder::from_yaml("test", PathBuf::new(), document);
+        let alias = builder.build().unwrap();
+        assert!(alias.command == "test-command");
+    }
+
+    #[test]
+    fn enables_the_positional_arguments_if_set_in_yaml() {
+        let string =
+"
+command: test-command
+enable_positional_arguments: true
+";
+        let yaml = YamlLoader::load_from_str(string).unwrap();
+        let document = yaml[0].clone();
+        let builder = AliasBuilder::from_yaml("test", PathBuf::new(), document);
+        let alias = builder.build().unwrap();
+        assert!(alias.enable_positional_arguments == true);
+    }
+
 }

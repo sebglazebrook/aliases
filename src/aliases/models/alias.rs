@@ -1,14 +1,15 @@
 use aliases::models::{Conditional, UserConfirmation};
+use aliases::builders::CommandBuilder;
 
 use std::path::PathBuf;
-use std::process::Command;
-use regex::Regex;
 
 #[derive(PartialOrd,Ord,PartialEq,Eq,Debug,Clone)]
 pub struct Alias {
     pub name: String,
     pub command: String,
     pub command_arguments: Vec<String>,
+    pub positional_arguments: Vec<String>,
+    pub args: Vec<String>,
     pub enable_positional_arguments: bool,
     pub confirm: bool,
     pub confirmation_message: String,
@@ -34,18 +35,18 @@ impl Alias {
             unit_test: String::from("true"),
             basename: PathBuf::new(),
             command_arguments: vec![],
+            positional_arguments: vec![],
+            args: vec![],
             enable_positional_arguments: false,
             quiet: false,
         }
     }
 
     pub fn execute(&self) {
-        let mut command = Command::new("bash");
-        command.arg("-c");
-        command.arg(self.command());
-        for argument in self.positional_arguments() {
-            command.arg(argument);
-        }
+        let mut command = CommandBuilder::using_bash()
+                                    .for_command(&self.command)
+                                    .with_args(&self.args)
+                                    .build();
 
         let mut process = command.spawn().unwrap_or_else(|e| { panic!("failed to execute child: {}", e) });
         let _ = process.wait()
@@ -53,8 +54,12 @@ impl Alias {
     }
 
     pub fn command(&self) -> String {
+        // TODO update this
         let mut command = self.command.clone();
-        for arg in self.command_arguments.clone().iter().skip(self.num_of_positional_arguments()) {
+        if self.positional_arguments.len() > 0 {
+            command = command.replace("$@", self.positional_arguments.last().unwrap());
+        }
+        for arg in self.command_arguments.clone().iter().skip(self.positional_arguments.len()) {
             if arg.contains(" ") {
                 command = format!(r#"{} "{}""#, command, arg);
             } else {
@@ -64,20 +69,7 @@ impl Alias {
         command
     }
 
-    //------------ private ---------//
-
-    fn num_of_positional_arguments(&self) -> usize {
-        if self.enable_positional_arguments {
-            let re = Regex::new(r"\$(\d+)").unwrap();
-            let something = re.captures_iter(&self.command).map(|capture| capture.at(1).unwrap().parse::<usize>().unwrap()).max().unwrap() + 1;
-            something
-        } else {
-            0
-        }
-    }
-
-    fn positional_arguments(&self) -> Vec<String> {
-        let mut command = self.command.clone();
-        self.command_arguments.clone().iter().take(self.num_of_positional_arguments()).map(|s| s.clone()).collect()
+    pub fn add_arguments(&mut self, arguments: Vec<String>) {
+        self.args = arguments.clone();
     }
 }

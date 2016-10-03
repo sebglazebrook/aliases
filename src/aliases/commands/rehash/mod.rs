@@ -24,7 +24,7 @@ impl Rehash {
         for dir in &self.alias_directories {
             let aliases_file = dir.join(".aliases");
             match AliasFactory::create_from_file(aliases_file.clone()) {
-                Err(error) => {
+                Err(_) => {
                     warn!("An error occurred {:?}", aliases_file);
                 },
                 Ok(aliases) => {

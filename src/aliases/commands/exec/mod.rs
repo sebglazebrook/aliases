@@ -23,7 +23,7 @@ impl Exec {
         match self.find_alias() {
             Err(message) => { println!("Error! {}", message); } // TODO handle this better?
             Ok(mut alias) => {
-                alias.command_arguments = self.forwarding_args.clone();
+                alias.add_arguments(self.forwarding_args.clone());
                 ExecutionWorkflow::new(alias).execute();
             }
         }
