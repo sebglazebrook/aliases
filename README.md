@@ -89,7 +89,7 @@ brew install aliases
 
 ### Linux
 
-TODO
+There are some debian packages in the released directory.
 
 ### Compile from source
 
