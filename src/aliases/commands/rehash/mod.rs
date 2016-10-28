@@ -3,7 +3,8 @@ use std::fs;
 
 use crossbeam;
 
-use aliases::factories::{AliasFactory, ShimFileFactory};
+use aliases::factories::ShimFileFactory;
+use aliases::repositories::AliasRepository;
 
 pub struct Rehash {
     pub shim_directory: PathBuf,
@@ -22,13 +23,9 @@ impl Rehash {
     pub fn execute(&self) {
         self.clean_shims_directory();
         for dir in &self.alias_directories {
-            let aliases_file = dir.join(".aliases");
-            match AliasFactory::create_from_file(aliases_file.clone()) {
-                Err(_) => {
-                    warn!("An error occurred {:?}", aliases_file);
-                },
+            match AliasRepository::find_for_directory(&dir.to_str().unwrap().to_string()) {
+                Err(_) => {},
                 Ok(aliases) => {
-                    // TODO use thread pool here with configurabel number of threads
                     crossbeam::scope(|scope| {
                         for alias in aliases {
                             scope.spawn(move || {
@@ -36,7 +33,7 @@ impl Rehash {
                             });
                         }
                     });
-                }
+                },
             }
         }
     }

@@ -78,6 +78,38 @@ Global aliases are created but running `aliases init` in your home directory.
 
 Global aliases are overridden by local aliases if they exist.
 
+### User Aliases
+
+Maybe you want to import a friends aliases or use aliases relevant to your work, aliases makes that easy:
+
+```
+# create a new aliases file for a user
+
+aliases init --user superman
+```
+
+This will create a new empty `.aliases-superman` file in the current directory and add the user `superman` to the list of alias users.
+
+If your repo already has a `.aliases-superman` the file will be left untouched and the user `superman` will be added to your list of alias users.
+
+The next time you rust `aliases rehash` all `superman` aliases in all initialized directories will be updated.
+
+User aliases are merged together to create a list of available aliases.
+
+If there are clashing aliases the alias user prioritized highest wins.
+
+You can see all users and their prioritization using:
+
+```
+aliases users
+```
+
+To change the prioritization order of the user's you currently need to edit the user list in the config file.
+
+```
+cat ~/.aliases_cfg
+```
+
 ## Installation
 
 ### OSX
@@ -137,11 +169,19 @@ Do the normal things, fork the code and make a PR.
 - Sort aliases lists better and make it more obvious which ones are local
 - Colors for user interactions
 - Use a thread pool when running rehash command to avoid too many threads
+- Add user subcommands to change prioritization of users without editing config file
+    ```
+      aliases users move superman 4
+      aliases users use superman
+    ```
 
+- And to temporally bump a user to the top with env var, like when you are pairing and sharing your shell:
+    ```
+      export ALIASES_USER=superman
+    ```
 
 ## Possible future features
 
-- Having custom aliases i.e. .superman-aliases files etc
 - add crud features for aliases via command line so you don't have to edit the yaml file directly
 - Autocompletion for aliases
 - Allow parent aliases that are not global??
