@@ -13,7 +13,7 @@ fn main() {
     match matches.subcommand_name() {
         Some("init") => {
             if let Some(matches) = matches.subcommand_matches("init") {
-                App::new().execute_init(matches.is_present("global"));
+                App::new().execute_init(matches.is_present("global"), matches.value_of("user"));
             }
         },
         Some("list") => {

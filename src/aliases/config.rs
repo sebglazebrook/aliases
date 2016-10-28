@@ -43,10 +43,17 @@ impl Config {
         self.users.clone()
     }
 
-    pub fn add_alias_directory(&mut self, directory: &PathBuf) {
+    pub fn add_alias_directory(&mut self, directory: &PathBuf, user: &Option<&str>) {
         let string = String::from(directory.to_str().unwrap());
         self.alias_directories.push(string);
         self.alias_directories.dedup();
+        match *user {
+            None => {},
+            Some(user) => {
+                self.users.push(user.to_string());
+                self.users.dedup();
+            },
+        }
         self.update_file();
     }
 

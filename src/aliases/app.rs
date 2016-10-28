@@ -20,7 +20,7 @@ impl App {
         }
     }
 
-    pub fn execute_init(&mut self, global: bool) {
+    pub fn execute_init(&mut self, global: bool, user: Option<&str>) {
         let target_path;
         if global {
             match env::var("HOME") {
@@ -34,7 +34,7 @@ impl App {
         } else {
             target_path = self.current_path.clone();
         }
-        Init::new(target_path, self.config.clone(), global).execute();
+        Init::new(target_path, self.config.clone(), global, user).execute();
     }
 
     pub fn execute_list(&mut self, directory: Option<&str>, name: Option<&str>) {

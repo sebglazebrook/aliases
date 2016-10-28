@@ -1,6 +1,7 @@
 use aliases::views::AliasesView;
 use aliases::collections::Aliases;
 use aliases::factories::AliasFactory;
+use aliases::repositories::AliasRepository;
 
 use std::path::PathBuf;
 use std::env;
@@ -34,6 +35,7 @@ impl List {
         }
     }
 
+    // TODO this needs to start using the AliasRepository
     pub fn execute(&mut self) -> i32  {
         let mut aliases = self.global_aliases().merge(self.parent_aliases()).merge(self.local_aliases());
         if let Some(ref directory_filter) = self.directory_filter {
@@ -61,13 +63,9 @@ impl List {
     // ------ private ----- //
 
     fn global_aliases(&mut self) -> Aliases {
-        if self.global_aliases_data_file().exists() {
-            match AliasFactory::create_from_file(self.global_aliases_data_file()) {
-                Err(_) => { AliasFactory::create_empty() },
-                Ok(aliases) => aliases
-            }
-        } else {
-            AliasFactory::create_empty()
+        match AliasRepository::find_for_directory(&self.global_aliases_data_file().to_str().unwrap().to_string()) {
+            Err(_) => { AliasFactory::create_empty() },
+            Ok(aliases) => { aliases }
         }
     }
 
@@ -76,19 +74,15 @@ impl List {
     }
 
     fn local_aliases(&mut self) -> Aliases {
-        if self.is_local_directory_initialized() && self.local_aliases_data_file().exists() {
-            match AliasFactory::create_from_file(self.local_aliases_data_file()) {
-                Err(_) => AliasFactory::create_empty(),
-                Ok(aliases) => aliases
-            }
-        } else {
-            AliasFactory::create_empty()
+        match AliasRepository::find_for_directory(&self.current_path.to_str().unwrap().to_string()) {
+            Err(_) => { AliasFactory::create_empty() },
+            Ok(aliases) => { aliases }
         }
     }
 
     fn global_aliases_data_file(&self) -> PathBuf {
         match self.home_dir() {
-            Some(dir) => dir.join(".aliases"),
+            Some(dir) => dir,
             None => PathBuf::new()
         }
     }
@@ -102,13 +96,5 @@ impl List {
                 None
             },
         }
-    }
-
-    fn local_aliases_data_file(&self) -> PathBuf {
-        self.current_path.join(".aliases")
-    }
-
-    fn is_local_directory_initialized(&self) -> bool {
-        self.alias_paths.iter().any(|path| self.current_path.as_path() == path.as_path())
     }
 }

@@ -15,6 +15,11 @@ subcommands:
             long: global
             short: g
             takes_value: false
+        - user:
+            help: initialize aliases for a specific user
+            long: user
+            short: u
+            takes_value: true
   - list:
       about: list the aliases available
       args:
