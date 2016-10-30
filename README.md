@@ -179,6 +179,7 @@ Do the normal things, fork the code and make a PR.
     ```
       export ALIASES_USER=superman
     ```
+- in list view add more data about the aliases, user etc
 
 ## Possible future features
 
