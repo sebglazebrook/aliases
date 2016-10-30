@@ -166,6 +166,7 @@ Do the normal things, fork the code and make a PR.
 
 ## Small improvements to come
 
+- add description of alias that can be seen in list view
 - Sort aliases lists better and make it more obvious which ones are local
 - Colors for user interactions
 - Use a thread pool when running rehash command to avoid too many threads
