@@ -181,6 +181,7 @@ Do the normal things, fork the code and make a PR.
       export ALIASES_USER=superman
     ```
 - in list view add more data about the aliases, user etc
+- allow multi-line command that display is list view well
 
 ## Possible future features
 
