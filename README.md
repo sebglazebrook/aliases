@@ -152,6 +152,11 @@ To change the prioritization order of the user's you currently need to edit the 
 cat ~/.aliases_cfg
 ```
 
+And to temporally bump a user to the top with env var, like when you are pairing and sharing your shell:
+```
+export ALIASES_USER=superman
+```
+
 ## Contributing
 
 Do the normal things, fork the code and make a PR.
@@ -171,10 +176,6 @@ Do the normal things, fork the code and make a PR.
 - Sort aliases lists better and make it more obvious which ones are local
 - Colors for user interactions
 - Use a thread pool when running rehash command to avoid too many threads
-- And to temporally bump a user to the top with env var, like when you are pairing and sharing your shell:
-    ```
-      export ALIASES_USER=superman
-    ```
 - in list view add more data about the aliases, user etc
 - allow multi-line command that display is list view well
 

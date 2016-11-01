@@ -1,4 +1,4 @@
-#[derive(Debug,Clone)]
+#[derive(PartialEq,Eq,Debug,Clone)]
 pub struct User {
     name: String,
     filename: String,
