@@ -170,12 +170,6 @@ Do the normal things, fork the code and make a PR.
 - Sort aliases lists better and make it more obvious which ones are local
 - Colors for user interactions
 - Use a thread pool when running rehash command to avoid too many threads
-- Add user subcommands to change prioritization of users without editing config file
-    ```
-      aliases users move superman 4
-      aliases users use superman
-    ```
-
 - And to temporally bump a user to the top with env var, like when you are pairing and sharing your shell:
     ```
       export ALIASES_USER=superman

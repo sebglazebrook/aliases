@@ -43,6 +43,11 @@ impl Config {
         self.users.clone()
     }
 
+    pub fn update_users(&mut self, users: Vec<String>) {
+        self.users = users;
+        self.update_file();
+    }
+
     pub fn add_alias_directory(&mut self, directory: &PathBuf, user: &Option<&str>) {
         let string = String::from(directory.to_str().unwrap());
         self.alias_directories.push(string);

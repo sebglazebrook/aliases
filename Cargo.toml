@@ -24,7 +24,7 @@ env_logger = "*"
 
 [dependencies.clap]
 features = ["yaml"]
-version = "2.0.6"
+version = "2.16.4"
 
 [dev-dependencies]
 gag = "*"

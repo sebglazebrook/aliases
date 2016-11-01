@@ -1,4 +1,4 @@
-use aliases::commands::{Init, List, Rehash, Exec, Users};
+use aliases::commands::{Init, List, Rehash, Exec, Users, MoveUser};
 use aliases::Config;
 
 use std::env;
@@ -53,5 +53,9 @@ impl App {
 
     pub fn execute_users(&mut self) {
         Users::new(self.config.clone()).execute();
+    }
+
+    pub fn prioritize_user(&mut self, username: String, position: usize) {
+        MoveUser::new(username, position).execute();
     }
 }

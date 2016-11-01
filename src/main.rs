@@ -38,8 +38,28 @@ fn main() {
             }
         },
         Some("users") => {
-            if let Some(_) = matches.subcommand_matches("users") {
-                App::new().execute_users();
+            if let Some(subcommand_matches) = matches.subcommand_matches("users") {
+                match subcommand_matches.subcommand_name() {
+                    Some("move") => {
+                        if let Some(move_matches) = subcommand_matches.subcommand_matches("move") {
+                        let username = move_matches.value_of("username").unwrap().to_string();
+                        // TODO  handle when this isn't an Int
+                        let prioritization = move_matches.value_of("prioritization").unwrap().parse::<usize>().unwrap();
+                        App::new().prioritize_user(username, prioritization);
+                        }
+                    },
+                    Some("use") => {
+                        if let Some(move_matches) = subcommand_matches.subcommand_matches("use") {
+                        let username = move_matches.value_of("username").unwrap().to_string();
+                        App::new().prioritize_user(username, 1);
+                        }
+                    },
+                    None => {
+                        App::new().execute_users();
+                    },
+                    _ => {},
+                }
+
             }
         },
         None => {
