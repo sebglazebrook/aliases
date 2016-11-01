@@ -78,6 +78,48 @@ Global aliases are created but running `aliases init` in your home directory.
 
 Global aliases are overridden by local aliases if they exist.
 
+
+## Installation
+
+### OSX
+
+```
+brew tap sebglazebrook/aliases
+brew install aliases
+```
+
+### Linux
+
+There are some debian packages in the released directory.
+
+### Compile from source
+
+TODO
+
+## Features in development
+
+To test these either compile from source or `brew install aliases --devel`
+
+### Positional arguments
+
+Example:
+
+```yaml
+vim-replace:
+  command : ag -l "$0" | xargs -o vim -c "bufdo %s!$0!$1!gc"
+  enable_positional_arguments: true
+``````
+
+The above alias allows you to do the following:
+
+```
+vim-replace old_text new_text
+```
+
+This replaces $0 $1 etc with the arguments you send to your alias.
+
+This currently assumes that your position keys are continuous. For example if you have $0 $1 $5 then it will not work.
+
 ### User Aliases
 
 Maybe you want to import a friends aliases or use aliases relevant to your work, aliases makes that easy:
@@ -109,47 +151,6 @@ To change the prioritization order of the user's you currently need to edit the 
 ```
 cat ~/.aliases_cfg
 ```
-
-## Installation
-
-### OSX
-
-```
-brew tap sebglazebrook/aliases
-brew install aliases
-```
-
-### Linux
-
-There are some debian packages in the released directory.
-
-### Compile from source
-
-TODO
-
-## Features in development
-
-To test these either compile from source or `brew install aliases --devel`
-
-Positional arguments are working:
-
-Example:
-
-```yaml
-vim-replace:
-  command : ag -l "$0" | xargs -o vim -c "bufdo %s!$0!$1!gc"
-  enable_positional_arguments: true
-``````
-
-The above alias allows you to do the following:
-
-```
-vim-replace old_text new_text
-```
-
-This replaces $0 $1 etc with the arguments you send to your alias.
-
-This currently assumes that your position keys are continuous. For example if you have $0 $1 $5 then it will not work.
 
 ## Contributing
 
