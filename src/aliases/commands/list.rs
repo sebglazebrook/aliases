@@ -10,12 +10,11 @@ pub struct List {
     current_path: PathBuf,
     directory_filter: Option<String>,
     name_filter: Option<String>,
-    alias_paths: Vec<PathBuf>,
 }
 
 impl List {
 
-    pub fn new(current_path: PathBuf, directory_filter: Option<&str>, name_filter: Option<&str>, alias_paths: Vec<PathBuf>) -> Self {
+    pub fn new(current_path: PathBuf, directory_filter: Option<&str>, name_filter: Option<&str>) -> Self {
         // TODO there has to be a better way to do this right?
         let directory_string;
         match directory_filter {
@@ -31,7 +30,6 @@ impl List {
             current_path: current_path,
             directory_filter: directory_string,
             name_filter: name_string,
-            alias_paths: alias_paths,
         }
     }
 
