@@ -6,4 +6,4 @@ tester:
   command: arg=$(FZF) && $0 $arg && echo $0 $arg >> ~/.bash_history
   enable_positional_arguments: true
 release:
-  command: ./scripts/build-release-osx.sh $0 && ./scripts/build-release-debian.sh $0
+  command: cargo clean && ./scripts/build-release-osx.sh $0 && ./scripts/build-release-debian.sh $0
