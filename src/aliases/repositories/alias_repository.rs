@@ -10,8 +10,7 @@ impl AliasRepository {
 
     pub fn find_for_directory(directory: &String) -> Result<Aliases, &'static str> {
         let mut aliases = Aliases::new(vec![]); // TODO should be able to use map or inject here
-        // TODO  is this merging things in the right order
-        for user in Self::all_users() {
+        for user in Self::all_users().iter() {
             match Self::directory_aliases_for_user(directory, &user) {
                 None => { },
                 Some(user_aliases) => { aliases = aliases.merge(user_aliases); }

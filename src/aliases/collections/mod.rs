@@ -23,7 +23,7 @@ impl Aliases {
     }
 
     pub fn push(&mut self, alias: &Alias) -> Result<(), &'static str> {
-        if self.raw_collection.contains(alias) {
+        if self.raw_collection.iter().any(|a| { a.name == alias.name }) {
             Err("Alias was a duplicate")
         } else {
             self.raw_collection.push(alias.clone());
