@@ -184,3 +184,5 @@ Do the normal things, fork the code and make a PR.
 - Allow parent aliases that are not global??
 - clean uninstall, removing shims etc
 - allow user to set a default shell or override the default shell. Currently all aliases are hardcoded to run inside a bash shell, could be sh or zsh
+- enable and disable user aliases
+- pull and sync user aliases with github
