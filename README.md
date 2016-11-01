@@ -187,4 +187,15 @@ Do the normal things, fork the code and make a PR.
 - clean uninstall, removing shims etc
 - allow user to set a default shell or override the default shell. Currently all aliases are hardcoded to run inside a bash shell, could be sh or zsh
 - enable and disable user aliases
+  ```
+  aliases user enable superman
+  aliases user disable superman
+  ```
 - pull and sync user aliases with github
+  ```
+    aliases clone sebglazebrook                             # this could pull from github.com/sebglazebrook/.aliases repo
+    aliases clone sebglazebrook https://some-other-address  # pulls from the given repo
+    aliases clone sebglazebrook --enable=true               # enable the user if after successfully cloning the repo. Defaults to false
+    aliases pull sebglazberook                              # pull and show the diff
+    aliases pull                                            # pulls all users
+  ```
