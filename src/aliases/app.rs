@@ -1,4 +1,4 @@
-use aliases::commands::{Init, List, Rehash, Exec, Users, MoveUser};
+use aliases::commands::{Init, List, Rehash, Exec, Users, MoveUser, CloneRepo, PullRepo};
 use aliases::Config;
 
 use std::env;
@@ -53,6 +53,14 @@ impl App {
 
     pub fn execute_users(&mut self) {
         Users::new(self.config.clone()).execute();
+    }
+
+    pub fn execute_clone(&mut self, username: String, repo_url: Option<&str>, enable: bool) {
+        CloneRepo::new(username, repo_url, enable).execute();
+    }
+
+    pub fn execute_pull(&mut self, username: Option<&str>) {
+        PullRepo::new(username).execute();
     }
 
     pub fn prioritize_user(&mut self, username: String, position: usize) {

@@ -48,6 +48,10 @@ impl Config {
         self.update_file();
     }
 
+    pub fn enable_user(&mut self, username: &str) {
+        // TODO
+    }
+
     pub fn add_alias_directory(&mut self, directory: &PathBuf, user: &Option<&str>) {
         let string = String::from(directory.to_str().unwrap());
         self.alias_directories.push(string);

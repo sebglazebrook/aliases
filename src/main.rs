@@ -62,6 +62,20 @@ fn main() {
 
             }
         },
+        Some("clone") => {
+            if let Some(matches) = matches.subcommand_matches("clone") {
+                App::new().execute_clone(
+                    matches.value_of("username").unwrap().to_string(),
+                    matches.value_of("repo_url"),
+                    matches.is_present("enable")
+                    );
+            }
+        },
+        Some("pull") => {
+            if let Some(matches) = matches.subcommand_matches("pull") {
+                App::new().execute_pull(matches.value_of("username"));
+            }
+        },
         None => {
             App::new().execute_list(None, None);
         },

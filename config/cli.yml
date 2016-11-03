@@ -75,3 +75,23 @@ subcommands:
   - rehash:
       about: update the aliases
       args: []
+  - clone:
+      about: clone external aliases
+      args:
+        - username:
+            help: the username of the aliases you want to clone
+            required: true
+        - repo_url:
+            help: the git repo url of the aliases (defaults to github/<username>/dot-aliases)
+            required: false
+        - enable:
+            help: whether to enable the user if they are not currently enabled
+            required: false
+            long: enable
+            short: E
+  - pull:
+      about: "pull a cloned user's aliases"
+      args:
+        - username:
+            help: the username of the aliases you want to pull, leave blank to pull all user aliases
+            required: false
