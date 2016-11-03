@@ -60,7 +60,10 @@ impl App {
     }
 
     pub fn execute_pull(&mut self, username: Option<&str>) {
-        PullRepo::new(username).execute();
+        match PullRepo::new(username).execute() {
+            Ok(_) => {},
+            Err(message) => { println!("{}", message) }
+        }
     }
 
     pub fn prioritize_user(&mut self, username: String, position: usize) {
