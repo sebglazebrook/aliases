@@ -157,6 +157,13 @@ And to temporally bump a user to the top with env var, like when you are pairing
 export ALIASES_USER=superman
 ```
 
+You can also pull and sync user aliases with github
+```
+aliases clone sebglazebrook                             # this could pull from github.com/sebglazebrook/.aliases repo
+aliases clone sebglazebrook https://some-other-address  # pulls from the given repo
+aliases pull sebglazberook                              # pull and show the diff
+```
+
 ## Contributing
 
 Do the normal things, fork the code and make a PR.
@@ -190,12 +197,9 @@ Do the normal things, fork the code and make a PR.
   ```
   aliases user enable superman
   aliases user disable superman
+  aliases clone sebglazebrook --enable=true               # enable the user if after successfully cloning the repo. Defaults to false
   ```
-- pull and sync user aliases with github
+- Add the ability to pull all users
   ```
-    aliases clone sebglazebrook                             # this could pull from github.com/sebglazebrook/.aliases repo
-    aliases clone sebglazebrook https://some-other-address  # pulls from the given repo
-    aliases clone sebglazebrook --enable=true               # enable the user if after successfully cloning the repo. Defaults to false
-    aliases pull sebglazberook                              # pull and show the diff
-    aliases pull                                            # pulls all users
+  aliases pull                                            # pulls all users
   ```
