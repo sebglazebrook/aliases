@@ -21,7 +21,7 @@ impl<'a> CloneRepo<'a> {
         }
     }
 
-    pub fn execute(&self) {
+    pub fn execute(&self) { // TODO this needs to return a result
         self.prepare_output_dir();
         match self.git_clone(&self.repo_url(), &self.output_directory()) {
             Err(_) => {}, // TODO handle this error case

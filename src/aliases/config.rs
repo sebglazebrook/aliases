@@ -2,14 +2,15 @@ use std::env;
 use std::path::{PathBuf};
 use std::io::prelude::*;
 use std::fs::File;
-use rustc_serialize::json;
 use std::process::Command;
+use rustc_serialize::json;
 
 #[derive(Clone, RustcDecodable, RustcEncodable)]
 pub struct Config {
     pub shim_directory: String,
     alias_directories: Vec<String>,
     users: Vec<String>,
+    disabled_users: Option<Vec<String>>,
 }
 
 impl Config {
@@ -49,7 +50,34 @@ impl Config {
     }
 
     pub fn enable_user(&mut self, username: &str) {
-        // TODO
+        match self.disabled_users.clone() {
+            Some(users) => {
+                self.disabled_users = Some(users.clone().into_iter().filter(|user| user != username).collect());
+            },
+            None => {
+                self.disabled_users = Some(vec![]);
+            }
+        }
+        self.update_file();
+    }
+
+    pub fn disabled_users(&self) -> Vec<String> {
+        match self.disabled_users.clone() {
+            Some(users) => { users },
+            None =>  { vec![] }
+        }
+
+    }
+
+    pub fn disable_user(&mut self, username: &str) {
+        match self.disabled_users.clone() {
+            Some(ref mut users) => {
+                users.push(username.to_string());
+                self.disabled_users = Some(users.clone());
+            },
+            None => { self.disabled_users = Some(vec![username.to_string()]); }
+        };
+        self.update_file();
     }
 
     pub fn add_alias_directory(&mut self, directory: &PathBuf, user: &Option<&str>) {

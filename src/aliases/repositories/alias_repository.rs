@@ -10,7 +10,7 @@ impl AliasRepository {
 
     pub fn find_for_directory(directory: &String) -> Result<Aliases, &'static str> {
         let mut aliases = Aliases::new(vec![]); // TODO should be able to use map or inject here
-        for user in Self::all_users().iter() {
+        for user in Self::available_users().iter() {
             match Self::directory_aliases_for_user(directory, &user) {
                 None => { },
                 Some(user_aliases) => { aliases = aliases.merge(user_aliases); }
@@ -21,8 +21,8 @@ impl AliasRepository {
 
     //--------- private ------------//
 
-    fn all_users() -> Vec<User> {
-        UserRepository::all()
+    fn available_users() -> Vec<User> {
+        UserRepository::enabled()
     }
 
     fn directory_aliases_for_user(directory: &String, user: &User) -> Option<Aliases> {

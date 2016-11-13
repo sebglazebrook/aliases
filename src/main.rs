@@ -43,7 +43,7 @@ fn main() {
                     Some("move") => {
                         if let Some(move_matches) = subcommand_matches.subcommand_matches("move") {
                         let username = move_matches.value_of("username").unwrap().to_string();
-                        // TODO  handle when this isn't an Int
+                        // TODO  handle when this isn't an Integer
                         let prioritization = move_matches.value_of("prioritization").unwrap().parse::<usize>().unwrap();
                         App::new().prioritize_user(username, prioritization);
                         }
@@ -52,6 +52,18 @@ fn main() {
                         if let Some(move_matches) = subcommand_matches.subcommand_matches("use") {
                         let username = move_matches.value_of("username").unwrap().to_string();
                         App::new().prioritize_user(username, 1);
+                        }
+                    },
+                    Some("enable") => {
+                        if let Some(move_matches) = subcommand_matches.subcommand_matches("enable") {
+                        let username = move_matches.value_of("username").unwrap().to_string();
+                        App::new().enable_user(username);
+                        }
+                    },
+                    Some("disable") => {
+                        if let Some(move_matches) = subcommand_matches.subcommand_matches("disable") {
+                        let username = move_matches.value_of("username").unwrap().to_string();
+                        App::new().disable_user(username);
                         }
                     },
                     None => {

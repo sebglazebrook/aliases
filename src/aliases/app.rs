@@ -1,4 +1,4 @@
-use aliases::commands::{Init, List, Rehash, Exec, Users, MoveUser, CloneRepo, PullRepo};
+use aliases::commands::{Init, List, Rehash, Exec, Users, MoveUser, CloneRepo, PullRepo, EnableUser, DisableUser};
 use aliases::Config;
 
 use std::env;
@@ -68,5 +68,13 @@ impl App {
 
     pub fn prioritize_user(&mut self, username: String, position: usize) {
         MoveUser::new(username, position).execute();
+    }
+
+    pub fn enable_user(&mut self, username: String) {
+        EnableUser::new(username).execute();
+    }
+
+    pub fn disable_user(&mut self, username: String) {
+        DisableUser::new(username).execute();
     }
 }

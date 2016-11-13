@@ -62,6 +62,18 @@ subcommands:
                 - username:
                     help: user name you want to move
                     required: true
+        - enable:
+            about: "Enable a user's aliases"
+            args:
+                - username:
+                    help: user name you want to disable
+                    required: true
+        - disable:
+            about: "Disable a user's aliases"
+            args:
+                - username:
+                    help: user name you want to disable
+                    required: true
   - exec:
       about: execute an alias for a given directory
       args:
