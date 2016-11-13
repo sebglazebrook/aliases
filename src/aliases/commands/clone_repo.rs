@@ -4,6 +4,7 @@ use std::process::Command;
 use std::os::unix;
 
 use aliases::Config;
+use aliases::commands::{CommandResponse, AliasCommand};
 
 pub struct CloneRepo<'a> {
     username: String,
@@ -18,17 +19,6 @@ impl<'a> CloneRepo<'a> {
             username: username,
             repo_url: repo_url,
             enable: enable,
-        }
-    }
-
-    pub fn execute(&self) { // TODO this needs to return a result
-        self.prepare_output_dir();
-        match self.git_clone(&self.repo_url(), &self.output_directory()) {
-            Err(_) => {}, // TODO handle this error case
-            Ok(_) => {
-                self.link_aliases_file();
-                self.enable_user();
-            }
         }
     }
 
@@ -82,4 +72,19 @@ impl<'a> CloneRepo<'a> {
         }
     }
 
+}
+
+impl<'a> AliasCommand for CloneRepo<'a> {
+
+    fn execute(&self) -> CommandResponse {
+        self.prepare_output_dir();
+        match self.git_clone(&self.repo_url(), &self.output_directory()) {
+            Err(_) => { return CommandResponse::new(1, Some(String::from("An error occurred"))); }, // TODO handle this error case better
+            Ok(_) => {
+                self.link_aliases_file();
+                self.enable_user();
+            }
+        }
+        CommandResponse::success()
+    }
 }

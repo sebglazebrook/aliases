@@ -1,4 +1,4 @@
-use aliases::commands::{Init, List, Rehash, Exec, Users, MoveUser, CloneRepo, PullRepo, EnableUser, DisableUser};
+use aliases::commands::{Init, List, Rehash, Exec, Users, MoveUser, CloneRepo, PullRepo, EnableUser, DisableUser, AliasCommand};
 use aliases::Config;
 
 use std::env;
@@ -60,10 +60,10 @@ impl App {
     }
 
     pub fn execute_pull(&mut self, username: Option<&str>) {
-        match PullRepo::new(username).execute() {
-            Ok(_) => {},
-            Err(message) => { println!("{}", message) }
-        }
+       let response = PullRepo::new(username).execute();
+       if response.is_error() {
+           response.print_error_message();
+       }
     }
 
     pub fn prioritize_user(&mut self, username: String, position: usize) {

@@ -1,4 +1,5 @@
 use aliases::Config;
+use aliases::commands::{CommandResponse, AliasCommand};
 
 pub struct DisableUser {
     username: String,
@@ -10,9 +11,13 @@ impl DisableUser {
         DisableUser { username: username }
     }
 
-    pub fn execute(&self) {
+}
+
+impl AliasCommand for DisableUser {
+
+    fn execute(&self) -> CommandResponse {
         let mut config = Config::load();
         config.disable_user(&self.username);
+        CommandResponse::success()
     }
-
 }

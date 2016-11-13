@@ -2,6 +2,7 @@ use aliases::collections::Aliases;
 use aliases::models::Alias;
 use aliases::ExecutionWorkflow;
 use aliases::repositories::AliasRepository;
+use aliases::commands::{AliasCommand, CommandResponse};
 
 pub struct Exec {
     directory: String,
@@ -19,15 +20,6 @@ impl Exec {
         }
     }
 
-    pub fn execute(&self) {
-        match self.find_alias() {
-            Err(message) => { println!("Error! {}", message); } // TODO handle this better?
-            Ok(mut alias) => {
-                alias.add_arguments(self.forwarding_args.clone());
-                ExecutionWorkflow::new(alias).execute();
-            }
-        }
-    }
 
     //----------- private -----------//
 
@@ -46,4 +38,19 @@ impl Exec {
     fn directory_aliases(&self) -> Result<Aliases, &'static str> {
         AliasRepository::find_for_directory(&self.directory)
     }
+}
+
+impl AliasCommand for Exec {
+
+    fn execute(&self) -> CommandResponse {
+        match self.find_alias() {
+            Err(message) => { println!("Error! {}", message); } // TODO handle this better?
+            Ok(mut alias) => {
+                alias.add_arguments(self.forwarding_args.clone());
+                ExecutionWorkflow::new(alias).execute();
+            }
+        }
+        CommandResponse::success()
+    }
+
 }

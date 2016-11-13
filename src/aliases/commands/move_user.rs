@@ -1,4 +1,5 @@
 use aliases::Config;
+use aliases::commands::{CommandResponse, AliasCommand};
 
 pub struct MoveUser {
     username: String,
@@ -11,7 +12,11 @@ impl MoveUser {
         MoveUser { username: username, position: position }
     }
 
-    pub fn execute(&self) {
+}
+
+impl AliasCommand for MoveUser {
+
+    fn execute(&self) -> CommandResponse {
         let mut config = Config::load();
         match config.users().into_iter().position(|user| {user == self.username}) {
             Some(index) => {
@@ -22,7 +27,6 @@ impl MoveUser {
             },
             None => { println!("Error! Could not find the user {}.", self.username) },
         }
-
+        CommandResponse::success()
     }
-
 }
