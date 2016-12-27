@@ -67,7 +67,7 @@ impl CommandBuilder {
 
     fn total_numbered_positional_arguments(&self, command: &String) -> usize {
         let re = Regex::new(r"\$(\d+)").unwrap();
-        match re.captures_iter(command).map(|capture| capture.at(1).unwrap().parse::<usize>().unwrap()).max() {
+        match re.captures_iter(command).map(|capture| capture.get(1).unwrap().as_str().parse::<usize>().unwrap()).max() {
             Some(value) => { value + 1 }
             None => 0
         }
