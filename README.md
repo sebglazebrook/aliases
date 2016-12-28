@@ -175,10 +175,11 @@ Do the normal things, fork the code and make a PR.
 - handle different process signals
 - is user's config is out of wack, like they are missing a key, it blows up
 - Being able to actually run the unit tests :-)
-- handle when numbers args are not in order
+- when listing aliases alert the user if the dir hasn't been initialized
 
 ## Small improvements to come
 
+- handle when numbers args are not in order
 - add description of alias that can be seen in list view
 - Sort aliases lists better and make it more obvious which ones are local
 - Colors for user interactions
