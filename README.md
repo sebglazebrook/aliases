@@ -171,7 +171,6 @@ Do the normal things, fork the code and make a PR.
 
 ## Bugs to fix
 
-- wildcard positional args end up globbing instead of being passed through as a wildcard
 - handle different process signals
 - is user's config is out of wack, like they are missing a key, it blows up
 - Being able to actually run the unit tests :-)
