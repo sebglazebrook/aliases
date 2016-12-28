@@ -46,6 +46,7 @@ impl Config {
 
     pub fn update_users(&mut self, users: Vec<String>) {
         self.users = users;
+        self.users.dedup();
         self.update_file();
     }
 
@@ -53,6 +54,9 @@ impl Config {
         match self.disabled_users.clone() {
             Some(users) => {
                 self.disabled_users = Some(users.clone().into_iter().filter(|user| user != username).collect());
+                let mut users = self.users();
+                users.push(username.to_string());
+                self.update_users(users);
             },
             None => {
                 self.disabled_users = Some(vec![]);
