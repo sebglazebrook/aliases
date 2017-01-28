@@ -1,39 +1,10 @@
-CONTAINER_NAME = "aliases-test-container"
-IMAGE_NAME = "aliases-test-image"
-
-def build_container(dockerfile)
-  Logger.info '---- Building container'
-  system("docker build --tag #{IMAGE_NAME} --file #{dockerfile} .")
-end
-
-def start_container(dockerfile)
-  build_container(dockerfile)
-  Logger.info '---- Starting container'
-  system("docker run -ti -v ${APP_ROOT}:/code -d --workdir /code --name #{CONTAINER_NAME} #{IMAGE_NAME} sh")
-end
-
-def kill_container
-  Logger.info '---- Killing container'
-  system("docker rm --force #{CONTAINER_NAME}")
-end
-
-def docker_run(command, args, dockerfile)
-  start_container(dockerfile)
-  Logger.info "---- Running command: #{command} #{args}"
-  Logger.info "docker exec -ti #{CONTAINER_NAME} #{command} #{args.join(" ")}"
-  `docker exec -ti #{CONTAINER_NAME} #{command} #{args.join(" ")}`
-end
-
-def docker_diff
-  `docker diff #{CONTAINER_NAME}`.split("\n")
-end
-
 describe "init command" do
 
   let(:dockerfile) { DockerfileRepository.find(:empty) }
-  subject { docker_run(command, args, dockerfile) }
+  let(:docker_command) { DockerCommand.new(command, args, dockerfile) }
+  subject { docker_command.invoke }
 
-  after { kill_container }
+  after { docker_command.kill }
 
   context "without any args" do
 
@@ -44,8 +15,7 @@ describe "init command" do
       let(:command) { "bash -c 'cd /tmp && /code/target/debug/aliases init'" }
 
       it "creates an aliases file" do
-        subject
-        expect(docker_diff.include?("A /tmp/.aliases")).to be true
+        expect(subject.diff.include?("A /tmp/.aliases")).to be true
       end
     end
 
@@ -54,8 +24,7 @@ describe "init command" do
       let(:command) { "./target/debug/aliases init" }
 
       it "leaves the file system untouched" do
-        subject
-        expect(docker_diff.include?("A /code/.aliases")).to be false
+        expect(subject.diff.include?("A /code/.aliases")).to be false
       end
     end
 
@@ -64,8 +33,7 @@ describe "init command" do
       let(:command) { "./target/debug/aliases init" }
 
       it "creates a aliases config file" do
-        subject
-        expect(docker_diff.include?("A /root/.aliases_cfg")).to be true
+        expect(subject.diff.include?("A /root/.aliases_cfg")).to be true
       end
     end
 
@@ -76,8 +44,7 @@ describe "init command" do
       let(:command) { "./target/debug/aliases init" }
 
       it "leaves the file system untouched" do
-        subject
-        expect(docker_diff.include?("A /root/.aliases_cfg")).to be false
+        expect(subject.diff.include?("A /root/.aliases_cfg")).to be false
       end
     end
   end
@@ -89,12 +56,11 @@ describe "init command" do
     let(:dockerfile) { DockerfileRepository.find(:initialized) }
 
     it "outputs the global system config users need to run to enable aliases" do
-      expect(subject).to eq "export PATH=\"${HOME}/.aliases.d/shims:${PATH}\"\r\naliases rehash\r\n"
+      expect(subject.output).to eq "export PATH=\"${HOME}/.aliases.d/shims:${PATH}\"\r\naliases rehash\r\n"
     end
 
     it "doesn't change the filesystem" do
-      subject
-      expect(docker_diff.empty?).to be true
+      expect(subject.diff.empty?).to be true
     end
   end
 
@@ -107,8 +73,7 @@ describe "init command" do
       let(:command) { "bash -c 'cd /tmp && /code/target/debug/aliases init --user superman'" }
 
       it "creates an alias file for that user" do
-        subject
-        expect(docker_diff.include?("A /tmp/.aliases-superman")).to eq true
+        expect(subject.diff.include?("A /tmp/.aliases-superman")).to eq true
       end
     end
   end
