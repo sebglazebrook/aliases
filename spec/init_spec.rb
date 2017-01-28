@@ -28,22 +28,6 @@ def docker_diff
   `docker diff #{CONTAINER_NAME}`.split("\n")
 end
 
-class DockerfileRepository
-
-  def self.find(name)
-    lookup[name] or raise "Could not find a dockerfile for '#{name}'"
-  end
-
-  private
-
-  def self.lookup
-    {
-      empty: "spec/Dockerfile",
-      initialized: "spec/dockerfiles/initialized",
-    }
-  end
-end
-
 describe "init command" do
 
   let(:dockerfile) { DockerfileRepository.find(:empty) }
