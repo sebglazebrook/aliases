@@ -2,25 +2,25 @@ CONTAINER_NAME = "aliases-test-container"
 IMAGE_NAME = "aliases-test-image"
 
 def build_container(dockerfile)
-  puts '---- Building container'
+  Logger.info '---- Building container'
   system("docker build --tag #{IMAGE_NAME} --file #{dockerfile} .")
 end
 
 def start_container(dockerfile)
   build_container(dockerfile)
-  puts '---- Starting container'
+  Logger.info '---- Starting container'
   system("docker run -ti -v ${APP_ROOT}:/code -d --workdir /code --name #{CONTAINER_NAME} #{IMAGE_NAME} sh")
 end
 
 def kill_container
-  puts '---- Killing container'
+  Logger.info '---- Killing container'
   system("docker rm --force #{CONTAINER_NAME}")
 end
 
 def docker_run(command, args, dockerfile)
   start_container(dockerfile)
-  puts "---- Running command: #{command} #{args}"
-  puts "docker exec -ti #{CONTAINER_NAME} #{command} #{args.join(" ")}"
+  Logger.info "---- Running command: #{command} #{args}"
+  Logger.info "docker exec -ti #{CONTAINER_NAME} #{command} #{args.join(" ")}"
   `docker exec -ti #{CONTAINER_NAME} #{command} #{args.join(" ")}`
 end
 
@@ -34,7 +34,6 @@ describe "init command" do
   subject { docker_run(command, args, dockerfile) }
 
   after { kill_container }
-
 
   context "without any args" do
 
