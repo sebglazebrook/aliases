@@ -103,9 +103,15 @@ describe "init command" do
 
     let(:args) { ["--global"] }
     let(:command) { "bash -c 'cd /tmp && /code/target/debug/aliases init --global'" }
+    let(:dockerfile) { DockerfileRepository.find(:initialized) }
 
     it "outputs the global system config users need to run to enable aliases" do
       expect(subject).to eq "export PATH=\"${HOME}/.aliases.d/shims:${PATH}\"\r\naliases rehash\r\n"
+    end
+
+    it "doesn't change the filesystem" do
+      subject
+      expect(docker_diff.empty?).to be true
     end
   end
 
@@ -113,7 +119,14 @@ describe "init command" do
 
     context "when given a username" do
 
-      it "creates an alias file for that user"
+      let(:args) { ["--user", "superman"]  }
+      let(:dockerfile) { DockerfileRepository.find(:initialized) }
+      let(:command) { "bash -c 'cd /tmp && /code/target/debug/aliases init --user superman'" }
+
+      it "creates an alias file for that user" do
+        subject
+        expect(docker_diff.include?("A /tmp/.aliases-superman")).to eq true
+      end
     end
   end
 end
