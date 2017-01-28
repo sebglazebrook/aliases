@@ -39,13 +39,6 @@ class DockerCommand
     run_command("docker run -ti -v ${APP_ROOT}:/code -d --workdir /code --name #{CONTAINER_NAME} #{IMAGE_NAME} sh")
   end
 
-  def docker_run(command, args, dockerfile)
-    start_container(dockerfile)
-    Logger.info "---- Running command: #{@command} #{@args}"
-    Logger.info "docker exec -ti #{CONTAINER_NAME} #{@command} #{@args.join(" ")}"
-    `docker exec -ti #{CONTAINER_NAME} #{@command} #{@args.join(" ")}`
-  end
-
   def run_command(command_string)
     if verbose?
       system(command_string)
