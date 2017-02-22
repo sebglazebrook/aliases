@@ -74,7 +74,7 @@ The `.aliases` file should be checked in to your repo, spread the alias love wit
 
 ### Global Aliases
 
-Global aliases are created but running `aliases init` in your home directory.
+Global aliases are created by running `aliases init` in your home directory.
 
 Global aliases are overridden by local aliases if they exist.
 
