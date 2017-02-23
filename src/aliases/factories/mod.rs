@@ -27,6 +27,7 @@ impl ShimFileFactory {
                     let _ = file.write_all(&ShimFileFactory::template_string().into_bytes());
                     let mut command = String::from("chmod +x ");
                     command.push_str(filepath.to_str().unwrap());
+                    // this can fail if there are too many files open we should wait and try again
                     let _ = Command::new("bash")
                         .arg("-c")
                         .arg(&command)

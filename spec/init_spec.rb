@@ -1,4 +1,4 @@
-describe "init command" do
+describe "`init` command" do
 
   let(:dockerfile) { DockerfileRepository.find(:empty) }
   let(:docker_command) { DockerCommand.new(command, args, dockerfile) }
