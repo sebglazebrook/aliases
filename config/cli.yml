@@ -84,6 +84,15 @@ subcommands:
             help: name of alias
             required: true
             multiple: true
+  - add:
+      about: add an alias via the cli
+      args:
+        - name:
+            help: the name of the alias
+            required: true
+        - command:
+            help: the command you want to run
+            required: true
   - rehash:
       about: update the aliases
       args: []

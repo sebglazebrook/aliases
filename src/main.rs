@@ -16,6 +16,11 @@ fn main() {
                 App::new().execute_init(matches.is_present("global"), matches.value_of("user"));
             }
         },
+        Some("add") => {
+            if let Some(matches) = matches.subcommand_matches("add") {
+                App::new().execute_add(matches.value_of("name"), matches.value_of("command"));
+            }
+        },
         Some("list") => {
             if let Some(matches) = matches.subcommand_matches("list") {
                 // TODO pass through the params here

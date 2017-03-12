@@ -1,31 +1,47 @@
 describe "`add` command" do
 
-  context "without any args" do
+  let(:docker_command) { DockerCommand.new(command, args, dockerfile) }
+  subject { docker_command.invoke }
 
-    it "creates the alias" do
-    end
+  # after { docker_command.kill }
 
-    context "when the current directory is not initialized" do
+  context "on an initialized file system" do
 
-      it "initializes the directory" do
+    let(:dockerfile) { DockerfileRepository.find(:initialized) }
+
+    context "without optional args" do
+
+      let(:args) { [] }
+
+      let(:command ) { "bash -c 'cd /tmp && /code/target/debug/aliases add c cat'" }
+
+      it "creates the alias in the current directory" do
+        subject
+        puts docker_command.query("bash -c 'cd /tmp && /code/target/debug/aliases list --local'")
+        expect(docker_command.query("bash -c 'cd /tmp && /code/target/debug/aliases list --local'").include?("c")).to be true
+      end
+
+      context "when the current directory is not initialized" do
+
+        it "initializes the directory" do
+        end
+      end
+
+      it "rehashes to make the alias available" do
       end
     end
 
-    it "rehashes to make the alias available" do
+    context "with optional args" do
+
+      describe "--global" do
+
+      end
+
+      describe "--directory" do
+      end
+
+      describe "--user" do
+      end
     end
   end
-
-  context "with args" do
-
-    describe "--global" do
-
-    end
-
-    describe "--directory" do
-    end
-
-    describe "--user" do
-    end
-  end
-
 end

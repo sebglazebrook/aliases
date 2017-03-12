@@ -17,6 +17,12 @@ class DockerCommand
     self
   end
 
+  def query(command)
+    Logger.info "---- Running command: #{command}"
+    Logger.info "docker exec -ti #{CONTAINER_NAME} #{command}"
+    `docker exec -ti #{CONTAINER_NAME} #{command}`
+  end
+
   def diff
     `docker diff #{CONTAINER_NAME}`.split("\n")
   end
@@ -41,6 +47,7 @@ class DockerCommand
 
   def run_command(command_string)
     if verbose?
+      Logger.info command_string
       system(command_string)
     else
       `#{command_string}`
