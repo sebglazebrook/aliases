@@ -28,16 +28,25 @@ subcommands:
             long: local
             short: l
             takes_value: false
+            conflicts_with:
+              - global
+              - directory
         - global:
             help: list only global aliases
-            long: gobal
+            long: global
             short: g
             takes_value: false
+            conflicts_with:
+              - local
+              - directory
         - directory:
             help: list aliases for a specific directory
             long: directory
             short: d
             takes_value: true
+            conflicts_with:
+              - local
+              - global
         - name:
             help: list aliases for with a specific name
             long: name

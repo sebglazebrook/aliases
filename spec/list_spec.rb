@@ -45,22 +45,42 @@ describe "`list` command" do
 
       context "with `--global` arg" do
 
-        it "only lists the aliases in the home dir"
+        let(:command) { "bash -c 'cd /tmp && aliases list --global'" }
+
+        it "only lists the aliases in the home dir" do
+          expect(subject.output).to match(/c\s+cat/)
+          expect(subject.output).to_not match(/l\s+ls/)
+        end
       end
 
       context "with `--local` arg" do
 
-        it "only list the aliases in the local directory"
+        let(:command) { "bash -c 'cd /tmp && aliases list --local'" }
+
+        it "only list the aliases in the local directory" do
+          expect(subject.output).to match(/l\s+ls/)
+          expect(subject.output).to_not match(/c\s+cat/)
+        end
       end
 
       context "with `--directory` arg" do
 
-        it "only lists the aliases in the given directory"
+        let(:command) { "bash -c 'cd /tmp && aliases list --directory \"$PWD\"'" }
+
+        it "only lists the aliases in the given directory" do
+          expect(subject.output).to match(/l\s+ls/)
+          expect(subject.output).to_not match(/c\s+cat/)
+        end
       end
 
       context "with `--name` arg" do
 
-        it "only lists the aliases that matches the given name exactly"
+        let(:command) { "bash -c 'cd /tmp && aliases list --name c'" }
+
+        it "only lists the aliases that matches the given name exactly" do
+          expect(subject.output).to match(/c\s+cat/)
+          expect(subject.output).to_not match(/l\s+ls/)
+        end
       end
     end
   end
