@@ -35,7 +35,7 @@ impl List {
 
     // TODO this needs to start using the AliasRepository
     pub fn execute(&mut self) -> i32  {
-        let mut aliases = self.global_aliases().merge(self.parent_aliases()).merge(self.local_aliases());
+        let mut aliases = self.local_aliases().merge(self.parent_aliases()).merge(self.global_aliases());
         if let Some(ref directory_filter) = self.directory_filter {
             let mut new_collection = vec![];
             for i in aliases.into_iter().filter(|alias| alias.basename.to_str().unwrap() == *directory_filter) {

@@ -7,6 +7,8 @@ describe "`list` command" do
     let(:args) { [] }
     subject { docker_command.invoke }
 
+    after { docker_command.kill }
+
     context "and there are aliases in the home and current directory" do
 
       before do
@@ -21,19 +23,23 @@ describe "`list` command" do
 
         it "lists aliases in the home directory" do
           expect(docker_command.query("bash -c 'cd /tmp && /code/target/debug/aliases list'")).to match(/c\s+cat/)
-          expect(docker_command.query("bash -c 'cd /tmp && /code/target/debug/aliases list'")).to match(/l\s+ls/)
         end
 
-        it "lists aliases in the local directory"
+        it "lists aliases in the local directory" do
+          expect(docker_command.query("bash -c 'cd /tmp && /code/target/debug/aliases list'")).to match(/l\s+ls/)
+        end
 
         context "when there are matching aliases in both directories" do
 
           before do
-            # aliases add foo home-bar --global
-            # aliases add foo local-bar
+            docker_command.query("bash -c 'cd ~ && /code/target/debug/aliases add foo home-bar'")
+            docker_command.query("bash -c 'cd /tmp && /code/target/debug/aliases add foo local-bar'")
           end
 
-          it "lists the one in the local directory"
+          it "lists the one in the local directory" do
+            expect(docker_command.query("bash -c 'cd /tmp && /code/target/debug/aliases list'")).to match(/foo\s+local-bar/)
+            expect(docker_command.query("bash -c 'cd /tmp && /code/target/debug/aliases list'")).to_not match(/foo\s+home-bar/)
+          end
         end
       end
 
