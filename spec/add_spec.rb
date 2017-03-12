@@ -22,11 +22,11 @@ describe "`add` command" do
 
       context "when the current directory is not initialized" do
 
-        let(:command ) { "bash -c 'cd /tmp && mkdir new-uninitialized-dir && cd new-uninitialized-dir && /code/target/debug/aliases add c cat'" }
+        let(:command ) { "bash -c 'cd /tmp && mkdir new-uninitialized-dir && cd /tmp/new-uninitialized-dir && /code/target/debug/aliases add c cat'" }
 
         it "initializes the directory" do
           subject
-          expect(docker_command.query("bash -c 'aliases directories'").include?("/tmp/new-unintiialized-dir")).to be true
+          expect(docker_command.query("bash -c 'aliases directories'").include?("/tmp/new-uninitialized-dir")).to be true
         end
       end
 
