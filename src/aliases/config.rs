@@ -40,6 +40,10 @@ impl Config {
         self.alias_directories.iter().map(|dir| PathBuf::from(dir)).collect()
     }
 
+    pub fn directories(&self) -> Vec<String> {
+        self.alias_directories.clone()
+    }
+
     pub fn users(&self) -> Vec<String> {
         self.users.clone()
     }

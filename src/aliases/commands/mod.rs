@@ -9,6 +9,7 @@ mod clone_repo;
 mod pull_repo;
 mod enable_user;
 mod disable_user;
+mod directories;
 
 pub use self::init::Init;
 pub use self::list::List;
@@ -21,6 +22,7 @@ pub use self::clone_repo::CloneRepo;
 pub use self::pull_repo::PullRepo;
 pub use self::enable_user::EnableUser;
 pub use self::disable_user::DisableUser;
+pub use self::directories::Directories;
 
 pub trait AliasCommand {
     fn execute(&self) -> CommandResponse;

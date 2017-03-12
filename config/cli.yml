@@ -93,6 +93,8 @@ subcommands:
         - command:
             help: the command you want to run
             required: true
+  - directories:
+      about: list all directories initialized with aliases
   - rehash:
       about: update the aliases
       args: []
