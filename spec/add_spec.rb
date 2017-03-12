@@ -17,24 +17,25 @@ describe "`add` command" do
 
       it "creates the alias in the current directory" do
         subject
-        puts docker_command.query("bash -c 'cd /tmp && /code/target/debug/aliases list --local'")
         expect(docker_command.query("bash -c 'cd /tmp && /code/target/debug/aliases list --local'").include?("c")).to be true
       end
 
       context "when the current directory is not initialized" do
 
+        let(:command ) { "bash -c 'cd /tmp && mkdir new-uninitialized-dir && cd new-uninitialized-dir && /code/target/debug/aliases add c cat'" }
+
         it "initializes the directory" do
+          subject
+          expect(docker_command.query("bash -c 'aliases directories'").include?("/tmp/new-unintiialized-dir")).to be true
         end
       end
 
-      it "rehashes to make the alias available" do
-      end
+      it "rehashes to make the alias available"
     end
 
     context "with optional args" do
 
       describe "--global" do
-
       end
 
       describe "--directory" do

@@ -1,4 +1,4 @@
-run_tests:
+run-tests:
   command: ./scripts/test-runner.sh
 workspace:
   command: eval "$(docker-machine env seb-dev)" && docker-compose run rust
