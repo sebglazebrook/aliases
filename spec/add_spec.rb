@@ -3,7 +3,7 @@ describe "`add` command" do
   let(:docker_command) { DockerCommand.new(command, args, dockerfile) }
   subject { docker_command.invoke }
 
-  # after { docker_command.kill }
+  after { docker_command.kill }
 
   context "on an initialized file system" do
 
