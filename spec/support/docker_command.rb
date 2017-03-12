@@ -32,6 +32,12 @@ class DockerCommand
     run_command("docker rm --force #{CONTAINER_NAME}")
   end
 
+  def start_container
+    build_container
+    Logger.info '---- Starting container'
+    run_command("docker run -ti -v ${APP_ROOT}:/code -d --workdir /code --name #{CONTAINER_NAME} #{IMAGE_NAME} sh")
+  end
+
   private
 
   def build_container
@@ -39,11 +45,6 @@ class DockerCommand
     run_command("docker build --tag #{IMAGE_NAME} --file #{@dockerfile} .")
   end
 
-  def start_container
-    build_container
-    Logger.info '---- Starting container'
-    run_command("docker run -ti -v ${APP_ROOT}:/code -d --workdir /code --name #{CONTAINER_NAME} #{IMAGE_NAME} sh")
-  end
 
   def run_command(command_string)
     if verbose?
