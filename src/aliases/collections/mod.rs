@@ -1,6 +1,7 @@
 use aliases::models::Alias;
 use std::cmp::Ordering;
 use std::result::Result;
+use yaml_rust::{Yaml, YamlLoader};
 
 #[derive(Debug,Clone)]
 pub struct Aliases {
@@ -33,6 +34,16 @@ impl Aliases {
 
     pub fn len(&self) -> usize {
         self.raw_collection.len()
+    }
+
+    pub fn to_yaml(&self) -> Yaml {
+        let mut yaml_string = String::from("");
+        self.raw_collection.iter().fold(&mut yaml_string, |acc,  ref alias| {
+            acc.push_str(&alias.as_yaml());
+            acc.push_str("\n");
+            return acc;
+        });
+        YamlLoader::load_from_str(&yaml_string).unwrap()[0].clone()
     }
 }
 

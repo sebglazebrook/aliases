@@ -1,5 +1,5 @@
-run_tests:
-  command: eval "$(docker-machine env seb-dev)" && docker-compose run rust cargo test
+run-tests:
+  command: ./scripts/test-runner.sh
 workspace:
   command: eval "$(docker-machine env seb-dev)" && docker-compose run rust
 tester:

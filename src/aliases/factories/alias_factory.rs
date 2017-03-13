@@ -20,7 +20,7 @@ impl AliasFactory {
             Err(error_string) => { Err(error_string) }
             Ok(yaml) => {
                 match yaml.as_hash() {
-                    None => { Err("File invalid content.") },
+                    None => { Ok(Aliases::new(vec![])) },
                     Some(hash) => {
                         let mut aliases = vec![];
                         let basename = data_file.as_path().parent().unwrap().to_path_buf(); // TODO handle this right??

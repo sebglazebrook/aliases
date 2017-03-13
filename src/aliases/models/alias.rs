@@ -57,4 +57,45 @@ impl Alias {
     pub fn add_arguments(&mut self, arguments: Vec<String>) {
         self.args = arguments.clone();
     }
+
+    pub fn as_yaml(&self) -> String {
+        AliasYamlBuilder::new(&self).build()
+    }
+}
+
+struct AliasYamlBuilder<'a> {
+    alias: &'a Alias,
+}
+
+impl<'a> AliasYamlBuilder<'a> {
+
+    pub fn new(alias: &'a Alias) -> Self {
+        AliasYamlBuilder { alias: alias }
+    }
+
+    pub fn build(&self) -> String {
+        let output = self.build_initial_string();
+        //self.add_confirm(&mut output);
+        //self.add_confirmation_message(&mut output);
+        //self.add_conditional(&mut output);
+        //self.add_backout_seconds(&mut output);
+        //self.add_unit_test(&mut output);
+        //self.add_quiet(&mut output);
+        output
+//#alias_name:
+//#  command: ./super_command.sh                         # required
+//#  confirm: true                                       # optional
+//#  confirmation_message: Are you sure you are sure??   # optional
+//#  conditional: /bin/true                              # optional
+//#  backout_seconds: 3                                  # optional
+//#  unit_test: '[ true = true ]'                        # optional
+//#  quiet: false                                        # optional
+    }
+
+    //-------- private ------//
+
+    fn build_initial_string(&self) -> String {
+        format!("\n{}:\n  command: {}\n", self.alias.name, self.alias.command)
+    }
+
 }

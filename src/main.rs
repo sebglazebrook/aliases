@@ -5,6 +5,8 @@ extern crate env_logger;
 
 use aliases::App;
 
+use std::env;
+
 fn main() {
     env_logger::init().unwrap();
     let yaml = load_yaml!("../config/cli.yml");
@@ -16,10 +18,29 @@ fn main() {
                 App::new().execute_init(matches.is_present("global"), matches.value_of("user"));
             }
         },
+        Some("add") => {
+            if let Some(matches) = matches.subcommand_matches("add") {
+                App::new().execute_add(matches.value_of("name"), matches.value_of("command"));
+            }
+        },
+        Some("directories") => {
+            App::new().execute_directories();
+        },
         Some("list") => {
+            let home_dir = env::home_dir().unwrap();
+            let home_string = home_dir.to_str();
+            let current_dir = env::current_dir().unwrap();
+            let current_string = current_dir.to_str();
             if let Some(matches) = matches.subcommand_matches("list") {
-                // TODO pass through the params here
-                App::new().execute_list(matches.value_of("directory"), matches.value_of("name"));
+                let mut directory = None;
+                if let Some(dir) = matches.value_of("directory") { directory = Some(dir); }
+                if matches.is_present("global") {
+                    directory = home_string;
+                }
+                if matches.is_present("local") {
+                    directory = current_string;
+                }
+                App::new().execute_list(directory, matches.value_of("name"));
             }
         },
         Some("rehash") => {
