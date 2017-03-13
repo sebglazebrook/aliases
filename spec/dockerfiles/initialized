@@ -21,3 +21,5 @@ COPY * /code/
 COPY target/debug/aliases /usr/local/bin/
 
 RUN aliases init
+
+RUN echo "source <(aliases init --global)" >> ~/.bashrc

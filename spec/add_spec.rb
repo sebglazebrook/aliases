@@ -17,7 +17,7 @@ describe "`add` command" do
 
       it "creates the alias in the current directory" do
         subject
-        expect(docker_command.query("bash -c 'cd /tmp && /code/target/debug/aliases list --local'").include?("foo")).to be true
+        expect(docker_command.query("bash -c 'cd /tmp && /code/target/debug/aliases list --local'")).to match("foo")
       end
 
       context "when the current directory is not initialized" do
@@ -26,7 +26,7 @@ describe "`add` command" do
 
         it "initializes the directory" do
           subject
-          expect(docker_command.query("bash -c 'aliases directories'").include?("/tmp/new-uninitialized-dir")).to be true
+          expect(docker_command.query("bash -c 'aliases directories'")).to match("/tmp/new-uninitialized-dir")
         end
       end
 
