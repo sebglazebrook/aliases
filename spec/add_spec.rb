@@ -13,16 +13,16 @@ describe "`add` command" do
 
       let(:args) { [] }
 
-      let(:command ) { "bash -c 'cd /tmp && /code/target/debug/aliases add c cat'" }
+      let(:command ) { "bash -c 'cd /tmp && /code/target/debug/aliases add foo \"hello world\"'" }
 
       it "creates the alias in the current directory" do
         subject
-        expect(docker_command.query("bash -c 'cd /tmp && /code/target/debug/aliases list --local'").include?("c")).to be true
+        expect(docker_command.query("bash -c 'cd /tmp && /code/target/debug/aliases list --local'").include?("foo")).to be true
       end
 
       context "when the current directory is not initialized" do
 
-        let(:command ) { "bash -c 'cd /tmp && mkdir new-uninitialized-dir && cd /tmp/new-uninitialized-dir && /code/target/debug/aliases add c cat'" }
+        let(:command ) { "bash -c 'cd /tmp && mkdir new-uninitialized-dir && cd /tmp/new-uninitialized-dir && /code/target/debug/aliases add foo bar'" }
 
         it "initializes the directory" do
           subject
@@ -30,7 +30,10 @@ describe "`add` command" do
         end
       end
 
-      it "rehashes to make the alias available"
+      it "makes the alias available for use" do
+        subject
+        expect(docker_command.query("bash -c 'source ~/.bashrc && cd /tmp && foo'")).to match(/hello world/) #TODO shouldn't have to source the rc file here
+      end
     end
 
     context "with optional args" do

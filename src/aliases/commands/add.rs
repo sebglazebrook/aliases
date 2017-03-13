@@ -2,7 +2,7 @@ use aliases::repositories::AliasFileRepository;
 use aliases::models::Alias;
 use aliases::Config;
 use std::path::PathBuf;
-use aliases::commands::{Init, AliasCommand};
+use aliases::commands::{Init, Rehash, AliasCommand};
 
 pub struct Add {
     directory: PathBuf,
@@ -24,7 +24,9 @@ impl Add {
         let mut alias_file = AliasFileRepository::find(&self.directory);
         alias_file.add_alias(self.build_alias());
         AliasFileRepository::save(alias_file);
-        Init::new(self.directory.clone(), Config::load(), false, None).execute();
+        let config = Config::load();
+        Init::new(self.directory.clone(), config.clone(), false, None).execute();
+        Rehash::new(config.shim_path(), config.alias_paths()).execute();
         0 // TODO make this a real exit code
     }
 
