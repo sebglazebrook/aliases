@@ -21,20 +21,7 @@ impl App {
     }
 
     pub fn execute_init(&mut self, global: bool, user: Option<&str>) {
-        let target_path;
-        if global {
-            match env::var("HOME") {
-                Ok(home_dir) => {
-                   target_path = PathBuf::from(home_dir);
-                },
-                Err(_) => {
-                    target_path = self.current_path.clone();
-                },
-            }
-        } else {
-            target_path = self.current_path.clone();
-        }
-        Init::new(target_path, self.config.clone(), global, user).execute();
+        Init::new( calculate_target_path_for_init(global, &self.current_path), self.config.clone(), global, user).execute();
     }
 
     pub fn execute_list(&mut self, directory: Option<&str>, name: Option<&str>) {
@@ -86,5 +73,21 @@ impl App {
 
     pub fn disable_user(&mut self, username: String) {
         DisableUser::new(username).execute();
+    }
+}
+
+fn calculate_target_path_for_init(global: bool, current_path: &PathBuf) -> PathBuf {
+    match global {
+        false => { current_path.clone() }
+        true => {
+            match env::var("HOME") {
+                Ok(home_dir) => {
+                    PathBuf::from(home_dir)
+                },
+                Err(_) => {
+                    current_path.clone()
+                },
+            }
+        }
     }
 }
