@@ -1,6 +1,9 @@
+sudo: required
+
 language: rust
-rust:
-  - nightly
-matrix:
-  - allow_failures:
-    - rust: nightly
+
+services:
+  - docker
+
+script:
+  - ./scripts/test-runner.sh
