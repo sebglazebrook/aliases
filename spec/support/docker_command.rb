@@ -41,8 +41,10 @@ class DockerCommand
   private
 
   def build_container
-    Logger.info '---- Building container'
-    run_command("docker build --tag #{IMAGE_NAME} --file #{@dockerfile} .")
+    if ENV["REBUILD_CONTAINER"] || !system("docker images -q #{IMAGE_NAME}:latest | grep #{IMAGE_NAME}")
+      Logger.info '---- Building container'
+      run_command("docker build --tag #{IMAGE_NAME} --file #{@dockerfile} .")
+    end
   end
 
 
