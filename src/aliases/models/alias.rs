@@ -50,8 +50,11 @@ impl Alias {
     }
 
     pub fn command(&self) -> String {
-        // TODO make the print out the expanded command with args
-        self.command.clone()
+        let command = CommandBuilder::using_bash()
+                                    .for_command(&self.command)
+                                    .with_args(&self.args)
+                                    .pseudo_build();
+        command.command_string
     }
 
     pub fn add_arguments(&mut self, arguments: Vec<String>) {
