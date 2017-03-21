@@ -1,6 +1,6 @@
 [package]
 name = "aliases"
-version = "0.8.0-devel"
+version = "0.8.0"
 authors = ["Seb Glazebrook <sebastian.glazebrook@redbubble.com>"]
 
 [lib]
