@@ -34,13 +34,13 @@ impl CommandBuilder {
         command
     }
 
-    //---------- private ------------//
-
-    fn pseudo_build(&self) -> PseudoCommand {
+    pub fn pseudo_build(&self) -> PseudoCommand {
         let args = self.build_args();
         let command_string = self.build_command_string();
         PseudoCommand { command_string: command_string, args: args }
     }
+
+    //---------- private ------------//
 
     fn build_args(&self) -> Vec<String> {
         let num = self.total_numbered_positional_arguments(&self.command_name.clone().unwrap());
@@ -79,7 +79,7 @@ impl CommandBuilder {
     }
 }
 
-struct PseudoCommand {
+pub struct PseudoCommand {
     pub command_string: String,
     pub args: Vec<String>,
 }
