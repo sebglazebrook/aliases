@@ -203,3 +203,4 @@ Do the normal things, fork the code and make a PR.
   ```
   aliases pull                                            # pulls all users
   ```
+- Add the ability to search for aliases not on your computer
