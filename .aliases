@@ -1,9 +1,12 @@
 run-tests:
   command: ./scripts/test-runner.sh
+docker-machine-name:
+  command: docker-machine ls | tail -n 1 | awk '{ print $1 }'
 workspace:
-  command: eval "$(docker-machine env seb-dev)" && docker-compose run rust
+  command: eval "$(docker-machine env $(docker-machine-name))" && docker-compose run rust
 tester:
   command: arg=$(FZF) && $0 $arg && echo $0 $arg >> ~/.bash_history
   enable_positional_arguments: true
+
 release:
   command: cargo clean && ./scripts/build-release-osx.sh $0 && ./scripts/build-release-debian.sh $0
