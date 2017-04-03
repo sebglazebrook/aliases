@@ -168,6 +168,10 @@ aliases pull sebglazberook                              # pull and show the diff
 
 Do the normal things, fork the code and make a PR.
 
+We use docker containers so we can share the same development environment.Some aliases are in this repository to help you to get up to speed.Here the list:
+- ``release`` - generates a new release given the version-number
+- ``run-tests`` - run all the tests
+- ``workspace`` - connect to docker environment (uses the alias ``docker-machine-name`` to get it)
 
 ## Bugs to fix
 
