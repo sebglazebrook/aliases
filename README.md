@@ -8,7 +8,7 @@ Now you can!
 
 ## Why you want this
 
-Already know you want this? Skip to [Installation](#installation).
+Already know why you want this? Jump to [Installation](#installation) section.
 
 Bash aliases are cool but limited, they are globals and have limited configurability.
 
@@ -20,7 +20,7 @@ function ll() {
 }
 ```
 
-This downside to this is it's hard to tell where these functions are coming from, you can't just type `which ll` and find the function.
+The downside to above function is that it's hard to tell where these functions are coming from, you can't just type `which ll` and find the function.
 
 You also end up writing a whole lot of functions that are really similar, plus none of these are dynamic or contextual
 
@@ -49,7 +49,7 @@ This creates a `.aliases` file in the current directory with a commented out ali
 
 Edit the file and then run `aliases rehash` to make the alias available.
 
-Here's an example of some aliases:
+Here's an example of some of the aliases:
 
 ```yaml
 l:
@@ -76,7 +76,7 @@ The `.aliases` file should be checked in to your repo, spread the alias love wit
 
 Global aliases are created by running `aliases init` in your home directory.
 
-Global aliases are overridden by local aliases if they exist.
+These aliases are overridden by local aliases if they exist.
 
 
 ## Installation
@@ -116,9 +116,9 @@ The above alias allows you to do the following:
 vim-replace old_text new_text
 ```
 
-This replaces $0 $1 etc with the arguments you send to your alias.
+This replaces `$0`, `$1` etc with the arguments you send to your alias.
 
-This currently assumes that your position keys are continuous. For example if you have $0 $1 $5 then it will not work.
+This currently assumes that your position keys are continuous. For example if you have `$0`, `$1`, `$5` then it will not work.
 
 ### User Aliases
 
@@ -134,7 +134,7 @@ This will create a new empty `.aliases-superman` file in the current directory a
 
 If your repo already has a `.aliases-superman` the file will be left untouched and the user `superman` will be added to your list of alias users.
 
-The next time you rust `aliases rehash` all `superman` aliases in all initialized directories will be updated.
+The next time you run `aliases rehash`, all `superman` aliases in all initialized directories will be updated.
 
 User aliases are merged together to create a list of available aliases.
 
@@ -146,7 +146,7 @@ You can see all users and their prioritization using:
 aliases users
 ```
 
-To change the prioritization order of the user's you currently need to edit the user list in the config file.
+To change the prioritization order of the user, you currently need to edit the user list in the config file.
 
 ```
 cat ~/.aliases_cfg
@@ -157,7 +157,7 @@ And to temporally bump a user to the top with env var, like when you are pairing
 export ALIASES_USER=superman
 ```
 
-You can also pull and sync user aliases with github
+You can also pull and sync user aliases with github as:
 ```
 aliases clone sebglazebrook                             # this could pull from github.com/sebglazebrook/.aliases repo
 aliases clone sebglazebrook https://some-other-address  # pulls from the given repo
@@ -171,29 +171,29 @@ Do the normal things, fork the code and make a PR.
 
 ## Bugs to fix
 
-- handle different process signals
-- is user's config is out of wack, like they are missing a key, it blows up
+- Handle different process signals
+- Check user's config is out of wack, like they are missing a key, it blows up
 - Being able to actually run the unit tests :-)
-- when listing aliases alert the user if the dir hasn't been initialized
+- When listing, aliases alert the user if the dir hasn't been initialized
 
 ## Small improvements to come
 
-- handle when numbers args are not in order
-- add description of alias that can be seen in list view
+- Handle when numbers args are not in order
+- Add description of alias that can be seen in list view
 - Sort aliases lists better and make it more obvious which ones are local
 - Colors for user interactions
 - Use a thread pool when running rehash command to avoid too many threads
-- in list view add more data about the aliases, user etc
-- allow multi-line command that display is list view well
+- In list view add more data about the aliases, user etc
+- Allow multi-line command that display is list view well
 
 ## Possible future features
 
-- add crud features for aliases via command line so you don't have to edit the yaml file directly
+- Add CRUD features for aliases via command line so you don't have to edit the yaml file directly
 - Autocompletion for aliases
 - Allow parent aliases that are not global??
-- clean uninstall, removing shims etc
-- allow user to set a default shell or override the default shell. Currently all aliases are hardcoded to run inside a bash shell, could be sh or zsh
-- enable and disable user aliases
+- Clean uninstall, removing shims etc
+- Allow user to set a default shell or override the default shell. Currently all aliases are hardcoded to run inside a bash shell, could be sh or zsh
+- Enable and disable user aliases
   ```
   aliases user enable superman
   aliases user disable superman
