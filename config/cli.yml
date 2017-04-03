@@ -102,6 +102,12 @@ subcommands:
         - command:
             help: the command you want to run
             required: true
+  - remove:
+      about: remove an alias via the cli
+      args:
+        - name:
+            help: the name of the alias
+            required: true
   - directories:
       about: list all directories initialized with aliases
   - rehash:
