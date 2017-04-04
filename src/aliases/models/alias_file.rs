@@ -18,6 +18,10 @@ impl AliasFile {
         self.aliases.push(&alias);
     }
 
+    pub fn remove_alias(&mut self, alias: Alias) {
+        self.aliases.remove(&alias);
+    }
+
     pub fn as_bytes(&self) ->  Vec<u8> {
         let mut output = self.header_content();
         {

@@ -1,4 +1,4 @@
-use aliases::commands::{Init, List, Add, Rehash, Exec, Users, MoveUser, CloneRepo, PullRepo, EnableUser, DisableUser, AliasCommand, Directories};
+use aliases::commands::{Init, List, Add, Remove, Rehash, Exec, Users, MoveUser, CloneRepo, PullRepo, EnableUser, DisableUser, AliasCommand, Directories};
 use aliases::Config;
 
 use std::env;
@@ -31,6 +31,11 @@ impl App {
 
     pub fn execute_add(&mut self, name: Option<&str>, command: Option<&str>) {
         let exit_code = Add::new(self.current_path.clone(), name, command).execute();
+        process::exit(exit_code);
+    }
+
+    pub fn execute_remove(&mut self, name: Option<&str>) {
+        let exit_code = Remove::new(self.current_path.clone(), name).execute();
         process::exit(exit_code);
     }
 

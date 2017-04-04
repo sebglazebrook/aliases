@@ -23,6 +23,11 @@ fn main() {
                 App::new().execute_add(matches.value_of("name"), matches.value_of("command"));
             }
         },
+        Some("remove") => {
+            if let Some(matches) = matches.subcommand_matches("remove") {
+                App::new().execute_remove(matches.value_of("name"));
+            }
+        },
         Some("directories") => {
             App::new().execute_directories();
         },

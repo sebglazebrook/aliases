@@ -1,6 +1,7 @@
 mod init;
 mod list;
 mod add;
+mod remove;
 mod rehash;
 mod exec;
 mod users;
@@ -14,6 +15,7 @@ mod directories;
 pub use self::init::Init;
 pub use self::list::List;
 pub use self::add::Add;
+pub use self::remove::Remove;
 pub use self::rehash::Rehash;
 pub use self::exec::Exec;
 pub use self::users::Users;

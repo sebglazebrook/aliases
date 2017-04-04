@@ -23,6 +23,16 @@ impl Aliases {
         merged_aliases
     }
 
+    pub fn remove(&mut self, alias: &Alias) -> Result<(), &'static str> {
+      match self.raw_collection.iter().position(|a| a.name == alias.name) {
+        Some(n) => {
+          self.raw_collection.remove(n);
+          Ok(())
+        },
+        None => { Err("Alias does not exist") }
+      }
+    }
+
     pub fn push(&mut self, alias: &Alias) -> Result<(), &'static str> {
         if self.raw_collection.iter().any(|a| { a.name == alias.name }) {
             Err("Alias was a duplicate")
