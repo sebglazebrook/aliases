@@ -84,8 +84,7 @@ These aliases are overridden by local aliases if they exist.
 ### OSX
 
 ```
-brew tap sebglazebrook/aliases
-brew install aliases
+brew install sebglazebrook/aliases/aliases
 ```
 
 ### Linux
