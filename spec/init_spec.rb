@@ -47,6 +47,23 @@ describe "`init` command" do
         expect(subject.diff.include?("A /root/.aliases_cfg")).to be false
       end
     end
+
+    context "given the directory is a symlink" do
+
+      before do
+        docker_command.start_container
+        docker_command.query("bash -c 'mkdir -p /tmp/original'")
+        docker_command.query("bash -c 'cd /tmp/ && ln -s original linked'")
+      end
+
+    let(:command ) { "bash -c 'cd /tmp/original && /code/target/debug/aliases init'" }
+
+      it "adds the sourced dir not the linked dir" do
+        subject
+        expect(docker_command.query('/code/target/debug/aliases directories')).to match("/tmp/original")
+        expect(docker_command.query('/code/target/debug/aliases directories')).to_not match("/tmp/linked")
+      end
+    end
   end
 
   describe "--global" do

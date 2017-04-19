@@ -21,7 +21,7 @@ impl App {
     }
 
     pub fn execute_init(&mut self, global: bool, user: Option<&str>) {
-        Init::new( calculate_target_path_for_init(global, &self.current_path), self.config.clone(), global, user).execute();
+        Init::new(calculate_target_path_for_init(global, &self.current_path), self.config.clone(), global, user).execute();
     }
 
     pub fn execute_list(&mut self, directory: Option<&str>, name: Option<&str>) {

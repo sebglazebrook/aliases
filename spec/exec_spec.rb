@@ -63,4 +63,32 @@ describe "`exec` command" do
       end
     end
   end
+
+  context "when given a symlinked directory" do
+    let(:directory) { "/tmp/linked" }
+
+    context "and an alias name" do
+
+      let(:alias_name) { "awesome" }
+
+      context "and an alias exists" do
+
+        before do
+          docker_command.start_container
+          docker_command.query("bash -c 'cd /tmp && mkdir -p original && ln -s original linked && cd linked && aliases add awesome pwd'")
+        end
+
+        describe "default behavior" do
+
+          it "prints out the command that will be executed" do
+            expect(subject.output).to match(/Executing: pwd/)
+          end
+
+          #it "executes the command" do
+            #expect(subject.output).to match(/\/tmp\/linked/)
+          #end
+        end
+      end
+    end
+  end
 end

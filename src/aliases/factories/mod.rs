@@ -83,8 +83,8 @@ if ! hash aliases 2>/dev/null; then
   exit 1
 fi
 
-if aliases list --directory \"$PWD\" --name \"$COMMAND_NAME\" >/dev/null 2>&1; then
-  aliases exec \"$PWD\" \"$COMMAND_NAME\" -- \"$@\"
+if aliases list --local --name \"$COMMAND_NAME\" >/dev/null 2>&1; then
+  aliases exec \"$(pwd -P)\" \"$COMMAND_NAME\" -- \"$@\"
 elif aliases list --directory \"$HOME\" --name \"$COMMAND_NAME\" >/dev/null 2>&1; then
   aliases exec \"$HOME\" \"$COMMAND_NAME\" -- \"$@\"
 else

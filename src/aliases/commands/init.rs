@@ -22,7 +22,6 @@ impl<'a> Init<'a> {
 
     // ------------ private ---------- //
 
-    // TODO
     fn create_aliases_file(&self) {
         let aliases_filename;
         match self.user {
