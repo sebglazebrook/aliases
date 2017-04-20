@@ -1,6 +1,6 @@
 [root]
 name = "aliases"
-version = "0.8.0"
+version = "0.8.1"
 dependencies = [
  "clap 2.20.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "countdown 0.1.2 (registry+https://github.com/rust-lang/crates.io-index)",
