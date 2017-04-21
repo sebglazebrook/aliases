@@ -15,7 +15,7 @@ Bash aliases are cool but limited, they are globals and have limited configurabi
 One downside of standard bash aliases is that they don't take arguments, to counter this many people (myself included) do thing like create bash functions like this:
 
 ```
-function ll() {
+function ll {
   ls -la "$@"
 }
 ```
@@ -105,7 +105,7 @@ Example:
 
 ```yaml
 vim-replace:
-  command : ag -l "$0" | xargs -o vim -c "bufdo %s!$0!$1!gc"
+  command: ag -l "$0" && vim -c "bufdo %s/$0/$1/gc" $(ag -l "$0")
   enable_positional_arguments: true
 ``````
 
@@ -167,7 +167,7 @@ aliases pull sebglazberook                              # pull and show the diff
 
 Do the normal things, fork the code and make a PR.
 
-We use docker containers so we can share the same development environment.Some aliases are in this repository to help you to get up to speed.Here the list:
+We use docker containers so we can share the same development environment. Some aliases are in this repository to help you to get up to speed. Here the list:
 - ``release`` - generates a new release given the version-number
 - ``run-tests`` - run all the tests
 - ``workspace`` - connect to docker environment (uses the alias ``docker-machine-name`` to get it)
