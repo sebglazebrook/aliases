@@ -59,7 +59,7 @@ gc:
 deploy_production:
   command: bundle exec cap production deploy
   backout_seconds: 3
-  conditional: [ `git rev-parse --abbrev-ref HEAD` == "master" ]
+  conditional: test git rev-parse --abbrev-ref HEAD` == "master"
 deploy_staging:
   command: bundle exec cap staging deploy
 ```
