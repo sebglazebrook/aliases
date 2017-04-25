@@ -191,12 +191,9 @@ We use docker containers so we can share the same development environment. Some 
 
 ## Possible future features
 
-- Autocompletion for aliases
-- Allow parent aliases that are not global??
 - Clean uninstall, removing shims etc
 - Allow user to set a default shell or override the default shell. Currently all aliases are hardcoded to run inside a bash shell, could be sh or zsh
 - Add the ability to pull all users
   ```
   aliases pull                                            # pulls all users
   ```
-- Add the ability to search for aliases not on your computer
