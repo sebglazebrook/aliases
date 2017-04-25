@@ -1,6 +1,7 @@
 use std::path::PathBuf;
 use std::fs;
 
+use scoped_pool::Pool;
 use crossbeam;
 
 use aliases::factories::ShimFileFactory;
@@ -34,13 +35,14 @@ impl AliasCommand for Rehash {
 
     fn execute(&self) -> CommandResponse {
         self.clean_shims_directory();
+        let pool = Pool::new(4);
         for dir in &self.alias_directories {
             match AliasRepository::find_for_directory(&dir.to_str().unwrap().to_string()) {
                 Err(_) => {},
                 Ok(aliases) => {
-                    crossbeam::scope(|scope| {
+                    pool.scoped(|scope| {
                         for alias in aliases {
-                            scope.spawn(move || {
+                            scope.execute(move || {
                                 ShimFileFactory::create(&alias, &self.shim_directory);
                             });
                         }

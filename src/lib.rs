@@ -7,6 +7,8 @@ extern crate tabwriter;
 extern crate countdown;
 extern crate crossbeam;
 extern crate regex;
+extern crate scoped_pool;
+
 
 mod aliases;
 
