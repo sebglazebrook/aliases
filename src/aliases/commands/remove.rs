@@ -2,6 +2,14 @@ use aliases::repositories::AliasFileRepository;
 use aliases::models::Alias;
 use aliases::Config;
 use std::path::PathBuf;
+use std::io::Write;
+
+macro_rules! println_stderr(
+    ($($arg:tt)*) => { {
+        let result =  writeln!(&mut ::std::io::stderr(), $($arg)*);
+        result.expect("failed printing to stderr");
+    } }
+);
 
 pub struct Remove {
     directory: PathBuf,
@@ -19,9 +27,16 @@ impl Remove {
 
     pub fn execute(&self) -> i32 {
         let mut alias_file = AliasFileRepository::find(&self.directory);
-        alias_file.remove_alias(self.build_alias());
-        AliasFileRepository::save(alias_file);
-        0 // TODO make this a real exit code
+        match alias_file.remove_alias(self.build_alias()) {
+            Ok(_) => {
+                AliasFileRepository::save(alias_file);
+                0
+            }
+            Err(_) => {
+                println_stderr!("Could not find alias \"{}\" in directory {:?}", self.build_alias().name, self.directory);
+                1
+            }
+        }
     }
 
     //----- private -----//
