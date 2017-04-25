@@ -191,7 +191,6 @@ We use docker containers so we can share the same development environment. Some 
 
 ## Possible future features
 
-- Add CRUD features for aliases via command line so you don't have to edit the yaml file directly
 - Autocompletion for aliases
 - Allow parent aliases that are not global??
 - Clean uninstall, removing shims etc
