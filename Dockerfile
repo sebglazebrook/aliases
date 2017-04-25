@@ -1,1 +1,1 @@
-FROM sebglazebrook/rust-nightly
+FROM sebglazebrook/rust-nightly:latest

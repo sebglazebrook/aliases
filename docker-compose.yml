@@ -1,5 +1,5 @@
 data:
-  image: sebglazebrook/rust-nightly
+  image: sebglazebrook/rust-nightly:latest
   volumes:
     - /root/.cargo/
     - /root/.bash_histoy
