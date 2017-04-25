@@ -18,8 +18,8 @@ impl AliasFile {
         self.aliases.push(&alias);
     }
 
-    pub fn remove_alias(&mut self, alias: Alias) {
-        self.aliases.remove(&alias);
+    pub fn remove_alias(&mut self, alias: Alias) -> Result<(), &'static str> {
+        self.aliases.remove(&alias)
     }
 
     pub fn as_bytes(&self) ->  Vec<u8> {
