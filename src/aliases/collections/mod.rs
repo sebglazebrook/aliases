@@ -53,7 +53,10 @@ impl Aliases {
             acc.push_str("\n");
             return acc;
         });
-        YamlLoader::load_from_str(&yaml_string).unwrap()[0].clone()
+        match YamlLoader::load_from_str(&yaml_string).unwrap().get(0) {
+            Some(value) => { value.clone() },
+            None => { Yaml::from_str("") }
+        }
     }
 }
 
@@ -78,4 +81,11 @@ impl Iterator for Aliases {
             None
         }
     }
+}
+
+#[test]
+fn when_empty_it_build_empty_yaml() {
+    let collection = Aliases::new(vec![]);
+    let result = collection.to_yaml();
+    assert_eq!(result, Yaml::from_str(""));
 }
