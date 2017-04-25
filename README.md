@@ -195,12 +195,6 @@ We use docker containers so we can share the same development environment. Some 
 - Allow parent aliases that are not global??
 - Clean uninstall, removing shims etc
 - Allow user to set a default shell or override the default shell. Currently all aliases are hardcoded to run inside a bash shell, could be sh or zsh
-- Enable and disable user aliases
-  ```
-  aliases user enable superman
-  aliases user disable superman
-  aliases clone sebglazebrook --enable=true               # enable the user if after successfully cloning the repo. Defaults to false
-  ```
 - Add the ability to pull all users
   ```
   aliases pull                                            # pulls all users
