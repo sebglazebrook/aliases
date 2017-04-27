@@ -21,6 +21,7 @@ countdown = "*"
 crossbeam = "*"
 log = "*"
 env_logger = "*"
+scoped-pool = "*"
 
 [dependencies.clap]
 features = ["yaml"]
