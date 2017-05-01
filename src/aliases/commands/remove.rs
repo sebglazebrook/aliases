@@ -1,6 +1,5 @@
 use aliases::repositories::AliasFileRepository;
 use aliases::models::Alias;
-use aliases::Config;
 use std::path::PathBuf;
 use std::io::Write;
 
