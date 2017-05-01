@@ -25,4 +25,12 @@ impl User {
         self.enabled
     }
 
+    pub fn name(&self) -> String {
+        self.name.clone()
+    }
+
+    pub fn confirm_name(&self, other_name: &str) -> bool {
+        self.name == other_name
+    }
+
 }
