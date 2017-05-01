@@ -1,35 +1,30 @@
-use std::env;
 use std::process::Command;
 
 use aliases::commands::{AliasCommand, CommandResponse};
+use aliases::models::User;
+use aliases::repositories::UserRepository;
 
-pub struct PullRepo<'a> {
-    username: Option<&'a str>,
+pub struct PullRepo {
+    user: Option<User>,
 }
 
-impl<'a> PullRepo<'a> {
+impl PullRepo {
 
-    pub fn new(username: Option<&'a str>) -> Self {
-        PullRepo { username: username }
+    pub fn new(username: Option<&str>) -> Self {
+        let user = username.map(|name| UserRepository::find_by_name_or_blow(name));
+        PullRepo { user: user }
     }
 
     fn repo_dir(&self) -> Result<String, &str> {
-        match self.username {
+        match self.user {
             None => { Ok(String::new()) }, // TODO this should pull all users
-            Some(username) => {
-                match env::var("HOME") {
-                    Err(_) => { Err("Error! Could not evaluate env var $HOME. Can't continue.") },
-                    Ok(home_dir) => {
-                        Ok(format!("{}/.aliases.d/users/{}", home_dir, username))
-                    },
-                }
-            }
+            Some(ref user) => { user.home_dir() }
         }
     }
 
 }
 
-impl<'a> AliasCommand for PullRepo<'a> {
+impl AliasCommand for PullRepo {
 
     fn execute(&self) -> CommandResponse {
         match self.repo_dir() {

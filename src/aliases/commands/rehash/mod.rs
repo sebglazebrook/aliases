@@ -1,8 +1,6 @@
 use std::path::PathBuf;
 use std::fs;
-
 use scoped_pool::Pool;
-use crossbeam;
 
 use aliases::factories::ShimFileFactory;
 use aliases::repositories::AliasRepository;
