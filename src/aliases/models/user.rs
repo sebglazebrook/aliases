@@ -59,4 +59,8 @@ impl User {
         Config::load().enable_user(&self.name);
     }
 
+    pub fn disable(&self) {
+        Config::load().disable_user(&self.name);
+    }
+
 }
