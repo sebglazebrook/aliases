@@ -88,11 +88,11 @@ impl Config {
         self.update_file();
     }
 
-    pub fn add_alias_directory(&mut self, directory: &PathBuf, user: &String) {
-        let string = String::from(directory.to_str().unwrap());
+    pub fn add_alias_directory(&mut self, directory: &PathBuf, username: &String) {
+        let string = directory.to_str().unwrap().to_owned();
         self.alias_directories.push(string);
         self.alias_directories.dedup();
-        self.users.push(user.to_string());
+        self.users.push(username.to_owned());
         self.users.dedup();
         self.update_file();
     }

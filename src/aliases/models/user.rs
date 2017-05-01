@@ -1,4 +1,9 @@
 use std::env;
+use std::path::PathBuf;
+use std::io;
+
+use aliases::repositories::AliasFileRepository;
+use aliases::Config;
 
 #[derive(PartialEq,Eq,Debug,Clone)]
 pub struct User {
@@ -42,6 +47,12 @@ impl User {
                 Ok(format!("{}/.aliases.d/users/{}", home_dir, self.name))
             },
         }
+    }
+
+    pub fn init_directory(&self, target_dir: &PathBuf) -> Result<(), io::Error> {
+        try!(AliasFileRepository::create(&target_dir, &self.filename));
+        Config::load().add_alias_directory(&target_dir, &self.name);
+        Ok(())
     }
 
 }
