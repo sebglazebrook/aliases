@@ -55,8 +55,8 @@ impl User {
         Ok(())
     }
 
-    pub fn enable(&self) {
-        Config::load().enable_user(&self.name);
+    pub fn enable(&self) -> Result<(), io::Error> {
+        Config::load().enable_user(&self.name)
     }
 
     pub fn disable(&self) {
