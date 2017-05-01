@@ -55,4 +55,8 @@ impl User {
         Ok(())
     }
 
+    pub fn enable(&self) {
+        Config::load().enable_user(&self.name);
+    }
+
 }

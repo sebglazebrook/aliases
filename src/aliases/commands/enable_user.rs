@@ -1,4 +1,3 @@
-use aliases::Config;
 use aliases::commands::{AliasCommand, CommandResponse};
 use aliases::repositories::UserRepository;
 use aliases::models::User;
@@ -19,8 +18,7 @@ impl EnableUser {
 impl AliasCommand for EnableUser {
 
     fn execute(&self) -> CommandResponse {
-        let mut config = Config::load();
-        config.enable_user(&self.user.name());
+        self.user.enable();
         CommandResponse::success()
     }
 
