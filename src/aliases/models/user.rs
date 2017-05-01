@@ -1,3 +1,5 @@
+use std::env;
+
 #[derive(PartialEq,Eq,Debug,Clone)]
 pub struct User {
     name: String,
@@ -31,6 +33,15 @@ impl User {
 
     pub fn confirm_name(&self, other_name: &str) -> bool {
         self.name == other_name
+    }
+
+    pub fn home_dir(&self) -> Result<String, &'static str> {
+        match env::var("HOME") {
+            Err(_) => { Err("Error! Could not evaluate env var $HOME. Can't continue.") },
+            Ok(home_dir) => {
+                Ok(format!("{}/.aliases.d/users/{}", home_dir, self.name))
+            },
+        }
     }
 
 }
