@@ -16,13 +16,15 @@ pub struct User {
 impl User {
 
     pub fn new(name: String, enabled: bool) -> Self {
-        let filename;
-        if name == "default" {
-            filename = String::from(".aliases");
-        } else {
-            filename = format!(".aliases-{}", &name)
+        let filename = match name.as_ref() {
+            "default" => String::from(".aliases"),
+            _ => format!(".aliases-{}", &name),
+        };
+        User {
+            filename: filename,
+            name,
+            enabled
         }
-        User{filename: filename , name: name, enabled: enabled }
     }
 
     pub fn filename(&self) -> String {

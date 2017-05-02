@@ -1,4 +1,3 @@
-use aliases::Config;
 use aliases::commands::{CommandResponse, AliasCommand};
 use aliases::repositories::UserRepository;
 use aliases::models::User;
