@@ -98,6 +98,19 @@ impl Config {
         self.update_file();
     }
 
+    pub fn set_user_priority(&mut self, username: &String, priority: usize) -> Result<(), String> {
+        match self.users().into_iter().position(|user| {user == username.to_owned()}) {
+            Some(index) => {
+                let mut users = self.users();
+                let user = users.remove(index);
+                users.insert(priority - 1, user);
+                self.update_users(users);
+                Ok(())
+            },
+            None => Err(format!("Error! Could not find the user {}.", username)),
+        }
+    }
+
     // ------- private methods --------//
 
     fn config_file_path() -> PathBuf {

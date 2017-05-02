@@ -63,4 +63,8 @@ impl User {
         Config::load().disable_user(&self.name);
     }
 
+   pub fn set_priority(&self, position: usize) -> Result<(), String> {
+        Config::load().set_user_priority(&self.name, position)
+    }
+
 }

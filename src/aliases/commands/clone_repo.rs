@@ -70,7 +70,7 @@ impl<'a> CloneRepo<'a> {
 
     fn enable_user(&self) {
         if self.enable {
-            Config::load().enable_user(&self.user.name());
+            self.user.enable();
         }
     }
 
