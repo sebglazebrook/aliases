@@ -4,7 +4,7 @@ describe "`init` command" do
   let(:docker_command) { DockerCommand.new(command, args, dockerfile) }
   subject { docker_command.invoke }
 
-  after { docker_command.kill }
+  before { docker_command.kill }
 
   context "without any args" do
 
