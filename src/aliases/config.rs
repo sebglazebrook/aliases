@@ -4,6 +4,7 @@ use std::io::prelude::*;
 use std::fs::File;
 use std::process::Command;
 use rustc_serialize::json;
+use std::io;
 
 #[derive(Clone, RustcDecodable, RustcEncodable)]
 pub struct Config {
@@ -54,7 +55,7 @@ impl Config {
         self.update_file();
     }
 
-    pub fn enable_user(&mut self, username: &str) {
+    pub fn enable_user(&mut self, username: &str) -> Result<(), io::Error> {
         match self.disabled_users.clone() {
             Some(users) => {
                 self.disabled_users = Some(users.clone().into_iter().filter(|user| user != username).collect());
@@ -66,7 +67,7 @@ impl Config {
                 self.disabled_users = Some(vec![]);
             }
         }
-        self.update_file();
+        self.update_file()
     }
 
     pub fn disabled_users(&self) -> Vec<String> {
@@ -88,13 +89,26 @@ impl Config {
         self.update_file();
     }
 
-    pub fn add_alias_directory(&mut self, directory: &PathBuf, user: &String) {
-        let string = String::from(directory.to_str().unwrap());
+    pub fn add_alias_directory(&mut self, directory: &PathBuf, username: &String) {
+        let string = directory.to_str().unwrap().to_owned();
         self.alias_directories.push(string);
         self.alias_directories.dedup();
-        self.users.push(user.to_string());
+        self.users.push(username.to_owned());
         self.users.dedup();
         self.update_file();
+    }
+
+    pub fn set_user_priority(&mut self, username: &String, priority: usize) -> Result<(), String> {
+        match self.users().into_iter().position(|user| {user == username.to_owned()}) {
+            Some(index) => {
+                let mut users = self.users();
+                let user = users.remove(index);
+                users.insert(priority - 1, user);
+                self.update_users(users);
+                Ok(())
+            },
+            None => Err(format!("Error! Could not find the user {}.", username)),
+        }
     }
 
     // ------- private methods --------//
@@ -126,10 +140,11 @@ impl Config {
         config
     }
 
-    fn update_file(&self) {
-        let mut file = File::create(Config::config_file_path()).unwrap(); //TODO handle the error case
+    fn update_file(&self) -> Result<(), io::Error> {
+        let mut file = try!(File::create(Self::config_file_path()));
         let encoded = json::encode(&self).unwrap();
-        file.write_all(encoded.as_bytes()).unwrap();
+        try!(file.write_all(encoded.as_bytes()));
+        Ok(())
     }
 }
 

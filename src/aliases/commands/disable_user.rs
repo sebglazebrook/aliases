@@ -1,4 +1,3 @@
-use aliases::Config;
 use aliases::commands::{CommandResponse, AliasCommand};
 use aliases::repositories::UserRepository;
 use aliases::models::User;
@@ -20,8 +19,7 @@ impl DisableUser {
 impl AliasCommand for DisableUser {
 
     fn execute(&self) -> CommandResponse {
-        let mut config = Config::load();
-        config.disable_user(&self.user.name());
+        self.user.disable();
         CommandResponse::success()
     }
 }
