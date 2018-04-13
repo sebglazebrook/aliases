@@ -5,5 +5,6 @@ Priority: optional
 Architecture: amd64
 Maintainer: Seb Glazebrook <sebastianglazebrook@gmail.com>
 Description: Aliases
- Something here
- Something else here
+This package contains a shell tool for managing shell aliases more conveniently.
+It installs aliases binary to be access from shell.
+For further documentation see <https://github.com/sebglazebrook/aliases/>
