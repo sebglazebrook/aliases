@@ -12,7 +12,7 @@ Already know why you want this? Jump to [Installation](#installation) section.
 
 Bash aliases are cool but limited, they are globals and have limited configurability.
 
-One downside of standard bash aliases is that they don't take arguments, to counter this many people (myself included) do thing like create bash functions like this:
+One downside of standard bash aliases is that they don't take arguments, to counter this many people (myself included) do things like create bash functions like this:
 
 ```
 function ll {
@@ -175,7 +175,7 @@ We use docker containers so we can share the same development environment. Some 
 ## Bugs to fix
 
 - Handle different process signals
-- Check user's config is out of wack, like they are missing a key, it blows up
+- Check user's config is out of whack, like they are missing a key, it blows up
 - Being able to actually run the unit tests :-)
 - When listing, aliases alert the user if the dir hasn't been initialized
 
