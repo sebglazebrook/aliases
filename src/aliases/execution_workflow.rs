@@ -1,7 +1,10 @@
-use std::io::Write;
+use ansi_term::Colour::White;
+use std::string::ToString;
+use std::io::{Write, stdout};
 
 use countdown::Countdown;
 use aliases::models::Alias;
+use aliases::Config;
 
 macro_rules! println_stderr(
     ($($arg:tt)*) => { {
@@ -52,7 +55,12 @@ impl ExecutionWorkflow {
 
     fn output_command_to_be_executed(&self) {
         if !self.alias.quiet {
-            println_stderr!("Executing: {}", self.alias.command());
+            let prefix = Config::load().dry_run_prefix();
+            println!(r#"{}"#, prefix);
+            let string = format!(r#"{} {}"#, prefix, White.bold().paint(self.alias.command()).to_string());
+            println!(r#"{}"#, string);
+            println_stderr!(r#"{}"#, string);
+
         }
     }
 

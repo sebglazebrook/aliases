@@ -5,6 +5,8 @@ use std::fs::File;
 use std::process::Command;
 use rustc_serialize::json;
 use std::io;
+use ansi_term::Colour::{Fixed, Blue};
+use std::string::ToString;
 
 #[derive(Clone, RustcDecodable, RustcEncodable)]
 pub struct Config {
@@ -12,6 +14,8 @@ pub struct Config {
     alias_directories: Vec<String>,
     users: Vec<String>,
     disabled_users: Option<Vec<String>>,
+    dry_run_prefix_string: Option<String>,
+    dry_run_prefix_color: Option<u8>
 }
 
 impl Config {
@@ -108,6 +112,25 @@ impl Config {
                 Ok(())
             },
             None => Err(format!("Error! Could not find the user {}.", username)),
+        }
+    }
+
+    pub fn dry_run_prefix(&self) -> String {
+        match self.dry_run_prefix_string.clone() {
+            None => { Blue.bold().paint("Executing:").to_string() }
+            Some(string) => {
+                match self.dry_run_prefix_color.clone() {
+                    Some(value) => { Fixed(value).paint(string).to_string() }
+                    None => {
+                        // if here remove double escapes
+//                        println!(r#"{}"#, string);
+                        // let result = str::replace(&string, r#"\\"#, r#"\"#);
+ //                       println!("{:?}", result);
+                        //result
+                        string
+                    }
+                }
+            }
         }
     }
 

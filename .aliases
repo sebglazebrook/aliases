@@ -11,5 +11,7 @@ release:
   command: "./scripts/test-runner.sh"
 tester:
   command: "arg=$(FZF) && $0 $arg && echo $0 $arg >> ~/.bash_history"
-workspace:
-  command: "eval \"$(docker-machine env $(docker-machine-name))\" && docker-compose run rust"
+shell:
+  command: docker-compose run rust bash
+foo:
+  command: echo 'bar'

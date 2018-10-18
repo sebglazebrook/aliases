@@ -8,6 +8,7 @@ extern crate countdown;
 extern crate crossbeam;
 extern crate regex;
 extern crate scoped_pool;
+extern crate ansi_term;
 
 
 mod aliases;
