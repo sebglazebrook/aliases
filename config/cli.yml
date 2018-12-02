@@ -11,7 +11,7 @@ subcommands:
       about: initialize a directory for aliases
       args:
         - global:
-            help: returns the global initialzation for the app
+            help: returns the global initialization for the app
             long: global
             short: g
             takes_value: false
