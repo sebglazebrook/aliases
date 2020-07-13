@@ -1,6 +1,6 @@
 use std::io;
 use std::io::Write;
-use tabwriter::TabWriter;
+use prettytable::{Attr, color, cell, format, row, Table};
 
 use aliases::collections::Aliases;
 
@@ -15,15 +15,20 @@ impl AliasesView {
     }
 
     pub fn render(&self) {
-        let mut tw = TabWriter::new(io::stdout());
-        tw.write("\nALIAS\tCOMMAND\tCONFIRM\n".as_bytes()).unwrap();
+        let mut table = Table::new();
+        table.set_format(*crate::COOL_FORMAT);
+        table.set_titles(row![
+            Fc -> "Alias",
+            Fc -> "Command",
+            Fc -> "Confirm",
+        ]);
         for alias in self.aliases.clone().into_iter() {
-            let alias_row = String::new() + &alias.name + "\t"
-                                          + &alias.command + "\t"
-                                          + &alias.confirm.to_string() + "\n";
-            tw.write(alias_row.as_bytes()).unwrap();
+            table.add_row(row![
+            FY -> &alias.name,
+            Fg -> &alias.command,
+            Fr -> &alias.confirm,
+           ]);
         }
-        tw.flush().unwrap();
+        table.print_tty(true);
     }
 }
-
