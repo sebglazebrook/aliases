@@ -1,6 +1,4 @@
-use std::io;
-use std::io::Write;
-use prettytable::{Attr, color, cell, format, row, Table};
+use prettytable::{cell, row, Table};
 
 use aliases::collections::Aliases;
 

@@ -49,7 +49,7 @@ impl User {
     }
 
     pub fn init_directory(&self, target_dir: &PathBuf) -> Result<(), io::Error> {
-        try!(AliasFileRepository::create(&target_dir, &self.filename));
+        AliasFileRepository::create(&target_dir, &self.filename)?;
         Config::load().add_alias_directory(&target_dir, &self.name);
         Ok(())
     }
