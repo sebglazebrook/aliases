@@ -22,6 +22,8 @@ crossbeam = "*"
 log = "*"
 env_logger = "*"
 scoped-pool = "*"
+prettytable-rs = "^0.8"
+lazy_static = "1.4.0"
 
 [dependencies.clap]
 features = ["yaml"]

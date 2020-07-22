@@ -141,9 +141,9 @@ impl Config {
     }
 
     fn update_file(&self) -> Result<(), io::Error> {
-        let mut file = try!(File::create(Self::config_file_path()));
+        let mut file = File::create(Self::config_file_path())?;
         let encoded = json::encode(&self).unwrap();
-        try!(file.write_all(encoded.as_bytes()));
+        file.write_all(encoded.as_bytes())?;
         Ok(())
     }
 }

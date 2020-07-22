@@ -25,7 +25,7 @@ impl AliasFileRepository {
             let mut new_file = File::create(filepath).unwrap();
             let template_string = Self::template_string();
             let array = template_string.as_bytes();
-            try!(new_file.write_all(array));
+            new_file.write_all(array)?;
         }
         Ok(())
     }
