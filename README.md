@@ -89,7 +89,19 @@ brew install sebglazebrook/aliases/aliases
 
 ### Linux
 
-There are some debian packages in the released directory.
+There are some debian packages in the released directory so you can clone the repo and do something like this:
+
+```
+apt install ./releases/0.8.1/debian/aliases_0.8.1.deb
+```
+
+You'll need to `sudo` that though of course.
+
+Next you'll need to add the aliases initialization config to you .bashrc or any file that's loaded when your user logs in.
+
+```
+aliases init --global >> ~/.bashrc
+```
 
 ### Compile from source
 
