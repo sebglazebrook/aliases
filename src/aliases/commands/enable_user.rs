@@ -1,5 +1,3 @@
-use std::error::Error;
-
 use aliases::commands::{AliasCommand, CommandResponse};
 use aliases::repositories::UserRepository;
 use aliases::models::User;
@@ -22,7 +20,7 @@ impl AliasCommand for EnableUser {
     fn execute(&self) -> CommandResponse {
         match self.user.enable() {
             Ok(_) => CommandResponse::success(),
-            Err(error) => CommandResponse::new(1, Some(error.description().to_owned())),
+            Err(error) => CommandResponse::new(1, Some(error.to_string().to_owned())),
         }
     }
 
