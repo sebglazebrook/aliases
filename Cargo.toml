@@ -29,4 +29,3 @@ version = "2.16.4"
 
 [dev-dependencies]
 gag = "*"
-stainless = "*"
