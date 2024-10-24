@@ -6,14 +6,10 @@
 build:
   command: docker build -t aliases-dev-image .
 shell:
-  command: docker run -it -v ${PWD}:/code -w /code -u $(id -u):$(id -g) aliases-dev-image bash
-"docker-machine-name":
-  command: "docker-machine ls | tail -n 1 | awk '{ print $1 }'"
+  command: docker run -it -v ${PWD}:/code -w /code aliases-dev-image bash
 release:
   command: "cargo clean && ./scripts/build-release-osx.sh $0 && ./scripts/build-release-debian.sh $0"
-"run-tests":
+run-tests:
   command: "./scripts/test-runner.sh"
 tester:
   command: "arg=$(FZF) && $0 $arg && echo $0 $arg >> ~/.bash_history"
-workspace:
-  command: "eval \"$(docker-machine env $(docker-machine-name))\" && docker-compose run rust"
