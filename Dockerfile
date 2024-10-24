@@ -1,1 +1,1 @@
-FROM sebglazebrook/rust-nightly:latest
+FROM rust:1.82.0
