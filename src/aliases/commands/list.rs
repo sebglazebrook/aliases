@@ -27,7 +27,7 @@ impl List {
             None         => name_string = None,
         }
         List {
-            current_path: current_path,
+            current_path,
             directory_filter: directory_string,
             name_filter: name_string,
         }

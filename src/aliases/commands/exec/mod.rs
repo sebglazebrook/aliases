@@ -13,11 +13,7 @@ pub struct Exec {
 impl Exec {
 
     pub fn new(directory: String, name: String, forwarding_args: Vec<String>) -> Self {
-        Exec {
-            directory: directory,
-            name: name,
-            forwarding_args: forwarding_args,
-        }
+        Exec { directory, name, forwarding_args }
     }
 
 

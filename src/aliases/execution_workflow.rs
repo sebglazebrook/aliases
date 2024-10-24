@@ -17,7 +17,7 @@ pub struct ExecutionWorkflow {
 impl ExecutionWorkflow {
 
     pub fn new(alias: Alias) -> Self {
-        ExecutionWorkflow { alias: alias }
+        ExecutionWorkflow { alias }
     }
 
     pub fn execute(&self) {

@@ -12,7 +12,7 @@ impl PullRepo {
 
     pub fn new(username: Option<&str>) -> Self {
         let user = username.map(|name| UserRepository::find_by_name_or_blow(name));
-        PullRepo { user: user }
+        PullRepo { user }
     }
 
     fn repo_dir(&self) -> Result<String, &str> {

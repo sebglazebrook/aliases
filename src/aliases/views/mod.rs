@@ -11,7 +11,7 @@ pub struct AliasesView {
 impl AliasesView {
 
     pub fn new(aliases: Aliases) -> Self {
-        AliasesView { aliases: aliases }
+        AliasesView { aliases }
     }
 
     pub fn render(&self) {

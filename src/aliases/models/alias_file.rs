@@ -11,7 +11,7 @@ pub struct AliasFile {
 impl AliasFile {
 
     pub fn new(path: PathBuf, aliases: Aliases) -> Self {
-        AliasFile { path: path, aliases: aliases }
+        AliasFile { path, aliases }
     }
 
     pub fn add_alias(&mut self, alias: Alias) {

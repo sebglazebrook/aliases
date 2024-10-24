@@ -73,7 +73,7 @@ struct AliasYamlBuilder<'a> {
 impl<'a> AliasYamlBuilder<'a> {
 
     pub fn new(alias: &'a Alias) -> Self {
-        AliasYamlBuilder { alias: alias }
+        AliasYamlBuilder { alias }
     }
 
     pub fn build(&self) -> String {

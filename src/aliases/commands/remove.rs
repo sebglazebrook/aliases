@@ -18,10 +18,7 @@ pub struct Remove {
 impl Remove {
 
     pub fn new(directory: PathBuf, name: Option<&str>) -> Self {
-        Remove {
-            directory: directory,
-            name: name.unwrap().to_string()
-        }
+        Remove { directory, name: name.unwrap().to_string() }
     }
 
     pub fn execute(&self) -> i32 {

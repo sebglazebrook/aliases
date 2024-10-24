@@ -14,7 +14,7 @@ impl Add {
 
     pub fn new(directory: PathBuf, name: Option<&str>, command: Option<&str>) -> Self {
         Add {
-            directory: directory,
+            directory,
             name: name.unwrap().to_string(), // TODO
             command: command.unwrap().to_string() // TODO
         }

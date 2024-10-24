@@ -20,11 +20,7 @@ impl User {
             "default" => String::from(".aliases"),
             _ => format!(".aliases-{}", &name),
         };
-        User {
-            filename: filename,
-            name,
-            enabled
-        }
+        User { filename, name, enabled }
     }
 
     pub fn filename(&self) -> String {

@@ -12,7 +12,7 @@ pub struct Aliases {
 impl Aliases {
 
     pub fn new(raw_collection: Vec<Alias>) -> Aliases {
-        Aliases { raw_collection: raw_collection, iteration_index: 0 }
+        Aliases { raw_collection, iteration_index: 0 }
     }
 
     pub fn merge(&self, others: Aliases) -> Aliases {

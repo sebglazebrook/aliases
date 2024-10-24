@@ -8,7 +8,7 @@ pub struct Conditional {
 impl Conditional {
 
     pub fn new(command: String) -> Self {
-        Conditional { command: command }
+        Conditional { command }
     }
 
     pub fn default() -> Self {

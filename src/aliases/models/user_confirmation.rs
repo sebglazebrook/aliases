@@ -9,7 +9,7 @@ pub struct UserConfirmation {
 impl UserConfirmation {
 
     pub fn new(enabled: bool, message: String) -> Self {
-        UserConfirmation { enabled: enabled, message: message }
+        UserConfirmation { enabled, message }
     }
 
     pub fn execute(&self) -> bool {

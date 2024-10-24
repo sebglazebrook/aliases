@@ -8,7 +8,7 @@ pub struct Users {
 impl Users {
 
     pub fn new(config: Config) -> Self {
-        Users { config: config }
+        Users { config }
     }
 
 }

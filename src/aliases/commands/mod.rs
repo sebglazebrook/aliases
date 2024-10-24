@@ -42,7 +42,7 @@ impl CommandResponse {
     }
 
     pub fn new(code: u8, message: Option<String>) -> Self {
-        CommandResponse { code: code, message: message }
+        CommandResponse { code, message }
     }
 
 
