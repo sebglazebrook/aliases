@@ -2,7 +2,8 @@
 extern crate log;
 extern crate yaml_rust;
 extern crate crypto;
-extern crate rustc_serialize;
+extern crate serde_json;
+extern crate serde;
 extern crate tabwriter;
 extern crate countdown;
 extern crate crossbeam;

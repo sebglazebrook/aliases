@@ -3,10 +3,11 @@ use std::path::{PathBuf};
 use std::io::prelude::*;
 use std::fs::File;
 use std::process::Command;
-use rustc_serialize::json;
+use serde::{Deserialize, Serialize};
+
 use std::io;
 
-#[derive(Clone, RustcDecodable, RustcEncodable)]
+#[derive(Clone, Serialize, Deserialize)]
 pub struct Config {
     pub shim_directory: String,
     alias_directories: Vec<String>,
@@ -128,21 +129,21 @@ impl Config {
         let mut file = File::create(path).unwrap(); //TODO handle the error case
         let default_config = TemplateRepository::config_template();
         file.write_all(default_config.as_bytes()).unwrap();
-        let config: Config = json::decode(&default_config).unwrap();
-        config
+        let json: Config = serde_json::from_str(&default_config).unwrap();
+        json
     }
 
     fn load_file(path: &PathBuf) -> Config {
         let mut file = File::open(path).unwrap(); //TODO handle the error case
         let mut content = String::new();
         let _ = file.read_to_string(&mut content);
-        let config: Config = json::decode(&content).unwrap();
-        config
+        let json: Config = serde_json::from_str(&content).unwrap();
+        json
     }
 
     fn update_file(&self) -> Result<(), io::Error> {
         let mut file = File::create(Self::config_file_path())?;
-        let encoded = json::encode(&self).unwrap();
+        let encoded = serde_json::to_string(&self).unwrap();
         file.write_all(encoded.as_bytes())?;
         Ok(())
     }
