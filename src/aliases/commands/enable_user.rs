@@ -1,5 +1,3 @@
-use std::error::Error;
-
 use aliases::commands::{AliasCommand, CommandResponse};
 use aliases::repositories::UserRepository;
 use aliases::models::User;
