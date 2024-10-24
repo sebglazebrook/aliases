@@ -3,6 +3,10 @@
 # or visit https://github.com/sebglazebrook/aliases
 
 ---
+build:
+  command: docker build -t aliases-dev-image .
+shell:
+  command: docker run -it -v ${PWD}:/code -w /code -u $(id -u):$(id -g) aliases-dev-image bash
 "docker-machine-name":
   command: "docker-machine ls | tail -n 1 | awk '{ print $1 }'"
 release:
