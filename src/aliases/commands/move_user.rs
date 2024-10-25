@@ -25,7 +25,7 @@ impl AliasCommand for MoveUser {
             Ok(_) => { CommandResponse::success() },
             Err(message) => {
                 println!("{}", message);
-                CommandResponse::new(1, Some(message))
+                CommandResponse::error(1, Some(message))
             },
         }
     }

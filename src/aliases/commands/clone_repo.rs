@@ -30,7 +30,7 @@ impl AliasCommand for CloneRepo {
 
     fn execute(&self) -> CommandResponse {
         match self.user.clone_external_repo(self.repo_url.clone()) {
-            Err(message) => CommandResponse::new(1, Some(message)),
+            Err(message) => CommandResponse::error(1, Some(message)),
             Ok(_) => {
                 self.enable_user();
                 CommandResponse::success()

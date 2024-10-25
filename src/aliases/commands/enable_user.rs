@@ -20,7 +20,7 @@ impl AliasCommand for EnableUser {
     fn execute(&self) -> CommandResponse {
         match self.user.enable() {
             Ok(_) => CommandResponse::success(),
-            Err(error) => CommandResponse::new(1, Some(error.to_string().to_owned())),
+            Err(error) => CommandResponse::error(1, Some(error.to_string().to_owned())),
         }
     }
 

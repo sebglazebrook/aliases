@@ -30,30 +30,33 @@ pub trait AliasCommand {
     fn execute(&self) -> CommandResponse;
 }
 
-pub struct CommandResponse {
-    code: u8,
-    message: Option<String>,
+pub enum CommandResponse {
+    Success,
+    Error { code: u8, message: Option<String> }
 }
 
 impl CommandResponse {
 
     pub fn success() -> Self {
-        Self::new(0, None)
+        CommandResponse::Success
     }
 
-    pub fn new(code: u8, message: Option<String>) -> Self {
-        CommandResponse { code, message }
+    pub fn error(code: u8, message: Option<String>) -> Self {
+        CommandResponse::Error{ code, message }
     }
 
 
     pub fn is_error(&self) -> bool {
-        self.code > 0
+        match self {
+            CommandResponse::Error { .. } => true,
+            _ => false,
+        }
     }
 
     pub fn print_error_message(&self) {
-        match self.message {
-            None => {}
-            Some(ref message) => { println!("An error occurred:\n {}", message); }
+        match self {
+            CommandResponse::Error { code: _, message: Some(ref message) }  => { println!("An error occurred:\n {}", message); }
+            _ => {}
         }
     }
 

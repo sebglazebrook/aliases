@@ -29,7 +29,7 @@ impl AliasCommand for PullRepo {
     fn execute(&self) -> CommandResponse {
         match self.repo_dir() {
             Err(error_message) => {
-                CommandResponse::new(1, Some(error_message.to_string()))
+                CommandResponse::error(1, Some(error_message.to_string()))
             },
             Ok(repo_dir) => {
                 let result = Command::new("git")
@@ -40,7 +40,7 @@ impl AliasCommand for PullRepo {
                 if result.status.success() {
                     CommandResponse::success()
                 } else {
-                    CommandResponse::new(1, Some(String::from("an error occurred trying to pull the repo")))
+                    CommandResponse::error(1, Some(String::from("an error occurred trying to pull the repo")))
                 }
             }
         }
