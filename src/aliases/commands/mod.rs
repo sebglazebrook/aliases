@@ -32,7 +32,7 @@ pub trait AliasCommand {
 
 pub enum CommandResponse {
     Success,
-    Error { code: u8, message: Option<String> }
+    Error { message: Option<String> }
 }
 
 impl CommandResponse {
@@ -41,8 +41,8 @@ impl CommandResponse {
         CommandResponse::Success
     }
 
-    pub fn error(code: u8, message: Option<String>) -> Self {
-        CommandResponse::Error{ code, message }
+    pub fn error(message: Option<String>) -> Self {
+        CommandResponse::Error{ message }
     }
 
 
@@ -54,7 +54,7 @@ impl CommandResponse {
     }
 
     pub fn print_error_message(&self) {
-        if let CommandResponse::Error { code: _, message: Some(message) } = self {
+        if let CommandResponse::Error { message: Some(message) } = self {
             println!("An error occurred:\n {}", message);
         }
     }
