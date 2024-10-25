@@ -55,9 +55,8 @@ impl CommandResponse {
 
     pub fn print_error_message(&self) {
         match self {
-            CommandResponse::Error { code: _, message: Some(ref message) }  => { println!("An error occurred:\n {}", message); }
-            _ => {}
+            CommandResponse::Error { code: _, message: Some(ref message) }  => { println!("An error occurred:\n {}", message); },
+            _ => ()
         }
     }
-
 }

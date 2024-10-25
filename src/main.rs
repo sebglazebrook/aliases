@@ -95,7 +95,7 @@ fn main() {
                     None => {
                         App::new().execute_users();
                     },
-                    _ => {},
+                    _ => (),
                 }
 
             }
@@ -117,6 +117,6 @@ fn main() {
         None => {
             App::new().execute_list(None, None);
         },
-        _ => {}, // unknown command - show an error.
+        _ => (), // unknown command - show an error.
     }
 }
