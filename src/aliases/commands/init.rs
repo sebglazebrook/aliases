@@ -33,7 +33,7 @@ impl AliasCommand for Init {
             // what the hell was I trying to do here?
             println!("{}\naliases rehash", path_update);
         } else {
-            self.user.init_directory(&self.target_path);
+            let _ = self.user.init_directory(&self.target_path);
         }
         CommandResponse::success()
     }

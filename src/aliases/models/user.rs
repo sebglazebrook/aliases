@@ -93,7 +93,7 @@ impl User {
     fn link_aliases_file(&self) {
         let target_file = self.output_directory() + "/.aliases";
         let destination_file = env::var("HOME").unwrap().to_string() + &self.filename; // TODO handle this better;
-        unix::fs::symlink(target_file, destination_file); // TODO handle the result of this and what about if it's not unix?
+        let _ = unix::fs::symlink(target_file, destination_file); // TODO handle the result of this and what about if it's not unix?
     }
 
 }

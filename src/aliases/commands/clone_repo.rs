@@ -20,7 +20,7 @@ impl CloneRepo {
 
     fn enable_user(&self) {
         if self.enable {
-            self.user.enable();
+            let _ = self.user.enable();
         }
     }
 

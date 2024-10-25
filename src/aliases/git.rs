@@ -18,7 +18,7 @@ impl Git {
 
     fn create_parent_directories(output_dir: &String) {
         let parent_dir = Path::new(output_dir).parent().unwrap();
-        fs::create_dir_all(parent_dir); // TODO handle the result of this
+        let _ = fs::create_dir_all(parent_dir); // TODO handle the result of this
     }
 
     fn git_clone(repo_url: String, output_directory: &str) -> Result<(), &str> {

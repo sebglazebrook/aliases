@@ -13,7 +13,7 @@ impl AliasFileRepository {
     // TODO need to handle different users
     pub fn find(directory: &PathBuf) -> AliasFile {
         let aliases_filename = String::from(".aliases");
-        Self::create(directory, &aliases_filename);
+        let _ = Self::create(directory, &aliases_filename);
         let new_file = directory.join(&aliases_filename);
         let aliases = AliasFactory::create_from_file(new_file);
         AliasFile::new(directory.clone(), aliases.unwrap()) // TODO

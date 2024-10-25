@@ -15,7 +15,7 @@ impl AliasFile {
     }
 
     pub fn add_alias(&mut self, alias: Alias) {
-        self.aliases.push(&alias);
+        let _ = self.aliases.push(&alias);
     }
 
     pub fn remove_alias(&mut self, alias: Alias) -> Result<(), &'static str> {

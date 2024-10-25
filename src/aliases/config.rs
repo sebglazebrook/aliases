@@ -53,7 +53,7 @@ impl Config {
     pub fn update_users(&mut self, users: Vec<String>) {
         self.users = users;
         self.users.dedup();
-        self.update_file();
+        let _ = self.update_file();
     }
 
     pub fn enable_user(&mut self, username: &str) -> Result<(), io::Error> {
@@ -87,7 +87,7 @@ impl Config {
             },
             None => { self.disabled_users = Some(vec![username.to_string()]); }
         };
-        self.update_file();
+        let _ = self.update_file();
     }
 
     pub fn add_alias_directory(&mut self, directory: &PathBuf, username: &String) {
@@ -96,7 +96,7 @@ impl Config {
         self.alias_directories.dedup();
         self.users.push(username.to_owned());
         self.users.dedup();
-        self.update_file();
+        let _ = self.update_file();
     }
 
     pub fn set_user_priority(&mut self, username: &String, priority: usize) -> Result<(), String> {
