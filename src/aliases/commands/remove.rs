@@ -1,7 +1,6 @@
 use aliases::repositories::AliasFileRepository;
 use aliases::models::Alias;
-use std::path::PathBuf;
-use std::io::Write;
+use std::{path::PathBuf, io::Write};
 
 macro_rules! println_stderr(
     ($($arg:tt)*) => { {

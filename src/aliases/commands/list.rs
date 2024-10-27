@@ -3,8 +3,7 @@ use aliases::collections::Aliases;
 use aliases::factories::AliasFactory;
 use aliases::repositories::AliasRepository;
 
-use std::path::PathBuf;
-use std::env;
+use std::{env, path::PathBuf};
 
 pub struct List {
     current_path: PathBuf,

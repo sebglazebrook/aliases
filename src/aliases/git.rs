@@ -1,6 +1,4 @@
-use std::fs;
-use std::process::Command;
-use std::path::Path;
+use std::{fs, process::Command, path::Path};
 
 pub struct Git;
 

@@ -1,9 +1,7 @@
 use aliases::commands::{Init, List, Add, Remove, Rehash, Exec, Users, MoveUser, CloneRepo, PullRepo, EnableUser, DisableUser, AliasCommand, Directories};
 use aliases::Config;
 
-use std::env;
-use std::path::{PathBuf};
-use std::process;
+use std::{env, path::PathBuf, process};
 
 pub struct App {
     config: Config,

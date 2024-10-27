@@ -1,5 +1,4 @@
-use aliases::models::Alias;
-use aliases::collections::Aliases;
+use aliases::{models::Alias, collections::Aliases};
 use std::path::PathBuf;
 use yaml_rust::{YamlEmitter};
 

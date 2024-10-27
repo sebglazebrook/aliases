@@ -1,12 +1,8 @@
 pub use self::alias_factory::AliasFactory;
 
 use aliases::models::Alias;
-use std::path::PathBuf;
-use std::io::prelude::*;
-use std::fs::File;
-use crypto::md5::Md5;
-use crypto::digest::Digest;
-use std::process::Command;
+use std::{path::PathBuf, io::prelude::*, fs::File, process::Command};
+use crypto::{md5::Md5, digest::Digest};
 
 mod alias_factory;
 

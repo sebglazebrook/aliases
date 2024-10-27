@@ -1,6 +1,5 @@
-use aliases::models::Alias;
-use std::cmp::Ordering;
-use std::result::Result;
+use super::models::Alias;
+use std::{cmp::Ordering, result::Result};
 use yaml_rust::{Yaml, YamlLoader};
 
 #[derive(Debug,Clone)]

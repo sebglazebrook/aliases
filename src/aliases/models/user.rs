@@ -1,7 +1,4 @@
-use std::env;
-use std::path::PathBuf;
-use std::io;
-use std::os::unix;
+use std::{env, path::PathBuf, io, os::unix};
 
 use aliases::repositories::AliasFileRepository;
 use aliases::{Config, Git};

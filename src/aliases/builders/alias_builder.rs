@@ -1,9 +1,7 @@
 use yaml_rust::Yaml;
 use std::path::PathBuf;
 
-use aliases::models::Alias;
-use aliases::models::Conditional;
-use aliases::models::UserConfirmation;
+use aliases::models::{Alias, Conditional, UserConfirmation};
 
 pub struct AliasBuilder {
     name: String,

@@ -1,10 +1,7 @@
 use aliases::models::AliasFile;
 use aliases::factories::AliasFactory;
 
-use std::path::{Path, PathBuf};
-use std::io::prelude::*;
-use std::fs::File;
-use std::io;
+use std::{io, io::prelude::*, fs::File, path::Path, path::PathBuf};
 
 pub struct AliasFileRepository;
 

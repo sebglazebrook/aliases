@@ -1,10 +1,7 @@
 use aliases::collections::Aliases;
 use aliases::builders::AliasBuilder;
 
-use std::path::PathBuf;
-use std::io::prelude::*;
-use std::fs::File;
-use std::result::Result;
+use std::{path::PathBuf, io::prelude::*, fs::File, result::Result};
 use yaml_rust::{YamlLoader, Yaml};
 
 pub struct AliasFactory;

@@ -1,7 +1,6 @@
 use std::env;
 
-use aliases::Config;
-use aliases::models::User;
+use aliases::{Config, models::User};
 
 pub struct UserRepository;
 

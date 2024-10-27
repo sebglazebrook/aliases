@@ -1,11 +1,5 @@
-use std::env;
-use std::path::{PathBuf};
-use std::io::prelude::*;
-use std::fs::File;
-use std::process::Command;
+use std::{io, env, path::PathBuf, io::prelude::*, fs::File, process::Command};
 use serde::{Deserialize, Serialize};
-
-use std::io;
 
 #[derive(Clone, Serialize, Deserialize)]
 pub struct Config {
