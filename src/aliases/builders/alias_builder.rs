@@ -40,10 +40,7 @@ impl AliasBuilder {
     // --------- private ---------//
     
     fn command(&self) -> Option<String> {
-        match self.yaml["command"].as_str() {
-            None => None,
-            Some(string) => Some(string.to_string())
-        }
+        Some(self.yaml["command"].as_str()?.to_string())
     }
 
     fn confirm(&self) -> bool {
