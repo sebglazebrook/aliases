@@ -102,7 +102,7 @@ impl Config {
                 self.update_users(users);
                 Ok(())
             },
-            None => Err(format!("Error! Could not find the user {}.", username)),
+            None => Err(format!("Error! Could not find the user {username}.")),
         }
     }
 

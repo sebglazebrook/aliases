@@ -15,7 +15,7 @@ impl User {
     pub fn new(name: String, enabled: bool) -> Self {
         let filename = match name.as_ref() {
             "default" => String::from(".aliases"),
-            _ => format!(".aliases-{}", &name),
+            _ => format!(".aliases-{name}"),
         };
         User { filename, name, enabled }
     }
@@ -82,7 +82,7 @@ impl User {
        match env::var("HOME") {
            Err(_) => { String::from("No $HOME environment variable set. Don't know your home directory") },
            Ok(home_dir) => {
-               format!("{}/.aliases.d/users", home_dir)
+               format!("{home_dir}/.aliases.d/users")
            },
        }
    }
