@@ -6,12 +6,8 @@ impl Git {
 
     pub fn clone(url: String, output_dir: &String) -> Result<(), String> {
         Self::create_parent_directories(output_dir);
-        match Self::git_clone(url, output_dir) {
-            Err(_) => { return Err(String::from("An error occurred")); }, // TODO handle this error case better
-            Ok(_) => {
-                Ok(())
-            }
-        }
+        Self::git_clone(url, output_dir)?;
+        Ok(())
     }
 
     fn create_parent_directories(output_dir: &String) {
