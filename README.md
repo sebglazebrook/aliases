@@ -188,8 +188,10 @@ We use docker containers so we can share the same development environment. Some 
 
 - Handle different process signals
 - Check user's config is out of whack, like they are missing a key, it blows up
-- Being able to actually run the unit tests :-)
 - When listing, aliases alert the user if the dir hasn't been initialized
+- `AliasFactory::create_from_file` never actually rejects malformed `.aliases` content
+  as invalid (a test for this exists but is `#[ignore]`d) - decide whether malformed
+  files should error or continue being silently treated as empty
 
 ## Small improvements to come
 
