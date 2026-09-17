@@ -4,8 +4,6 @@ use aliases::models::Alias;
 use std::path::PathBuf;
 use std::io::prelude::*;
 use std::fs::File;
-use crypto::md5::Md5;
-use crypto::digest::Digest;
 use std::process::Command;
 
 mod alias_factory;
@@ -101,11 +99,7 @@ fi
 ".to_string()
     }
 
-    fn md5_for_string(string: String) -> Vec<u8> {
-        let mut md5 = Md5::new();
-        md5.input(&string.into_bytes());
-        let mut output = String::from("here is my string").into_bytes(); // TODO I know this is bad
-        md5.result(&mut output);
-        output
+    fn md5_for_string(string: String) -> md5::Digest {
+        md5::compute(string.as_bytes())
     }
 }

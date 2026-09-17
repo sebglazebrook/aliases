@@ -1,8 +1,10 @@
 #[macro_use]
 extern crate log;
 extern crate yaml_rust;
-extern crate crypto;
-extern crate rustc_serialize;
+extern crate md5;
+#[macro_use]
+extern crate serde;
+extern crate serde_json;
 extern crate tabwriter;
 extern crate countdown;
 extern crate crossbeam;
