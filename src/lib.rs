@@ -16,7 +16,7 @@ pub use aliases::App;
 
 // TODO everything below here shouldn't be here.
 // had to do this for the tests, why?
-pub use aliases::commands::{Rehash, Exec};
+pub use aliases::commands::{Rehash, Exec, AliasCommand};
 pub use aliases::builders::AliasBuilder;
 pub use aliases::models::{Alias, Conditional};
 pub use aliases::factories::{AliasFactory, ShimFileFactory};
